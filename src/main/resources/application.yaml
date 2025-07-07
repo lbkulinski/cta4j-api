@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: cta4j-api
+app:
+  aws:
+    dynamodb:
+      tables:
+        routes: ${APP_AWS_DYNAMODB_TABLES_ROUTES}
