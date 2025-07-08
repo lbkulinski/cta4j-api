@@ -6,7 +6,6 @@ import java.util.Objects;
 
 public record StopDto(
     String id,
-
     String name
 ) {
     public static StopDto from(Stop stop) {

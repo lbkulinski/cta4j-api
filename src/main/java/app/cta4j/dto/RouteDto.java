@@ -6,7 +6,6 @@ import java.util.Objects;
 
 public record RouteDto(
     String id,
-
     String name
 ) {
     public static RouteDto from(Route route) {

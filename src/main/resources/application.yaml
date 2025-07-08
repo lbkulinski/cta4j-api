@@ -8,3 +8,4 @@ app:
         routes: ${APP_AWS_DYNAMODB_TABLES_ROUTES}
         route-directions: ${APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS}
         route-stops: ${APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS}
+        stations: ${APP_AWS_DYNAMODB_TABLES_STATIONS}
