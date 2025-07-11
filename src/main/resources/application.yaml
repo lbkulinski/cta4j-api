@@ -3,9 +3,17 @@ spring:
     name: cta4j-api
 app:
   aws:
+    secrets-manager:
+      secret-id: ${APP_AWS_SECRETS_MANAGER_SECRET_ID}
     dynamodb:
       tables:
         routes: ${APP_AWS_DYNAMODB_TABLES_ROUTES}
         route-directions: ${APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS}
         route-stops: ${APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS}
         stations: ${APP_AWS_DYNAMODB_TABLES_STATIONS}
+  cta:
+    api:
+      trains:
+        base-url: ${APP_CTA_API_STATIONS_BASE_URL}
+      buses:
+        base-url: ${APP_CTA_API_STOPS_BASE_URL}

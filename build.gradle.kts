@@ -24,6 +24,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-cache")
     implementation("com.github.ben-manes.caffeine:caffeine:3.2.1")
     implementation("software.amazon.awssdk:dynamodb-enhanced:2.31.63")
+    implementation("software.amazon.awssdk:secretsmanager:2.31.77")
+    implementation("io.github.openfeign:feign-core:13.6")
+    implementation("io.github.openfeign:feign-jackson:13.6")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

@@ -1,11 +1,17 @@
 package app.cta4j.service;
 
+import app.cta4j.client.StationArrivalClient;
+import app.cta4j.dto.ArrivalBodyDto;
+import app.cta4j.dto.ArrivalDto;
+import app.cta4j.dto.ArrivalResponseDto;
 import app.cta4j.dto.StationDto;
 import app.cta4j.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
@@ -17,8 +23,11 @@ import java.util.Objects;
 public class StationService {
     private final DynamoDbTable<Station> stations;
 
+    private final StationArrivalClient stationArrivalClient;
+
     @Autowired
-    public StationService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
+    public StationService(Environment env, DynamoDbEnhancedClient dynamoDbClient,
+        StationArrivalClient stationArrivalClient) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(dynamoDbClient);
@@ -28,6 +37,8 @@ public class StationService {
         TableSchema<Station> stationsSchema = TableSchema.fromImmutableClass(Station.class);
 
         this.stations = dynamoDbClient.table(stationsTableName, stationsSchema);
+
+        this.stationArrivalClient = Objects.requireNonNull(stationArrivalClient);
     }
 
     @Cacheable("stations")
@@ -37,5 +48,29 @@ public class StationService {
                             .stream()
                             .map(StationDto::from)
                             .toList();
+    }
+
+    public List<ArrivalDto> getArrivals(String stationId) {
+        Objects.requireNonNull(stationId);
+
+        ArrivalResponseDto response = this.stationArrivalClient.getArrivals(stationId);
+
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        ArrivalBodyDto body = response.body();
+
+        if (body == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        List<ArrivalDto> arrivals = body.arrivals();
+
+        if ((arrivals == null) || arrivals.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return List.copyOf(arrivals);
     }
 }
