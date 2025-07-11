@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.time.Instant;
 import java.util.List;
 
-public record ArrivalBodyDto(
+public record StationArrivalBodyDto(
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("tmst")
     Instant timestamp,
@@ -19,6 +19,6 @@ public record ArrivalBodyDto(
     String errorMessage,
 
     @JsonAlias("eta")
-    List<ArrivalDto> arrivals
+    List<StationArrivalDto> arrivals
 ) {
 }

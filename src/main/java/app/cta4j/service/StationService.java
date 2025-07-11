@@ -1,9 +1,9 @@
 package app.cta4j.service;
 
 import app.cta4j.client.StationArrivalClient;
-import app.cta4j.dto.ArrivalBodyDto;
-import app.cta4j.dto.ArrivalDto;
-import app.cta4j.dto.ArrivalResponseDto;
+import app.cta4j.dto.StationArrivalBodyDto;
+import app.cta4j.dto.StationArrivalDto;
+import app.cta4j.dto.StationArrivalResponseDto;
 import app.cta4j.dto.StationDto;
 import app.cta4j.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,22 +50,22 @@ public class StationService {
                             .toList();
     }
 
-    public List<ArrivalDto> getArrivals(String stationId) {
+    public List<StationArrivalDto> getArrivals(String stationId) {
         Objects.requireNonNull(stationId);
 
-        ArrivalResponseDto response = this.stationArrivalClient.getArrivals(stationId);
+        StationArrivalResponseDto response = this.stationArrivalClient.getArrivals(stationId);
 
         if (response == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        ArrivalBodyDto body = response.body();
+        StationArrivalBodyDto body = response.body();
 
         if (body == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        List<ArrivalDto> arrivals = body.arrivals();
+        List<StationArrivalDto> arrivals = body.arrivals();
 
         if ((arrivals == null) || arrivals.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
