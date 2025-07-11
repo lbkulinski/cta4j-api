@@ -10,13 +10,13 @@ import java.time.Instant;
 
 public record ArrivalDto(
     @JsonAlias("staId")
-    String stationId,
+    int stationId,
+
+    @JsonAlias("stpId")
+    int stopId,
 
     @JsonAlias("staNm")
     String stationName,
-
-    @JsonAlias("stpId")
-    String stopId,
 
     @JsonAlias("stpDe")
     String stopDescription,
@@ -28,7 +28,7 @@ public record ArrivalDto(
     Route route,
 
     @JsonAlias("destSt")
-    String destinationStopId,
+    int destinationStopId,
 
     @JsonAlias("destNm")
     String destinationName,
