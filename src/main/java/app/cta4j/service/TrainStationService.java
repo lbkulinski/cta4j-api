@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class StationService {
+public class TrainStationService {
     private final DynamoDbTable<Station> stations;
 
     private final StationArrivalClient stationArrivalClient;
 
     @Autowired
-    public StationService(Environment env, DynamoDbEnhancedClient dynamoDbClient,
+    public TrainStationService(Environment env, DynamoDbEnhancedClient dynamoDbClient,
         StationArrivalClient stationArrivalClient) {
         Objects.requireNonNull(env);
 

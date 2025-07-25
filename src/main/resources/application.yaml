@@ -14,6 +14,6 @@ app:
   cta:
     api:
       trains:
-        base-url: ${APP_CTA_API_STATIONS_BASE_URL}
+        base-url: ${APP_CTA_API_TRAINS_BASE_URL}
       buses:
-        base-url: ${APP_CTA_API_STOPS_BASE_URL}
+        base-url: ${APP_CTA_API_BUSES_BASE_URL}

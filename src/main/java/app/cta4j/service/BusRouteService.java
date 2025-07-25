@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class RouteService {
+public class BusRouteService {
     private final DynamoDbTable<Route> routes;
 
     private final DynamoDbTable<RouteDirections> routeDirections;
@@ -29,7 +29,7 @@ public class RouteService {
     private final DynamoDbTable<RouteStops> routeStops;
 
     @Autowired
-    public RouteService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
+    public BusRouteService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(dynamoDbClient);
