@@ -1,7 +1,7 @@
 package app.cta4j.train.dto;
 
-import app.cta4j.dto.serialization.StringToBooleanDeserializer;
-import app.cta4j.dto.serialization.StringToInstantDeserializer;
+import app.cta4j.train.dto.serialization.StringToBooleanDeserializer;
+import app.cta4j.train.dto.serialization.StringToInstantDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
