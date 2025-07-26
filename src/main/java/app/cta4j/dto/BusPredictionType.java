@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.util.Objects;
 
-public enum PredictionType {
+public enum BusPredictionType {
     ARRIVAL,
 
     DEPARTURE;
 
     @JsonCreator
-    public static PredictionType parseString(String string) {
+    public static BusPredictionType parseString(String string) {
         Objects.requireNonNull(string);
 
         string = string.toUpperCase();

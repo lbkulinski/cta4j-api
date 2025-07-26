@@ -1,7 +1,7 @@
 package app.cta4j.controller;
 
-import app.cta4j.dto.StationArrivalDto;
-import app.cta4j.dto.StationDto;
+import app.cta4j.dto.TrainArrivalDto;
+import app.cta4j.dto.TrainStationDto;
 import app.cta4j.service.TrainStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Objects;
 
-@RequestMapping("/api/train/stations")
+@RequestMapping("/api/trains/stations")
 @RestController
 public final class TrainStationController {
     private final TrainStationService trainStationService;
@@ -23,12 +23,12 @@ public final class TrainStationController {
     }
 
     @GetMapping
-    public List<StationDto> getStations() {
+    public List<TrainStationDto> getStations() {
         return this.trainStationService.getStations();
     }
 
     @GetMapping("/{stationId}/arrivals")
-    public List<StationArrivalDto> getArrivals(@PathVariable String stationId) {
+    public List<TrainArrivalDto> getArrivals(@PathVariable String stationId) {
         Objects.requireNonNull(stationId);
 
         return this.trainStationService.getArrivals(stationId);

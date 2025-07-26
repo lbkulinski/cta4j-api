@@ -1,20 +1,27 @@
 ###
-GET http://localhost:8080/api/routes
+GET http://localhost:8080/api/buses/routes
 
 ###
 @routeId = 22
-GET http://localhost:8080/api/routes/{{routeId}}/directions
+GET http://localhost:8080/api/buses/routes/{{routeId}}/directions
 
 ###
 @direction = Northbound
-GET http://localhost:8080/api/routes/{{routeId}}/directions/{{direction}}/stops
+GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/stops
 
 ###
-GET http://localhost:8080/api/routes/{{routeId}}/directions/{{direction}}/stops
+GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/stops
 
 ###
-GET http://localhost:8080/api/stations
+GET http://localhost:8080/api/trains/routes
+
+###
+@route = RED
+GET http://localhost:8080/api/trains/routes/{{route}}/locations
+
+###
+GET http://localhost:8080/api/trains/stations
 
 ###
 @stationId = 41320
-GET http://localhost:8080/api/stations/{{stationId}}/arrivals
+GET http://localhost:8080/api/trains/stations/{{stationId}}/arrivals

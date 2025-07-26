@@ -1,7 +1,7 @@
 package app.cta4j.controller;
 
-import app.cta4j.dto.RouteDto;
-import app.cta4j.dto.StopDto;
+import app.cta4j.dto.BusRouteDto;
+import app.cta4j.dto.BusStopDto;
 import app.cta4j.service.BusRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Objects;
 
-@RequestMapping("/api/bus/routes")
+@RequestMapping("/api/buses/routes")
 @RestController
 public final class BusRouteController {
     private final BusRouteService busRouteService;
@@ -23,7 +23,7 @@ public final class BusRouteController {
     }
 
     @GetMapping
-    public List<RouteDto> getRoutes() {
+    public List<BusRouteDto> getRoutes() {
         return this.busRouteService.getRoutes();
     }
 
@@ -35,7 +35,7 @@ public final class BusRouteController {
     }
 
     @GetMapping("/{routeId}/directions/{direction}/stops")
-    public List<StopDto> getStops(@PathVariable String routeId, @PathVariable String direction) {
+    public List<BusStopDto> getStops(@PathVariable String routeId, @PathVariable String direction) {
         Objects.requireNonNull(routeId);
 
         Objects.requireNonNull(direction);

@@ -10,8 +10,8 @@ import java.util.List;
 
 @Value
 @Builder
-@DynamoDbImmutable(builder = RouteDirections.RouteDirectionsBuilder.class)
-public class RouteDirections {
+@DynamoDbImmutable(builder = BusRouteDirections.BusRouteDirectionsBuilder.class)
+public class BusRouteDirections {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
     String routeId;
 

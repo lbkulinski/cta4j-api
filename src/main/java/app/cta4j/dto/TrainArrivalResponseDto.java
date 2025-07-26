@@ -2,8 +2,8 @@ package app.cta4j.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
-public record StationArrivalResponseDto(
+public record TrainArrivalResponseDto(
     @JsonAlias("ctatt")
-    StationArrivalBodyDto body
+    TrainArrivalBodyDto body
 ) {
 }

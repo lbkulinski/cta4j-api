@@ -5,18 +5,13 @@ import lombok.Getter;
 import lombok.Value;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
-import java.util.List;
-
 @Value
 @Builder
-@DynamoDbImmutable(builder = RouteStops.RouteStopsBuilder.class)
-public class RouteStops {
+@DynamoDbImmutable(builder = TrainStation.TrainStationBuilder.class)
+public class TrainStation {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
-    String routeId;
-
-    @Getter(onMethod_ = @DynamoDbSortKey)
-    String direction;
+    String id;
 
     @Getter
-    List<Stop> stops;
+    String name;
 }

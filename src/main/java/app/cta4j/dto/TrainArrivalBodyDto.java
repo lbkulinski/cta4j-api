@@ -1,14 +1,14 @@
 package app.cta4j.dto;
 
+import app.cta4j.dto.serialization.StringToInstantDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 import java.time.Instant;
 import java.util.List;
 
-public record LocationBodyDto(
-    @JsonDeserialize(using =  LocalDateTimeDeserializer.class)
+public record TrainArrivalBodyDto(
+    @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("tmst")
     Instant timestamp,
 
@@ -18,7 +18,7 @@ public record LocationBodyDto(
     @JsonAlias("errNm")
     String errorMessage,
 
-    @JsonAlias("route")
-    List<LocationRouteDto> routes
+    @JsonAlias("eta")
+    List<TrainArrivalDto> arrivals
 ) {
 }

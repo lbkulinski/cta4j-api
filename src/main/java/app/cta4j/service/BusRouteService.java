@@ -1,11 +1,11 @@
 package app.cta4j.service;
 
-import app.cta4j.dto.RouteDto;
-import app.cta4j.dto.StopDto;
-import app.cta4j.model.Route;
-import app.cta4j.model.RouteDirections;
-import app.cta4j.model.RouteStops;
-import app.cta4j.model.Stop;
+import app.cta4j.dto.BusRouteDto;
+import app.cta4j.dto.BusStopDto;
+import app.cta4j.model.BusRoute;
+import app.cta4j.model.BusRouteDirections;
+import app.cta4j.model.BusRouteStops;
+import app.cta4j.model.BusStop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
@@ -22,11 +22,11 @@ import java.util.Objects;
 
 @Service
 public class BusRouteService {
-    private final DynamoDbTable<Route> routes;
+    private final DynamoDbTable<BusRoute> routes;
 
-    private final DynamoDbTable<RouteDirections> routeDirections;
+    private final DynamoDbTable<BusRouteDirections> routeDirections;
 
-    private final DynamoDbTable<RouteStops> routeStops;
+    private final DynamoDbTable<BusRouteStops> routeStops;
 
     @Autowired
     public BusRouteService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
@@ -36,33 +36,33 @@ public class BusRouteService {
 
         String routesTableName = env.getRequiredProperty("app.aws.dynamodb.tables.routes");
 
-        TableSchema<Route> routesSchema = TableSchema.fromImmutableClass(Route.class);
+        TableSchema<BusRoute> routesSchema = TableSchema.fromImmutableClass(BusRoute.class);
 
         this.routes = dynamoDbClient.table(routesTableName, routesSchema);
 
         String directionsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.route-directions");
 
-        TableSchema<RouteDirections> directionsSchema = TableSchema.fromImmutableClass(RouteDirections.class);
+        TableSchema<BusRouteDirections> directionsSchema = TableSchema.fromImmutableClass(BusRouteDirections.class);
 
         this.routeDirections = dynamoDbClient.table(directionsTableName, directionsSchema);
 
         String stopsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.route-stops");
 
-        TableSchema<RouteStops> stopsSchema = TableSchema.fromImmutableClass(RouteStops.class);
+        TableSchema<BusRouteStops> stopsSchema = TableSchema.fromImmutableClass(BusRouteStops.class);
 
         this.routeStops = dynamoDbClient.table(stopsTableName, stopsSchema);
     }
 
-    @Cacheable("routes")
-    public List<RouteDto> getRoutes() {
+    @Cacheable("busRoutes")
+    public List<BusRouteDto> getRoutes() {
         return this.routes.scan()
                           .items()
                           .stream()
-                          .map(RouteDto::from)
+                          .map(BusRouteDto::from)
                           .toList();
     }
 
-    @Cacheable("directions")
+    @Cacheable("busDirections")
     public List<String> getDirections(String routeId) {
         Objects.requireNonNull(routeId);
 
@@ -70,7 +70,7 @@ public class BusRouteService {
                      .partitionValue(routeId)
                      .build();
 
-        RouteDirections item = this.routeDirections.getItem(key);
+        BusRouteDirections item = this.routeDirections.getItem(key);
 
         if (item == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -85,8 +85,8 @@ public class BusRouteService {
         return List.copyOf(directions);
     }
 
-    @Cacheable("stops")
-    public List<StopDto> getStops(String routeId, String direction) {
+    @Cacheable("busStops")
+    public List<BusStopDto> getStops(String routeId, String direction) {
         Objects.requireNonNull(routeId);
 
         Objects.requireNonNull(direction);
@@ -96,20 +96,20 @@ public class BusRouteService {
                      .sortValue(direction)
                      .build();
 
-        RouteStops item = this.routeStops.getItem(key);
+        BusRouteStops item = this.routeStops.getItem(key);
 
         if (item == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        List<Stop> stops = item.getStops();
+        List<BusStop> stops = item.getStops();
 
         if ((stops == null) || stops.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
         return stops.stream()
-                    .map(StopDto::from)
+                    .map(BusStopDto::from)
                     .toList();
     }
 }

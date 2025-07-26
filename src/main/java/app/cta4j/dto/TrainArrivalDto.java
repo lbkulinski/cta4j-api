@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-public record StationArrivalDto(
+public record TrainArrivalDto(
     @JsonAlias("staId")
     int stationId,
 
@@ -25,7 +25,7 @@ public record StationArrivalDto(
     int run,
 
     @JsonAlias("rt")
-    Route route,
+    TrainRoute route,
 
     @JsonAlias("destSt")
     int destinationStopId,

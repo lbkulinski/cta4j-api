@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 import java.util.Objects;
 
 @Service
-public class SecretService {
+public final class SecretService {
     private final Environment env;
 
     private final SecretsManagerClient secretsManagerClient;

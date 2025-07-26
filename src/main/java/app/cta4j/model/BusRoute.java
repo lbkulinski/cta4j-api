@@ -8,8 +8,8 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 
 @Value
 @Builder
-@DynamoDbImmutable(builder = Route.RouteBuilder.class)
-public class Route {
+@DynamoDbImmutable(builder = BusRoute.BusRouteBuilder.class)
+public class BusRoute {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
     String id;
 

@@ -1,11 +1,11 @@
 package app.cta4j.service;
 
-import app.cta4j.client.StationArrivalClient;
-import app.cta4j.dto.StationArrivalBodyDto;
-import app.cta4j.dto.StationArrivalDto;
-import app.cta4j.dto.StationArrivalResponseDto;
-import app.cta4j.dto.StationDto;
-import app.cta4j.model.Station;
+import app.cta4j.client.TrainApiClient;
+import app.cta4j.dto.TrainArrivalBodyDto;
+import app.cta4j.dto.TrainArrivalDto;
+import app.cta4j.dto.TrainArrivalResponseDto;
+import app.cta4j.dto.TrainStationDto;
+import app.cta4j.model.TrainStation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
@@ -21,51 +21,52 @@ import java.util.Objects;
 
 @Service
 public class TrainStationService {
-    private final DynamoDbTable<Station> stations;
+    private final DynamoDbTable<TrainStation> stations;
 
-    private final StationArrivalClient stationArrivalClient;
+    private final TrainApiClient trainApiClient;
 
     @Autowired
-    public TrainStationService(Environment env, DynamoDbEnhancedClient dynamoDbClient,
-        StationArrivalClient stationArrivalClient) {
+    public TrainStationService(Environment env, DynamoDbEnhancedClient dynamoDbClient, TrainApiClient trainApiClient) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(dynamoDbClient);
 
+        Objects.requireNonNull(trainApiClient);
+
         String stationsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.stations");
 
-        TableSchema<Station> stationsSchema = TableSchema.fromImmutableClass(Station.class);
+        TableSchema<TrainStation> stationsSchema = TableSchema.fromImmutableClass(TrainStation.class);
 
         this.stations = dynamoDbClient.table(stationsTableName, stationsSchema);
 
-        this.stationArrivalClient = Objects.requireNonNull(stationArrivalClient);
+        this.trainApiClient = trainApiClient;
     }
 
-    @Cacheable("stations")
-    public List<StationDto> getStations() {
+    @Cacheable("trainStations")
+    public List<TrainStationDto> getStations() {
         return this.stations.scan()
                             .items()
                             .stream()
-                            .map(StationDto::from)
+                            .map(TrainStationDto::from)
                             .toList();
     }
 
-    public List<StationArrivalDto> getArrivals(String stationId) {
+    public List<TrainArrivalDto> getArrivals(String stationId) {
         Objects.requireNonNull(stationId);
 
-        StationArrivalResponseDto response = this.stationArrivalClient.getArrivals(stationId);
+        TrainArrivalResponseDto response = this.trainApiClient.getArrivals(stationId);
 
         if (response == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        StationArrivalBodyDto body = response.body();
+        TrainArrivalBodyDto body = response.body();
 
         if (body == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        List<StationArrivalDto> arrivals = body.arrivals();
+        List<TrainArrivalDto> arrivals = body.arrivals();
 
         if ((arrivals == null) || arrivals.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

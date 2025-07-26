@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 
 import java.util.List;
 
-public record LocationRouteDto(
+public record TrainLocationRouteDto(
     @JsonAlias("@name")
     String name,
 
     @JsonAlias("train")
-    List<LocationTrainDto> trains
+    List<TrainLocationDto> trains
 ) {
 }

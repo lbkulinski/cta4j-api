@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-public record StopArrivalDto(
+public record BusArrivalDto(
     @JsonAlias("typ")
-    PredictionType predictionType,
+    BusPredictionType predictionType,
 
     @JsonAlias("stpid")
     String stopId,
