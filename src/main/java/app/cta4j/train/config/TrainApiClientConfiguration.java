@@ -1,4 +1,4 @@
-package app.cta4j.config;
+package app.cta4j.train.config;
 
 import app.cta4j.train.client.TrainApiClient;
 import app.cta4j.service.SecretService;
@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
 import java.util.Objects;
 
 @Configuration
-public class HttpClientConfiguration {
+public class TrainApiClientConfiguration {
     @Bean
     public TrainApiClient buildTrainClient(Environment env, SecretService secretService, ObjectMapper objectMapper) {
         Objects.requireNonNull(env);

@@ -13,10 +13,6 @@ GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/
 GET http://localhost:8080/api/trains/routes
 
 ###
-@route = RED
-GET http://localhost:8080/api/trains/routes/{{route}}/locations
-
-###
 GET http://localhost:8080/api/trains/stations
 
 ###
