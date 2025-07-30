@@ -1,7 +1,7 @@
 package app.cta4j.bus.service;
 
-import app.cta4j.bus.dto.BusRouteDto;
-import app.cta4j.bus.dto.BusStopDto;
+import app.cta4j.bus.client.BusApiClient;
+import app.cta4j.bus.dto.*;
 import app.cta4j.bus.model.BusRoute;
 import app.cta4j.bus.model.BusRouteDirections;
 import app.cta4j.bus.model.BusRouteStops;
@@ -28,8 +28,10 @@ public class BusRouteService {
 
     private final DynamoDbTable<BusRouteStops> routeStops;
 
+    private final BusApiClient busApiClient;
+
     @Autowired
-    public BusRouteService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
+    public BusRouteService(Environment env, DynamoDbEnhancedClient dynamoDbClient, BusApiClient busApiClient) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(dynamoDbClient);
@@ -51,6 +53,8 @@ public class BusRouteService {
         TableSchema<BusRouteStops> stopsSchema = TableSchema.fromImmutableClass(BusRouteStops.class);
 
         this.routeStops = dynamoDbClient.table(stopsTableName, stopsSchema);
+
+        this.busApiClient = Objects.requireNonNull(busApiClient);
     }
 
     @Cacheable("busRoutes")
@@ -111,5 +115,31 @@ public class BusRouteService {
         return stops.stream()
                     .map(BusStopDto::from)
                     .toList();
+    }
+
+    public List<BusArrivalDto> getArrivals(String routeId, String stopId) {
+        Objects.requireNonNull(routeId);
+
+        Objects.requireNonNull(stopId);
+
+        BusArrivalResponseDto response = this.busApiClient.getArrivals(routeId, stopId);
+
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        BusArrivalBodyDto body = response.body();
+
+        if (body == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        List<BusArrivalDto> arrivals = body.arrivals();
+
+        if ((arrivals == null) || arrivals.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return List.copyOf(arrivals);
     }
 }

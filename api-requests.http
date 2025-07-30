@@ -10,6 +10,10 @@ GET http://localhost:8080/api/buses/routes/{{routeId}}/directions
 GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/stops
 
 ###
+@stopId = 1922
+GET http://localhost:8080/api/buses/routes/{{routeId}}/stops/{{stopId}}/arrivals
+
+###
 GET http://localhost:8080/api/trains/routes
 
 ###

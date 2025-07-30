@@ -1,5 +1,6 @@
 package app.cta4j.bus.controller;
 
+import app.cta4j.bus.dto.BusArrivalDto;
 import app.cta4j.bus.dto.BusRouteDto;
 import app.cta4j.bus.dto.BusStopDto;
 import app.cta4j.bus.service.BusRouteService;
@@ -41,5 +42,14 @@ public final class BusRouteController {
         Objects.requireNonNull(direction);
 
         return this.busRouteService.getStops(routeId, direction);
+    }
+
+    @GetMapping("/{routeId}/stops/{stopId}/arrivals")
+    public List<BusArrivalDto> getArrivals(@PathVariable String routeId, @PathVariable String stopId) {
+        Objects.requireNonNull(routeId);
+
+        Objects.requireNonNull(stopId);
+
+        return this.busRouteService.getArrivals(routeId, stopId);
     }
 }

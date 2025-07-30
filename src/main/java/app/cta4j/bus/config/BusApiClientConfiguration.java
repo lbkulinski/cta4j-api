@@ -1,6 +1,6 @@
-package app.cta4j.train.config;
+package app.cta4j.bus.config;
 
-import app.cta4j.train.client.TrainApiClient;
+import app.cta4j.bus.client.BusApiClient;
 import app.cta4j.service.SecretService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
@@ -12,18 +12,18 @@ import org.springframework.core.env.Environment;
 import java.util.Objects;
 
 @Configuration
-public class TrainApiClientConfiguration {
+public class BusApiClientConfiguration {
     @Bean
-    public TrainApiClient buildTrainApiClient(Environment env, SecretService secretService, ObjectMapper objectMapper) {
+    public BusApiClient buildBusApiClient(Environment env, SecretService secretService, ObjectMapper objectMapper) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(secretService);
 
-        String baseUrl = env.getRequiredProperty("app.cta.api.trains.base-url");
+        String baseUrl = env.getRequiredProperty("app.cta.api.buses.base-url");
 
         String apiKey = secretService.getSecret()
                                      .cta()
-                                     .trainApiKey();
+                                     .busApiKey();
 
         JacksonDecoder decoder = new JacksonDecoder(objectMapper);
 
@@ -31,9 +31,9 @@ public class TrainApiClientConfiguration {
                     .requestInterceptor(template -> {
                         template.query("key", apiKey);
 
-                        template.query("outputType", "JSON");
+                        template.query("format", "json");
                     })
                     .decoder(decoder)
-                    .target(TrainApiClient.class, baseUrl);
+                    .target(BusApiClient.class, baseUrl);
     }
 }

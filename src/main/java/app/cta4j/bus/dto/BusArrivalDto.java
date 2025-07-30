@@ -28,7 +28,7 @@ public record BusArrivalDto(
     String routeDescription,
 
     @JsonAlias("rtdir")
-    int routeDirection,
+    String routeDirection,
 
     @JsonAlias("des")
     String destination,
