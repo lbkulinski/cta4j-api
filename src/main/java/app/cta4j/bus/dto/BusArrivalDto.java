@@ -1,6 +1,8 @@
 package app.cta4j.bus.dto;
 
+import app.cta4j.bus.dto.serialization.StringToInstantDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -33,6 +35,7 @@ public record BusArrivalDto(
     @JsonAlias("des")
     String destination,
 
+    @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("prdtm")
     Instant predictionTime,
 
