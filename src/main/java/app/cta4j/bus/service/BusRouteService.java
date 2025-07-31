@@ -117,6 +117,32 @@ public class BusRouteService {
                     .toList();
     }
 
+    public List<BusDetourDto> getDetours(String routeId, String direction) {
+        Objects.requireNonNull(routeId);
+
+        Objects.requireNonNull(direction);
+
+        BusDetourResponseDto response = this.busApiClient.getDetours(routeId, direction);
+
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        BusDetourBodyDto body = response.body();
+
+        if (body == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        List<BusDetourDto> detours = body.detours();
+
+        if ((detours == null) || detours.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return List.copyOf(detours);
+    }
+
     public List<BusArrivalDto> getArrivals(String routeId, String stopId) {
         Objects.requireNonNull(routeId);
 
