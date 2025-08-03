@@ -26,9 +26,6 @@ public record BusArrivalDto(
     @JsonAlias("rt")
     String route,
 
-    @JsonAlias("rtdd")
-    String routeDescription,
-
     @JsonAlias("rtdir")
     String routeDirection,
 
@@ -40,6 +37,17 @@ public record BusArrivalDto(
     Instant predictionTime,
 
     @JsonAlias("dly")
-    boolean delayed
+    boolean delayed,
+
+    @JsonAlias("dyn")
+    boolean dynamicActions,
+
+    String zone,
+
+    @JsonAlias("psgld")
+    PassengerLoad passengerLoad,
+
+    @JsonAlias("flagstop")
+    FlagStop flagStop
 ) {
 }
