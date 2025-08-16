@@ -2,6 +2,14 @@ name: cta4j API – PR Build & Test
 on:
   pull_request:
     branches: [ "main" ]
+env:
+  APP_AWS_SECRETS_MANAGER_SECRET_ID: ${{ vars.APP_AWS_SECRETS_MANAGER_SECRET_ID }}
+  APP_AWS_DYNAMODB_TABLES_ROUTES: ${{ vars.APP_AWS_DYNAMODB_TABLES_ROUTES }}
+  APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS: ${{ vars.APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS }}
+  APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS: ${{ vars.APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS }}
+  APP_AWS_DYNAMODB_TABLES_STATIONS: ${{ vars.APP_AWS_DYNAMODB_TABLES_STATIONS }}
+  APP_CTA_API_TRAINS_BASE_URL: ${{ vars.APP_CTA_API_TRAINS_BASE_URL }}
+  APP_CTA_API_BUSES_BASE_URL: ${{ vars.APP_CTA_API_BUSES_BASE_URL }}
 jobs:
   build:
     name: Build with Gradle
@@ -16,5 +24,5 @@ jobs:
           java-version: "21"
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Build
-        run: ./gradlew clean build -x test --no-daemon
+      - name: Build with Gradle
+        run: ./gradlew clean build --no-daemon
