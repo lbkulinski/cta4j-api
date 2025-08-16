@@ -15,6 +15,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    environment: GitHub
     steps:
       - name: Checkout
         uses: actions/checkout@v4
