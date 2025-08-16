@@ -1,8 +1,8 @@
-FROM amazoncorretto:21
+FROM amazoncorretto:21-alpine
 
 WORKDIR /app
 
-COPY target/wtl-coaching-vod-api-1.0-SNAPSHOT.jar app.jar
+COPY build/libs/*.jar app.jar
 
 EXPOSE 8080
 
