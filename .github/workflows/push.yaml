@@ -24,10 +24,6 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '21'
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-      - name: Build with Gradle
-        run: ./gradlew clean build --no-daemon
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.3.1
         with:
@@ -37,6 +33,9 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+      - name: Build JAR File
+        run: |
+          mvn clean package
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
