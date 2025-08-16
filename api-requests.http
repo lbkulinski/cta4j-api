@@ -1,0 +1,24 @@
+###
+GET http://localhost:8080/api/buses/routes
+
+###
+@routeId = 22
+GET http://localhost:8080/api/buses/routes/{{routeId}}/directions
+
+###
+@direction = Northbound
+GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/stops
+
+###
+GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/detours
+
+###
+@stopId = 18447
+GET http://localhost:8080/api/buses/routes/{{routeId}}/stops/{{stopId}}/arrivals
+
+###
+GET http://localhost:8080/api/trains/stations
+
+###
+@stationId = 41320
+GET http://localhost:8080/api/trains/stations/{{stationId}}/arrivals

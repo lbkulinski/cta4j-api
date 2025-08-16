@@ -1,4 +1,4 @@
-package app.cta4j.model;
+package app.cta4j.bus.model;
 
 import lombok.Builder;
 import lombok.Value;
@@ -6,8 +6,8 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbImmut
 
 @Value
 @Builder
-@DynamoDbImmutable(builder = Stop.StopBuilder.class)
-public class Stop {
+@DynamoDbImmutable(builder = BusStop.BusStopBuilder.class)
+public class BusStop {
     String id;
 
     String name;

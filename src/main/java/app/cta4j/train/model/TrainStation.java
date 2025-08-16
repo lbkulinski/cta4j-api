@@ -1,4 +1,4 @@
-package app.cta4j.model;
+package app.cta4j.train.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,8 +7,8 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
 @Value
 @Builder
-@DynamoDbImmutable(builder = Station.StationBuilder.class)
-public class Station {
+@DynamoDbImmutable(builder = TrainStation.TrainStationBuilder.class)
+public class TrainStation {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
     String id;
 

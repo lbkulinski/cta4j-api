@@ -1,4 +1,4 @@
-package app.cta4j.model;
+package app.cta4j.bus.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,15 +6,12 @@ import lombok.Value;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbImmutable;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-import java.util.List;
-
 @Value
 @Builder
-@DynamoDbImmutable(builder = RouteDirections.RouteDirectionsBuilder.class)
-public class RouteDirections {
+@DynamoDbImmutable(builder = BusRoute.BusRouteBuilder.class)
+public class BusRoute {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
-    String routeId;
+    String id;
 
-    @Getter
-    List<String> directions;
+    String name;
 }

@@ -1,4 +1,4 @@
-package app.cta4j.model;
+package app.cta4j.bus.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import java.util.List;
 
 @Value
 @Builder
-@DynamoDbImmutable(builder = RouteStops.RouteStopsBuilder.class)
-public class RouteStops {
+@DynamoDbImmutable(builder = BusRouteStops.BusRouteStopsBuilder.class)
+public class BusRouteStops {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
     String routeId;
 
@@ -18,5 +18,5 @@ public class RouteStops {
     String direction;
 
     @Getter
-    List<Stop> stops;
+    List<BusStop> stops;
 }
