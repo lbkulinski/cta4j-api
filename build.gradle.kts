@@ -24,6 +24,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.38")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-cache")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("com.github.ben-manes.caffeine:caffeine:3.2.2")
     implementation("software.amazon.awssdk:dynamodb-enhanced")
     implementation("software.amazon.awssdk:secretsmanager")
