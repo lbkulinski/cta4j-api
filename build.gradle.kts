@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("software.amazon.awssdk:bom:2.32.22"))
+    implementation(platform("software.amazon.awssdk:bom:2.32.24"))
 
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")
