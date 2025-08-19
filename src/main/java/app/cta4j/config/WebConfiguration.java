@@ -12,8 +12,6 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     private static final String[] ALLOWED_METHODS;
 
-    private static final String[] ALLOWED_HEADERS;
-
     static {
         ALLOWED_ORIGINS = new String[] {
             "https://cta4j.app",
@@ -24,10 +22,6 @@ public class WebConfiguration implements WebMvcConfigurer {
             "GET",
             "OPTIONS"
         };
-
-        ALLOWED_HEADERS = new String[] {
-            "Content-Type"
-        };
     }
 
     @Override
@@ -37,7 +31,8 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins(ALLOWED_ORIGINS)
                 .allowedMethods(ALLOWED_METHODS)
-                .allowedHeaders(ALLOWED_HEADERS)
-                .allowCredentials(false);
+                .allowedHeaders("*")
+                .allowCredentials(false)
+                .maxAge(3600);
     }
 }
