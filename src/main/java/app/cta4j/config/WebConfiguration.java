@@ -2,12 +2,10 @@ package app.cta4j.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Objects;
 
-@EnableWebMvc
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
     private static final String[] ALLOWED_ORIGINS;
