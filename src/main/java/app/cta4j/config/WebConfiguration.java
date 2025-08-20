@@ -16,6 +16,9 @@ public class WebConfiguration implements WebMvcConfigurer {
     static {
         ALLOWED_ORIGINS = new String[] {
             "https://cta4j.app",
+            "https://www.cta4j.app",
+            "https://cta4j.com",
+            "https://www.cta4j.com",
             "https://chat.openai.com"
         };
 
