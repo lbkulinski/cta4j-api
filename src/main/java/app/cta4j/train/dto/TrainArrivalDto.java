@@ -4,10 +4,8 @@ import app.cta4j.train.dto.serialization.StringToBooleanDeserializer;
 import app.cta4j.train.dto.serialization.StringToInstantDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -20,67 +18,72 @@ import java.time.Instant;
 public record TrainArrivalDto(
     @Schema(
         description = "CTA station ID where the train will arrive, from the official data feed.",
-        example = "41320"
+        example = "41320",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("staId")
     int stationId,
 
     @Schema(
         description = "CTA stop ID within the station, indicating the specific platform or boarding location.",
-        example = "30256"
+        example = "30256",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("stpId")
     int stopId,
 
     @Schema(
         description = "Name of the station where the train will arrive.",
-        example = "Belmont"
+        example = "Belmont",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("staNm")
-    @NonNull
     String stationName,
 
     @Schema(
         description = "Description of the stop or platform, often including travel direction.",
-        example = "Service toward 95th or Loop"
+        example = "Service toward 95th or Loop",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("stpDe")
-    @NonNull
     String stopDescription,
 
     @Schema(
         description = "Unique run number assigned to the train for tracking.",
-        example = "819"
+        example = "819",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("rn")
     int run,
 
     @Schema(
         description = "Route the train is serving, identified by its CTA route code.",
-        example = "RED"
+        example = "RED",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("rt")
-    @NonNull
     TrainRoute route,
 
     @Schema(
         description = "Stop ID for the train’s destination.",
-        example = "30089"
+        example = "30089",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("destSt")
     int destinationStopId,
 
     @Schema(
         description = "Name of the train’s destination station.",
-        example = "95th/Dan Ryan"
+        example = "95th/Dan Ryan",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("destNm")
-    @NonNull
     String destinationName,
 
     @Schema(
         description = "Numeric code representing the direction of travel.",
-        example = "5"
+        example = "5",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("trDr")
     int direction,
@@ -89,27 +92,28 @@ public record TrainArrivalDto(
         description = "Time when the prediction was generated, in UTC.",
         example = "2025-08-14T19:45:53Z",
         type = "string",
-        format = "date-time"
+        format = "date-time",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("prdt")
-    @NonNull
     Instant predictionTime,
 
     @Schema(
         description = "Predicted time when the train will arrive at the stop, in UTC.",
         example = "2025-08-14T19:46:53Z",
         type = "string",
-        format = "date-time"
+        format = "date-time",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("arrT")
-    @NonNull
     Instant arrivalTime,
 
     @Schema(
         description = "Indicates whether the train is currently approaching the station.",
-        example = "true"
+        example = "true",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToBooleanDeserializer.class)
     @JsonAlias("isApp")
@@ -118,7 +122,8 @@ public record TrainArrivalDto(
     @Schema(
         description = """
         Indicates whether this arrival is based on a scheduled timetable rather than real-time tracking.""",
-        example = "false"
+        example = "false",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToBooleanDeserializer.class)
     @JsonAlias("isSch")
@@ -126,7 +131,8 @@ public record TrainArrivalDto(
 
     @Schema(
         description = "Indicates whether the train is experiencing a schedule fault or disruption.",
-        example = "false"
+        example = "false",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToBooleanDeserializer.class)
     @JsonAlias("isFlt")
@@ -134,7 +140,8 @@ public record TrainArrivalDto(
 
     @Schema(
         description = "Indicates whether the train is delayed beyond its scheduled or predicted arrival.",
-        example = "false"
+        example = "false",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToBooleanDeserializer.class)
     @JsonAlias("isDly")
@@ -142,23 +149,24 @@ public record TrainArrivalDto(
 
     @Schema(
         description = "Latitude of the train's current location, in decimal degrees.",
-        example = "41.9452"
+        example = "41.9452",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("lat")
-    @NonNull
     BigDecimal latitude,
 
     @Schema(
         description = "Longitude of the train's current location, in decimal degrees.",
-        example = "-87.65353"
+        example = "-87.65353",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("lon")
-    @NonNull
     BigDecimal longitude,
 
     @Schema(
         description = "Compass heading of the train in degrees, where 0 is north.",
-        example = "178"
+        example = "178",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("heading")
     int heading
@@ -173,7 +181,8 @@ public record TrainArrivalDto(
     @JsonGetter("etaMinutes")
     @Schema(
         description = "Minutes until arrival, rounded down. 0 means Due.",
-        example = "3"
+        example = "3",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     public Long etaMinutes() {
         return minutesBetween(this.predictionTime, this.arrivalTime);
@@ -182,7 +191,8 @@ public record TrainArrivalDto(
     @JsonGetter("etaLabel")
     @Schema(
         description = "Human-friendly ETA: 'Due' when ≤ 1 minute, otherwise 'Xm'.",
-        example = "Due"
+        example = "Due",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     public String etaLabel() {
         long mins = minutesBetween(this.predictionTime, this.arrivalTime);
