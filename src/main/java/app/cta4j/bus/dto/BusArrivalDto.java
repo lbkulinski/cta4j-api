@@ -2,10 +2,13 @@ package app.cta4j.bus.dto;
 
 import app.cta4j.bus.dto.serialization.StringToInstantDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.lang.NonNull;
 
 import java.math.BigInteger;
+import java.time.Duration;
 import java.time.Instant;
 
 @Schema(
@@ -18,6 +21,7 @@ public record BusArrivalDto(
         example = "ARRIVAL"
     )
     @JsonAlias("typ")
+    @NonNull
     BusPredictionType predictionType,
 
     @Schema(
@@ -25,6 +29,7 @@ public record BusArrivalDto(
         example = "18447"
     )
     @JsonAlias("stpid")
+    @NonNull
     String stopId,
 
     @Schema(
@@ -32,6 +37,7 @@ public record BusArrivalDto(
         example = "Dearborn & Chicago"
     )
     @JsonAlias("stpnm")
+    @NonNull
     String stopName,
 
     @Schema(
@@ -46,6 +52,7 @@ public record BusArrivalDto(
         example = "8504"
     )
     @JsonAlias("dstp")
+    @NonNull
     BigInteger distanceToStop,
 
     @Schema(
@@ -53,6 +60,7 @@ public record BusArrivalDto(
         example = "22"
     )
     @JsonAlias("rt")
+    @NonNull
     String route,
 
     @Schema(
@@ -60,6 +68,7 @@ public record BusArrivalDto(
         example = "Northbound"
     )
     @JsonAlias("rtdir")
+    @NonNull
     String routeDirection,
 
     @Schema(
@@ -67,6 +76,7 @@ public record BusArrivalDto(
         example = "Howard"
     )
     @JsonAlias("des")
+    @NonNull
     String destination,
 
     @Schema(
@@ -77,7 +87,8 @@ public record BusArrivalDto(
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("prdtm")
-    Instant predictionTime,
+    @NonNull
+    Instant arrivalTime,
 
     @Schema(
         description = "Indicates whether the bus is delayed beyond its scheduled or predicted arrival.",
@@ -96,6 +107,7 @@ public record BusArrivalDto(
     @Schema(
         description = "Service zone name if the bus is within a defined zone; otherwise empty."
     )
+    @NonNull
     String zone,
 
     @Schema(
@@ -103,6 +115,7 @@ public record BusArrivalDto(
         example = "HALF_EMPTY"
     )
     @JsonAlias("psgld")
+    @NonNull
     PassengerLoad passengerLoad,
 
     @Schema(
@@ -110,6 +123,37 @@ public record BusArrivalDto(
         example = "NORMAL"
     )
     @JsonAlias("flagstop")
+    @NonNull
     FlagStop flagStop
 ) {
+    private static long minutesBetween(Instant from, Instant to) {
+        long mins = Duration.between(from, to)
+                            .toMinutes();
+
+        return Math.max(mins, 0L);
+    }
+
+    @JsonGetter("etaMinutes")
+    @Schema(
+        description = "Minutes until arrival, rounded down. 0 means Due.",
+        example = "3"
+    )
+    public Long etaMinutes() {
+        Instant now = Instant.now();
+
+        return minutesBetween(now, this.arrivalTime);
+    }
+
+    @JsonGetter("etaLabel")
+    @Schema(
+        description = "Human-friendly ETA: 'Due' when ≤ 1 minute, otherwise 'Xm'.",
+        example = "Due"
+    )
+    public String etaLabel() {
+        Instant now = Instant.now();
+
+        long mins = minutesBetween(now, this.arrivalTime);
+
+        return (mins <= 1) ? "Due" : mins + "m";
+    }
 }

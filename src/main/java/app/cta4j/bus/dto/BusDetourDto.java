@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.lang.NonNull;
 
 import java.time.Instant;
 import java.util.List;
@@ -19,6 +20,7 @@ public record BusDetourDto(
         description = "Unique identifier for the detour, as provided by CTA.",
         example = "84A97FD3-0741-4004-884D-0ABB22DAFA28"
     )
+    @NonNull
     String id,
 
     @Schema(
@@ -41,6 +43,7 @@ public record BusDetourDto(
         example = "IVD MultiRoute detour 47"
     )
     @JsonAlias("desc")
+    @NonNull
     String description,
 
     @ArraySchema(
@@ -50,6 +53,7 @@ public record BusDetourDto(
         schema = @Schema(implementation = BusRouteDirectionDto.class)
     )
     @JsonAlias("rtdirs")
+    @NonNull
     List<BusRouteDirectionDto> routeDirections,
 
     @Schema(
@@ -60,6 +64,7 @@ public record BusDetourDto(
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("startdt")
+    @NonNull
     Instant startDate,
 
     @Schema(
@@ -70,6 +75,7 @@ public record BusDetourDto(
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("enddt")
+    @NonNull
     Instant endDate
 ) {
 }
