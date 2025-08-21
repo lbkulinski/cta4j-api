@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.lang.NonNull;
 
 import java.math.BigInteger;
 import java.time.Duration;
@@ -18,112 +17,115 @@ import java.time.Instant;
 public record BusArrivalDto(
     @Schema(
         description = "Type of prediction for this stop (arrival or departure), as provided in the CTA data feed.",
-        example = "ARRIVAL"
+        example = "ARRIVAL",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("typ")
-    @NonNull
     BusPredictionType predictionType,
 
     @Schema(
         description = "Unique identifier for the CTA bus stop, as provided in the official CTA data feed.",
-        example = "18447"
+        example = "18447",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("stpid")
-    @NonNull
     String stopId,
 
     @Schema(
         description = "Name of the stop where the bus will arrive.",
-        example = "Dearborn & Chicago"
+        example = "Dearborn & Chicago",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("stpnm")
-    @NonNull
     String stopName,
 
     @Schema(
         description = "Unique ID of the vehicle associated with this prediction.",
-        example = "8839"
+        example = "8839",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("vid")
     int vehicleId,
 
     @Schema(
         description = "Linear distance remaining to the stop, in feet.",
-        example = "8504"
+        example = "8504",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("dstp")
-    @NonNull
     BigInteger distanceToStop,
 
     @Schema(
         description = "Alphanumeric route designator.",
-        example = "22"
+        example = "22",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("rt")
-    @NonNull
     String route,
 
     @Schema(
         description = "Direction of travel for the route, as provided in the CTA data feed.",
-        example = "Northbound"
+        example = "Northbound",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("rtdir")
-    @NonNull
     String routeDirection,
 
     @Schema(
         description = "Final destination for the bus associated with this prediction.",
-        example = "Howard"
+        example = "Howard",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("des")
-    @NonNull
     String destination,
 
     @Schema(
         description = "Predicted time when the bus will arrive at the stop, in UTC.",
         example = "2025-08-14T20:35:00Z",
         type = "string",
-        format = "date-time"
+        format = "date-time",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("prdtm")
-    @NonNull
     Instant arrivalTime,
 
     @Schema(
         description = "Indicates whether the bus is delayed beyond its scheduled or predicted arrival.",
-        example = "false"
+        example = "false",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("dly")
     boolean delayed,
 
     @Schema(
         description = "Indicates whether a dynamic action applies to this prediction.",
-        example = "false"
+        example = "false",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("dyn")
     boolean dynamicActions,
 
     @Schema(
-        description = "Service zone name if the bus is within a defined zone; otherwise empty."
+        description = "Service zone name if the bus is within a defined zone; otherwise empty.",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @NonNull
     String zone,
 
     @Schema(
         description = "Real-time passenger load category reported for the bus.",
-        example = "HALF_EMPTY"
+        example = "HALF_EMPTY",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("psgld")
-    @NonNull
     PassengerLoad passengerLoad,
 
     @Schema(
         description = "Flag-stop behavior for this prediction.",
-        example = "NORMAL"
+        example = "NORMAL",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("flagstop")
-    @NonNull
     FlagStop flagStop
 ) {
     private static long minutesBetween(Instant from, Instant to) {
@@ -136,7 +138,8 @@ public record BusArrivalDto(
     @JsonGetter("etaMinutes")
     @Schema(
         description = "Minutes until arrival, rounded down. 0 means Due.",
-        example = "3"
+        example = "3",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     public Long etaMinutes() {
         Instant now = Instant.now();
@@ -147,7 +150,8 @@ public record BusArrivalDto(
     @JsonGetter("etaLabel")
     @Schema(
         description = "Human-friendly ETA: 'Due' when ≤ 1 minute, otherwise 'Xm'.",
-        example = "Due"
+        example = "Due",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     public String etaLabel() {
         Instant now = Instant.now();

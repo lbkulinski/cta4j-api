@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.lang.NonNull;
 
 import java.time.Instant;
 import java.util.List;
@@ -18,21 +17,23 @@ import java.util.List;
 public record BusDetourDto(
     @Schema(
         description = "Unique identifier for the detour, as provided by CTA.",
-        example = "84A97FD3-0741-4004-884D-0ABB22DAFA28"
+        example = "84A97FD3-0741-4004-884D-0ABB22DAFA28",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @NonNull
     String id,
 
     @Schema(
         description = "Version number of this detour record for tracking updates.",
-        example = "2"
+        example = "2",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("ver")
     int version,
 
     @Schema(
         description = "Indicates whether the detour is currently active.",
-        example = "false"
+        example = "false",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToBooleanDeserializer.class)
     @JsonAlias("st")
@@ -40,42 +41,42 @@ public record BusDetourDto(
 
     @Schema(
         description = "Description or label for the detour, as provided in the CTA data feed.",
-        example = "IVD MultiRoute detour 47"
+        example = "IVD MultiRoute detour 47",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonAlias("desc")
-    @NonNull
     String description,
 
     @ArraySchema(
         arraySchema = @Schema(
-            description = "List of affected route and direction pairs for this detour."
+            description = "List of affected route and direction pairs for this detour.",
+            requiredMode = Schema.RequiredMode.REQUIRED
         ),
         schema = @Schema(implementation = BusRouteDirectionDto.class)
     )
     @JsonAlias("rtdirs")
-    @NonNull
     List<BusRouteDirectionDto> routeDirections,
 
     @Schema(
         description = "Time when the detour begins, in UTC.",
         example = "2025-08-14T18:00:00Z",
         type = "string",
-        format = "date-time"
+        format = "date-time",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("startdt")
-    @NonNull
     Instant startDate,
 
     @Schema(
         description = "Time when the detour ends, in UTC.",
         example = "2025-08-15T04:00:00Z",
         type = "string",
-        format = "date-time"
+        format = "date-time",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("enddt")
-    @NonNull
     Instant endDate
 ) {
 }

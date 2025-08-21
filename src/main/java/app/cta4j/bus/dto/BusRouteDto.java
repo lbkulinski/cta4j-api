@@ -2,7 +2,6 @@ package app.cta4j.bus.dto;
 
 import app.cta4j.bus.model.BusRoute;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.lang.NonNull;
 
 import java.util.Objects;
 
@@ -13,16 +12,16 @@ import java.util.Objects;
 public record BusRouteDto(
     @Schema(
         description = "Unique identifier for the CTA bus route, as provided in the official CTA data feed.",
-        example = "22"
+        example = "22",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @NonNull
     String id,
 
     @Schema(
         description = "Display name of the bus route, which may include service type or destination details.",
-        example = "Clark"
+        example = "Clark",
+        requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @NonNull
     String name
 ) {
     public static BusRouteDto from(BusRoute route) {
