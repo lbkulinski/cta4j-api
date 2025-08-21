@@ -3,10 +3,14 @@ package app.cta4j.train.dto;
 import app.cta4j.train.dto.serialization.StringToBooleanDeserializer;
 import app.cta4j.train.dto.serialization.StringToInstantDeserializer;
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
+import java.time.Duration;
 import java.time.Instant;
 
 @Schema(
@@ -33,6 +37,7 @@ public record TrainArrivalDto(
         example = "Belmont"
     )
     @JsonAlias("staNm")
+    @NonNull
     String stationName,
 
     @Schema(
@@ -40,6 +45,7 @@ public record TrainArrivalDto(
         example = "Service toward 95th or Loop"
     )
     @JsonAlias("stpDe")
+    @NonNull
     String stopDescription,
 
     @Schema(
@@ -54,6 +60,7 @@ public record TrainArrivalDto(
         example = "RED"
     )
     @JsonAlias("rt")
+    @NonNull
     TrainRoute route,
 
     @Schema(
@@ -68,6 +75,7 @@ public record TrainArrivalDto(
         example = "95th/Dan Ryan"
     )
     @JsonAlias("destNm")
+    @NonNull
     String destinationName,
 
     @Schema(
@@ -85,6 +93,7 @@ public record TrainArrivalDto(
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("prdt")
+    @NonNull
     Instant predictionTime,
 
     @Schema(
@@ -95,6 +104,7 @@ public record TrainArrivalDto(
     )
     @JsonDeserialize(using = StringToInstantDeserializer.class)
     @JsonAlias("arrT")
+    @NonNull
     Instant arrivalTime,
 
     @Schema(
@@ -135,6 +145,7 @@ public record TrainArrivalDto(
         example = "41.9452"
     )
     @JsonAlias("lat")
+    @NonNull
     BigDecimal latitude,
 
     @Schema(
@@ -142,6 +153,7 @@ public record TrainArrivalDto(
         example = "-87.65353"
     )
     @JsonAlias("lon")
+    @NonNull
     BigDecimal longitude,
 
     @Schema(
@@ -151,4 +163,30 @@ public record TrainArrivalDto(
     @JsonAlias("heading")
     int heading
 ) {
+    private static long minutesBetween(Instant from, Instant to) {
+        long mins = Duration.between(from, to)
+                            .toMinutes();
+
+        return Math.max(mins, 0L);
+    }
+
+    @JsonGetter("etaMinutes")
+    @Schema(
+        description = "Minutes until arrival, rounded down. 0 means Due.",
+        example = "3"
+    )
+    public Long etaMinutes() {
+        return minutesBetween(this.predictionTime, this.arrivalTime);
+    }
+
+    @JsonGetter("etaLabel")
+    @Schema(
+        description = "Human-friendly ETA: 'Due' when ≤ 1 minute, otherwise 'Xm'.",
+        example = "Due"
+    )
+    public String etaLabel() {
+        long mins = minutesBetween(this.predictionTime, this.arrivalTime);
+
+        return (mins <= 1) ? "Due" : mins + "m";
+    }
 }

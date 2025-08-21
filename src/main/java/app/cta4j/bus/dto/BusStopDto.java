@@ -2,6 +2,7 @@ package app.cta4j.bus.dto;
 
 import app.cta4j.bus.model.BusStop;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.lang.NonNull;
 
 import java.util.Objects;
 
@@ -14,12 +15,14 @@ public record BusStopDto(
         description = "Unique identifier for the CTA bus stop, as provided in the official CTA data feed.",
         example = "18447"
     )
+    @NonNull
     String id,
 
     @Schema(
         description = "Display name of the bus stop, which may include the intersection or landmark name.",
         example = "Dearborn & Chicago"
     )
+    @NonNull
     String name
 ) {
     public static BusStopDto from(BusStop stop) {
