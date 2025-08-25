@@ -30,7 +30,7 @@ dependencies {
     implementation("software.amazon.awssdk:secretsmanager")
     implementation("io.github.openfeign:feign-core:13.6")
     implementation("io.github.openfeign:feign-jackson:13.6")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.11")
     implementation("org.apache.commons:commons-lang3:3.18.0") //added to avoid springdoc vulnerability
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito:mockito-core:5.19.0")
