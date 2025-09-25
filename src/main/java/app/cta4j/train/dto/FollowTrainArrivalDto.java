@@ -7,15 +7,14 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 
 @Schema(
-    name = "TrainArrival",
-    description = "Represents a predicted CTA train arrival at a specific station and stop."
+    name = "FollowTrainArrival",
+    description = "Represents a predicted CTA train arrival with a specific run number."
 )
-public record TrainArrivalDto(
+public record FollowTrainArrivalDto(
     @Schema(
         description = "CTA station ID where the train will arrive, from the official data feed.",
         example = "41320",
@@ -151,31 +150,7 @@ public record TrainArrivalDto(
         description = "Additional flags or notes about the train's arrival. Not presently used.",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    String flags,
-
-    @Schema(
-        description = "Latitude of the train's current location, in decimal degrees.",
-        example = "41.9452",
-        requiredMode = Schema.RequiredMode.REQUIRED
-    )
-    @JsonAlias("lat")
-    BigDecimal latitude,
-
-    @Schema(
-        description = "Longitude of the train's current location, in decimal degrees.",
-        example = "-87.65353",
-        requiredMode = Schema.RequiredMode.REQUIRED
-    )
-    @JsonAlias("lon")
-    BigDecimal longitude,
-
-    @Schema(
-        description = "Compass heading of the train in degrees, where 0 is north.",
-        example = "178",
-        requiredMode = Schema.RequiredMode.REQUIRED
-    )
-    @JsonAlias("heading")
-    int heading
+    String flags
 ) {
     private static long minutesBetween(Instant from, Instant to) {
         long mins = Duration.between(from, to)

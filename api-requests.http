@@ -22,3 +22,7 @@ GET http://localhost:8080/api/trains/stations
 ###
 @stationId = 41320
 GET http://localhost:8080/api/trains/stations/{{stationId}}/arrivals
+
+###
+@run = 409
+GET http://localhost:8080/api/trains/{{run}}/arrivals
