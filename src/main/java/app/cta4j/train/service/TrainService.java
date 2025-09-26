@@ -92,7 +92,7 @@ public class TrainService {
         FollowTrainPositionDto position = body.position();
 
         if (position == null) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
         List<FollowTrainArrivalDto> arrivals = body.arrivals();
