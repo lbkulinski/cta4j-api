@@ -1,10 +1,7 @@
 package app.cta4j.train.service;
 
 import app.cta4j.train.client.TrainApiClient;
-import app.cta4j.train.dto.TrainArrivalBodyDto;
-import app.cta4j.train.dto.TrainArrivalDto;
-import app.cta4j.train.dto.TrainArrivalResponseDto;
-import app.cta4j.train.dto.TrainStationDto;
+import app.cta4j.train.dto.*;
 import app.cta4j.train.model.TrainStation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,13 +17,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class TrainStationService {
+public class TrainService {
     private final DynamoDbTable<TrainStation> stations;
 
     private final TrainApiClient trainApiClient;
 
     @Autowired
-    public TrainStationService(Environment env, DynamoDbEnhancedClient dynamoDbClient, TrainApiClient trainApiClient) {
+    public TrainService(Environment env, DynamoDbEnhancedClient dynamoDbClient, TrainApiClient trainApiClient) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(dynamoDbClient);
@@ -73,5 +70,37 @@ public class TrainStationService {
         }
 
         return List.copyOf(arrivals);
+    }
+
+    public FollowTrainDto followTrain(int run) {
+        if (run <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        FollowTrainResponseDto response = this.trainApiClient.followTrain(run);
+
+        if (response == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        FollowTrainBodyDto body = response.body();
+
+        if (body == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        FollowTrainPositionDto position = body.position();
+
+        if (position == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        List<FollowTrainArrivalDto> arrivals = body.arrivals();
+
+        if ((arrivals == null) || arrivals.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return new FollowTrainDto(position, arrivals);
     }
 }

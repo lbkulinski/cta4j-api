@@ -7,14 +7,12 @@ public enum PassengerLoad {
 
     HALF_EMPTY,
 
-    EMPTY,
-
-    N_A;
+    EMPTY;
 
     @JsonCreator
     public static PassengerLoad fromString(String value) {
         if (value == null) {
-            return N_A;
+            return null;
         }
 
         value = value.toUpperCase();
@@ -23,7 +21,7 @@ public enum PassengerLoad {
             case "FULL" -> FULL;
             case "HALF_EMPTY" -> HALF_EMPTY;
             case "EMPTY" -> EMPTY;
-            default -> N_A;
+            default -> null;
         };
     }
 }

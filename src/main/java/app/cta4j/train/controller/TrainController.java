@@ -1,8 +1,10 @@
 package app.cta4j.train.controller;
 
+import app.cta4j.train.dto.FollowTrainArrivalDto;
+import app.cta4j.train.dto.FollowTrainDto;
 import app.cta4j.train.dto.TrainArrivalDto;
 import app.cta4j.train.dto.TrainStationDto;
-import app.cta4j.train.service.TrainStationService;
+import app.cta4j.train.service.TrainService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,17 +23,17 @@ import java.util.List;
 import java.util.Objects;
 
 @Tag(
-    name = "Train Station API",
-    description = "Provides access to train station data and upcoming train arrivals for a given station."
+    name = "Train API",
+    description = "Provides access to train station data and upcoming train arrivals."
 )
-@RequestMapping("/api/trains/stations")
+@RequestMapping("/api/trains")
 @RestController
-public final class TrainStationController {
-    private final TrainStationService trainStationService;
+public final class TrainController {
+    private final TrainService trainService;
 
     @Autowired
-    public TrainStationController(TrainStationService trainStationService) {
-        this.trainStationService = Objects.requireNonNull(trainStationService);
+    public TrainController(TrainService trainService) {
+        this.trainService = Objects.requireNonNull(trainService);
     }
 
     @Operation(
@@ -52,9 +55,9 @@ public final class TrainStationController {
             content = @Content()
         )
     })
-    @GetMapping
+    @GetMapping("/stations")
     public List<TrainStationDto> getStations() {
-        return this.trainStationService.getStations();
+        return this.trainService.getStations();
     }
 
     @Operation(
@@ -81,10 +84,39 @@ public final class TrainStationController {
             content = @Content()
         )
     })
-    @GetMapping("/{stationId}/arrivals")
+    @GetMapping("/stations/{stationId}/arrivals")
     public List<TrainArrivalDto> getArrivals(@PathVariable String stationId) {
         Objects.requireNonNull(stationId);
 
-        return this.trainStationService.getArrivals(stationId);
+        return this.trainService.getArrivals(stationId);
+    }
+
+    @Operation(
+        summary = "Retrieve upcoming arrivals for a train with a specific run number",
+        description = "Returns the position and list of upcoming arrivals for the train with the specified run number."
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Successful retrieval of train position and upcoming arrivals",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = FollowTrainDto.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Run not found",
+            content = @Content()
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "Internal server error",
+            content = @Content()
+        )
+    })
+    @GetMapping("/{run}/arrivals")
+    public FollowTrainDto followTrain(@PathVariable @Positive int run) {
+        return this.trainService.followTrain(run);
     }
 }
