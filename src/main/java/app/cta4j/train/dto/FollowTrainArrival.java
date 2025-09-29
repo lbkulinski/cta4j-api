@@ -1,10 +1,6 @@
 package app.cta4j.train.dto;
 
-import app.cta4j.train.dto.serialization.StringToBooleanDeserializer;
-import app.cta4j.train.dto.serialization.StringToInstantDeserializer;
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.Duration;
@@ -14,13 +10,12 @@ import java.time.Instant;
     name = "FollowTrainArrival",
     description = "Represents a predicted CTA train arrival with a specific run number."
 )
-public record FollowTrainArrivalDto(
+public record FollowTrainArrival(
     @Schema(
         description = "CTA station ID where the train will arrive, from the official data feed.",
         example = "41320",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("staId")
     int stationId,
 
     @Schema(
@@ -28,7 +23,6 @@ public record FollowTrainArrivalDto(
         example = "30256",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("stpId")
     int stopId,
 
     @Schema(
@@ -36,7 +30,6 @@ public record FollowTrainArrivalDto(
         example = "Belmont",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("staNm")
     String stationName,
 
     @Schema(
@@ -44,7 +37,6 @@ public record FollowTrainArrivalDto(
         example = "Service toward 95th or Loop",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("stpDe")
     String stopDescription,
 
     @Schema(
@@ -52,7 +44,6 @@ public record FollowTrainArrivalDto(
         example = "819",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("rn")
     int run,
 
     @Schema(
@@ -60,7 +51,6 @@ public record FollowTrainArrivalDto(
         example = "RED",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("rt")
     TrainRoute route,
 
     @Schema(
@@ -68,7 +58,6 @@ public record FollowTrainArrivalDto(
         example = "30089",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("destSt")
     int destinationStopId,
 
     @Schema(
@@ -76,7 +65,6 @@ public record FollowTrainArrivalDto(
         example = "95th/Dan Ryan",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("destNm")
     String destinationName,
 
     @Schema(
@@ -84,7 +72,6 @@ public record FollowTrainArrivalDto(
         example = "5",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("trDr")
     int direction,
 
     @Schema(
@@ -94,8 +81,6 @@ public record FollowTrainArrivalDto(
         format = "date-time",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonDeserialize(using = StringToInstantDeserializer.class)
-    @JsonAlias("prdt")
     Instant predictionTime,
 
     @Schema(
@@ -105,8 +90,6 @@ public record FollowTrainArrivalDto(
         format = "date-time",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonDeserialize(using = StringToInstantDeserializer.class)
-    @JsonAlias("arrT")
     Instant arrivalTime,
 
     @Schema(
@@ -114,8 +97,6 @@ public record FollowTrainArrivalDto(
         example = "true",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonDeserialize(using = StringToBooleanDeserializer.class)
-    @JsonAlias("isApp")
     boolean approaching,
 
     @Schema(
@@ -124,8 +105,6 @@ public record FollowTrainArrivalDto(
         example = "false",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonDeserialize(using = StringToBooleanDeserializer.class)
-    @JsonAlias("isSch")
     boolean scheduled,
 
     @Schema(
@@ -133,8 +112,6 @@ public record FollowTrainArrivalDto(
         example = "false",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonDeserialize(using = StringToBooleanDeserializer.class)
-    @JsonAlias("isDly")
     boolean delayed,
 
     @Schema(
@@ -142,8 +119,6 @@ public record FollowTrainArrivalDto(
         example = "false",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonDeserialize(using = StringToBooleanDeserializer.class)
-    @JsonAlias("isFlt")
     boolean faulted,
 
     @Schema(

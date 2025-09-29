@@ -1,8 +1,8 @@
 package app.cta4j.train.controller;
 
-import app.cta4j.train.dto.FollowTrainDto;
+import app.cta4j.train.dto.FollowTrain;
 import app.cta4j.train.dto.TrainArrival;
-import app.cta4j.train.dto.TrainStationDto;
+import app.cta4j.train.dto.TrainStation;
 import app.cta4j.train.service.TrainService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -45,7 +45,7 @@ public final class TrainController {
             description = "Successful retrieval of train stations",
             content = @Content(
                 mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = TrainStationDto.class))
+                array = @ArraySchema(schema = @Schema(implementation = TrainStation.class))
             )
         ),
         @ApiResponse(
@@ -55,7 +55,7 @@ public final class TrainController {
         )
     })
     @GetMapping("/stations")
-    public List<TrainStationDto> getStations() {
+    public List<TrainStation> getStations() {
         return this.trainService.getStations();
     }
 
@@ -100,7 +100,7 @@ public final class TrainController {
             description = "Successful retrieval of train position and upcoming arrivals",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = FollowTrainDto.class)
+                schema = @Schema(implementation = FollowTrain.class)
             )
         ),
         @ApiResponse(
@@ -115,7 +115,7 @@ public final class TrainController {
         )
     })
     @GetMapping("/{run}/arrivals")
-    public FollowTrainDto followTrain(@PathVariable @Positive int run) {
+    public FollowTrain followTrain(@PathVariable @Positive int run) {
         return this.trainService.followTrain(run);
     }
 }

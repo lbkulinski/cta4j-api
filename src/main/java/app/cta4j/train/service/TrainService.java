@@ -5,8 +5,12 @@ import app.cta4j.train.dto.*;
 import app.cta4j.train.external.arrivals.CtaArrivalsCtatt;
 import app.cta4j.train.external.arrivals.CtaArrivalsEta;
 import app.cta4j.train.external.arrivals.CtaArrivalsResponse;
+import app.cta4j.train.external.follow.CtaFollowCtatt;
+import app.cta4j.train.external.follow.CtaFollowEta;
+import app.cta4j.train.external.follow.CtaFollowPosition;
+import app.cta4j.train.external.follow.CtaFollowResponse;
+import app.cta4j.train.mapper.FollowTrainMapper;
 import app.cta4j.train.mapper.TrainArrivalMapper;
-import app.cta4j.train.model.TrainStation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
@@ -22,15 +26,17 @@ import java.util.Objects;
 
 @Service
 public class TrainService {
-    private final DynamoDbTable<TrainStation> stations;
+    private final DynamoDbTable<app.cta4j.train.model.TrainStation> stations;
 
     private final TrainApiClient trainApiClient;
 
     private final TrainArrivalMapper trainArrivalMapper;
 
+    private final FollowTrainMapper followTrainMapper;
+
     @Autowired
     public TrainService(Environment env, DynamoDbEnhancedClient dynamoDbClient, TrainApiClient trainApiClient,
-        TrainArrivalMapper trainArrivalMapper) {
+        TrainArrivalMapper trainArrivalMapper, FollowTrainMapper followTrainMapper) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(dynamoDbClient);
@@ -39,23 +45,27 @@ public class TrainService {
 
         Objects.requireNonNull(trainArrivalMapper);
 
+        Objects.requireNonNull(followTrainMapper);
+
         String stationsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.stations");
 
-        TableSchema<TrainStation> stationsSchema = TableSchema.fromImmutableClass(TrainStation.class);
+        TableSchema<app.cta4j.train.model.TrainStation> stationsSchema = TableSchema.fromImmutableClass(app.cta4j.train.model.TrainStation.class);
 
         this.stations = dynamoDbClient.table(stationsTableName, stationsSchema);
 
         this.trainApiClient = trainApiClient;
 
         this.trainArrivalMapper = trainArrivalMapper;
+
+        this.followTrainMapper = followTrainMapper;
     }
 
     @Cacheable("trainStations")
-    public List<TrainStationDto> getStations() {
+    public List<TrainStation> getStations() {
         return this.stations.scan()
                             .items()
                             .stream()
-                            .map(TrainStationDto::from)
+                            .map(TrainStation::from)
                             .toList();
     }
 
@@ -80,43 +90,44 @@ public class TrainService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        List<TrainArrival> arrivals = eta.stream()
-                                         .map(this.trainArrivalMapper::toDomain)
-                                         .filter(Objects::nonNull)
-                                         .toList();
+        List<TrainArrival> arrivals = this.trainArrivalMapper.toDomainList(eta);
 
         return List.copyOf(arrivals);
     }
 
-    public FollowTrainDto followTrain(int run) {
+    public FollowTrain followTrain(int run) {
         if (run <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        FollowTrainResponseDto response = this.trainApiClient.followTrain(run);
+        CtaFollowResponse response = this.trainApiClient.followTrain(run);
 
         if (response == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        FollowTrainBodyDto body = response.body();
+        CtaFollowCtatt ctatt = response.ctatt();
 
-        if (body == null) {
+        if (ctatt == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        FollowTrainPositionDto position = body.position();
+        CtaFollowPosition ctaPosition = ctatt.position();
 
-        if (position == null) {
+        if (ctaPosition == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        List<FollowTrainArrivalDto> arrivals = body.arrivals();
+        List<CtaFollowEta> eta = ctatt.eta();
 
-        if ((arrivals == null) || arrivals.isEmpty()) {
+        if ((eta == null) || eta.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        return new FollowTrainDto(position, arrivals);
+        FollowTrainPosition position = this.followTrainMapper.toDomainPosition(ctaPosition);
+
+        List<FollowTrainArrival> arrivals = this.followTrainMapper.toDomainArrivalList(eta);
+
+        return new FollowTrain(position, arrivals);
     }
 }

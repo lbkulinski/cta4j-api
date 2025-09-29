@@ -1,6 +1,5 @@
 package app.cta4j.train.dto;
 
-import app.cta4j.train.model.TrainStation;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
@@ -9,7 +8,7 @@ import java.util.Objects;
     name = "TrainStation",
     description = "Represents a CTA train station with its unique identifier and display name."
 )
-public record TrainStationDto(
+public record TrainStation(
     @Schema(
         description = "Unique identifier for the CTA station, as provided in the official CTA data feed.",
         example = "41320",
@@ -24,9 +23,9 @@ public record TrainStationDto(
     )
     String name
 ) {
-    public static TrainStationDto from(TrainStation station) {
+    public static TrainStation from(app.cta4j.train.model.TrainStation station) {
         Objects.requireNonNull(station);
         
-        return new TrainStationDto(station.getId(), station.getName());
+        return new TrainStation(station.getId(), station.getName());
     }
 }

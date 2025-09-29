@@ -1,7 +1,7 @@
 package app.cta4j.train.client;
 
-import app.cta4j.train.dto.FollowTrainResponseDto;
 import app.cta4j.train.external.arrivals.CtaArrivalsResponse;
+import app.cta4j.train.external.follow.CtaFollowResponse;
 import feign.Param;
 import feign.RequestLine;
 
@@ -10,5 +10,5 @@ public interface TrainApiClient {
     CtaArrivalsResponse getArrivals(@Param String stationId);
 
     @RequestLine("GET /api/1.0/ttfollow.aspx?runnumber={run}")
-    FollowTrainResponseDto followTrain(@Param int run);
+    CtaFollowResponse followTrain(@Param int run);
 }

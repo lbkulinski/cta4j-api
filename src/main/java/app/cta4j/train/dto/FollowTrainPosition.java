@@ -1,17 +1,15 @@
 package app.cta4j.train.dto;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 
-public record FollowTrainPositionDto(
+public record FollowTrainPosition(
     @Schema(
         description = "Latitude of the train's current location, in decimal degrees.",
         example = "41.9452",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("lat")
     BigDecimal latitude,
 
     @Schema(
@@ -19,7 +17,6 @@ public record FollowTrainPositionDto(
         example = "-87.65353",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("lon")
     BigDecimal longitude,
 
     @Schema(
@@ -27,7 +24,6 @@ public record FollowTrainPositionDto(
         example = "178",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    @JsonAlias("heading")
     int heading
 ) {
 }
