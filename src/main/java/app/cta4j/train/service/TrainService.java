@@ -48,7 +48,7 @@ public class TrainService {
                             .toList();
     }
 
-    public List<TrainArrivalDto> getArrivals(String stationId) {
+    public List<TrainArrival> getArrivals(String stationId) {
         Objects.requireNonNull(stationId);
 
         TrainArrivalResponseDto response = this.trainApiClient.getArrivals(stationId);
@@ -63,7 +63,7 @@ public class TrainService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        List<TrainArrivalDto> arrivals = body.arrivals();
+        List<TrainArrival> arrivals = body.arrivals();
 
         if ((arrivals == null) || arrivals.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

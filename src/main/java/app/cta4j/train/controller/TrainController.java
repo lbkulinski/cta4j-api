@@ -1,8 +1,7 @@
 package app.cta4j.train.controller;
 
-import app.cta4j.train.dto.FollowTrainArrivalDto;
 import app.cta4j.train.dto.FollowTrainDto;
-import app.cta4j.train.dto.TrainArrivalDto;
+import app.cta4j.train.dto.TrainArrival;
 import app.cta4j.train.dto.TrainStationDto;
 import app.cta4j.train.service.TrainService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -70,7 +69,7 @@ public final class TrainController {
             description = "Successful retrieval of train arrivals",
             content = @Content(
                 mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = TrainArrivalDto.class))
+                array = @ArraySchema(schema = @Schema(implementation = TrainArrival.class))
             )
         ),
         @ApiResponse(
@@ -85,7 +84,7 @@ public final class TrainController {
         )
     })
     @GetMapping("/stations/{stationId}/arrivals")
-    public List<TrainArrivalDto> getArrivals(@PathVariable String stationId) {
+    public List<TrainArrival> getArrivals(@PathVariable String stationId) {
         Objects.requireNonNull(stationId);
 
         return this.trainService.getArrivals(stationId);

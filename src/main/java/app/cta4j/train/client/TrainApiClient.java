@@ -1,7 +1,6 @@
 package app.cta4j.train.client;
 
 import app.cta4j.train.dto.FollowTrainResponseDto;
-import app.cta4j.train.dto.TrainArrivalResponseDto;
 import feign.Param;
 import feign.RequestLine;
 
