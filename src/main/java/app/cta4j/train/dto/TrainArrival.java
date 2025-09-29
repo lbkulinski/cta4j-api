@@ -1,10 +1,6 @@
 package app.cta4j.train.dto;
 
-import app.cta4j.train.dto.serialization.StringToBooleanDeserializer;
-import app.cta4j.train.dto.serialization.StringToInstantDeserializer;
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;

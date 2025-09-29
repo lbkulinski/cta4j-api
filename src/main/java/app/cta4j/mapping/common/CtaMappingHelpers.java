@@ -1,7 +1,9 @@
 package app.cta4j.mapping.common;
 
+import app.cta4j.train.dto.TrainRoute;
 import org.mapstruct.Named;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,8 +30,21 @@ public final class CtaMappingHelpers {
     }
 
     @Named("toInt")
-    public static int toInt(String value) {
-        return Integer.parseInt(value);
+    public static int toInt(String s) {
+        if ((s == null) || s.isBlank()) {
+            return 0;
+        }
+
+        return Integer.parseInt(s);
+    }
+
+    @Named("toBigDecimal")
+    public static BigDecimal toBigDecimal(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
+        return new BigDecimal(s);
     }
 
     @Named("toBoolean01")
@@ -39,6 +54,10 @@ public final class CtaMappingHelpers {
 
     @Named("toTrainInstant")
     public static Instant toTrainInstant(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
         LocalDateTime local = LocalDateTime.parse(s, TRAIN_FORMATTER);
 
         ZonedDateTime zoned = local.atZone(CENTRAL);
@@ -48,10 +67,40 @@ public final class CtaMappingHelpers {
 
     @Named("toBusInstant")
     public static Instant toBusInstant(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
         LocalDateTime local = LocalDateTime.parse(s, BUS_FORMATTER);
 
         ZonedDateTime zoned = local.atZone(CENTRAL);
 
         return zoned.toInstant();
+    }
+
+    @Named("toTrainRoute")
+    public static TrainRoute toTrainRoute(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
+        String upperCase = s.toUpperCase();
+
+        return switch (upperCase) {
+            case "RED", "RED LINE" -> TrainRoute.RED;
+            case "BLUE", "BLUE LINE" -> TrainRoute.BLUE;
+            case "BRN", "BROWN LINE" -> TrainRoute.BROWN;
+            case "G", "GREEN LINE" -> TrainRoute.GREEN;
+            case "ORG", "ORANGE LINE" -> TrainRoute.ORANGE;
+            case "P", "PURPLE LINE" -> TrainRoute.PURPLE;
+            case "PINK", "PINK LINE" -> TrainRoute.PINK;
+            case "Y", "YELLOW LINE" -> TrainRoute.YELLOW;
+            case "N/A" -> TrainRoute.N_A;
+            default -> {
+                String message = "A route with the name \"%s\" does not exist".formatted(s);
+
+                throw new IllegalArgumentException(message);
+            }
+        };
     }
 }

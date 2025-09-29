@@ -2,6 +2,10 @@ package app.cta4j.train.service;
 
 import app.cta4j.train.client.TrainApiClient;
 import app.cta4j.train.dto.*;
+import app.cta4j.train.external.arrivals.CtaArrivalsCtatt;
+import app.cta4j.train.external.arrivals.CtaArrivalsEta;
+import app.cta4j.train.external.arrivals.CtaArrivalsResponse;
+import app.cta4j.train.mapper.TrainArrivalMapper;
 import app.cta4j.train.model.TrainStation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -22,13 +26,18 @@ public class TrainService {
 
     private final TrainApiClient trainApiClient;
 
+    private final TrainArrivalMapper trainArrivalMapper;
+
     @Autowired
-    public TrainService(Environment env, DynamoDbEnhancedClient dynamoDbClient, TrainApiClient trainApiClient) {
+    public TrainService(Environment env, DynamoDbEnhancedClient dynamoDbClient, TrainApiClient trainApiClient,
+        TrainArrivalMapper trainArrivalMapper) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(dynamoDbClient);
 
         Objects.requireNonNull(trainApiClient);
+
+        Objects.requireNonNull(trainArrivalMapper);
 
         String stationsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.stations");
 
@@ -37,6 +46,8 @@ public class TrainService {
         this.stations = dynamoDbClient.table(stationsTableName, stationsSchema);
 
         this.trainApiClient = trainApiClient;
+
+        this.trainArrivalMapper = trainArrivalMapper;
     }
 
     @Cacheable("trainStations")
@@ -51,23 +62,28 @@ public class TrainService {
     public List<TrainArrival> getArrivals(String stationId) {
         Objects.requireNonNull(stationId);
 
-        TrainArrivalResponseDto response = this.trainApiClient.getArrivals(stationId);
+        CtaArrivalsResponse response = this.trainApiClient.getArrivals(stationId);
 
         if (response == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        TrainArrivalBodyDto body = response.body();
+        CtaArrivalsCtatt ctatt = response.ctatt();
 
-        if (body == null) {
+        if (ctatt == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        List<TrainArrival> arrivals = body.arrivals();
+        List<CtaArrivalsEta> eta = ctatt.eta();
 
-        if ((arrivals == null) || arrivals.isEmpty()) {
+        if ((eta == null) || eta.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
+        List<TrainArrival> arrivals = eta.stream()
+                                         .map(this.trainArrivalMapper::toDomain)
+                                         .filter(Objects::nonNull)
+                                         .toList();
 
         return List.copyOf(arrivals);
     }
