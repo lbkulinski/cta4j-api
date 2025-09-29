@@ -1,5 +1,6 @@
-package app.cta4j.train.dto;
+package app.cta4j.train.dto.location;
 
+import app.cta4j.train.dto.Route;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import io.swagger.v3.oas.annotations.media.Schema;
 

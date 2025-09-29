@@ -1,10 +1,10 @@
-package app.cta4j.train.dto;
+package app.cta4j.train.dto.location;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 
-public record LocationCoordinates(
+public record Coordinates(
     @Schema(
         description = "Latitude of the train's current location, in decimal degrees.",
         example = "41.9452",

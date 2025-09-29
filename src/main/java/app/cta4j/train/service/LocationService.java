@@ -1,9 +1,9 @@
 package app.cta4j.train.service;
 
 import app.cta4j.train.client.CtaApiClient;
-import app.cta4j.train.dto.Location;
-import app.cta4j.train.dto.LocationArrival;
-import app.cta4j.train.dto.LocationCoordinates;
+import app.cta4j.train.dto.location.Coordinates;
+import app.cta4j.train.dto.location.TrainLocation;
+import app.cta4j.train.dto.location.LocationArrival;
 import app.cta4j.train.external.follow.CtaFollowCtatt;
 import app.cta4j.train.external.follow.CtaFollowEta;
 import app.cta4j.train.external.follow.CtaFollowPosition;
@@ -23,7 +23,7 @@ public final class LocationService {
 
     private final LocationMapper locationMapper;
 
-    public Location getLocation(int run) {
+    public TrainLocation getLocation(int run) {
         if (run <= 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -52,10 +52,10 @@ public final class LocationService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        LocationCoordinates position = this.locationMapper.toDomainCoordinates(ctaPosition);
+        Coordinates position = this.locationMapper.toDomainCoordinates(ctaPosition);
 
         List<LocationArrival> arrivals = this.locationMapper.toDomainArrivalList(eta);
 
-        return new Location(position, arrivals);
+        return new TrainLocation(position, arrivals);
     }
 }

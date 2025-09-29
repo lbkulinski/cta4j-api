@@ -1,6 +1,6 @@
 package app.cta4j.train.controller;
 
-import app.cta4j.train.dto.Location;
+import app.cta4j.train.dto.location.TrainLocation;
 import app.cta4j.train.dto.StationArrival;
 import app.cta4j.train.dto.Station;
 import app.cta4j.train.service.ArrivalService;
@@ -102,7 +102,7 @@ public final class TrainController {
             description = "Successful retrieval of train position and upcoming arrivals",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = Location.class)
+                schema = @Schema(implementation = TrainLocation.class)
             )
         ),
         @ApiResponse(
@@ -117,7 +117,7 @@ public final class TrainController {
         )
     })
     @GetMapping("/{run}/location")
-    public Location getLocation(@PathVariable @Positive int run) {
+    public TrainLocation getLocation(@PathVariable @Positive int run) {
         return this.locationService.getLocation(run);
     }
 }

@@ -1,8 +1,8 @@
 package app.cta4j.train.mapper;
 
 import app.cta4j.mapping.common.CtaMappingHelpers;
-import app.cta4j.train.dto.LocationArrival;
-import app.cta4j.train.dto.LocationCoordinates;
+import app.cta4j.train.dto.location.LocationArrival;
+import app.cta4j.train.dto.location.Coordinates;
 import app.cta4j.train.external.follow.CtaFollowEta;
 import app.cta4j.train.external.follow.CtaFollowPosition;
 import org.mapstruct.Mapper;
@@ -15,7 +15,7 @@ public interface LocationMapper {
     @Mapping(target = "latitude", source = "lat", qualifiedByName = "toBigDecimal")
     @Mapping(target = "longitude", source = "lon", qualifiedByName = "toBigDecimal")
     @Mapping(target = "heading", source = "heading", qualifiedByName = "toInt")
-    LocationCoordinates toDomainCoordinates(CtaFollowPosition position);
+    Coordinates toDomainCoordinates(CtaFollowPosition position);
 
     @Mapping(target = "stationId", source = "staId", qualifiedByName = "toInt")
     @Mapping(target = "stopId", source = "stpId", qualifiedByName = "toInt")
