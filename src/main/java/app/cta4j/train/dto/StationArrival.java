@@ -3,14 +3,15 @@ package app.cta4j.train.dto;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 
 @Schema(
-    name = "FollowTrainArrival",
-    description = "Represents a predicted CTA train arrival with a specific run number."
+    name = "TrainStationArrival",
+    description = "Represents a predicted CTA train arrival at a specific station and stop."
 )
-public record FollowTrainArrival(
+public record StationArrival(
     @Schema(
         description = "CTA station ID where the train will arrive, from the official data feed.",
         example = "41320",
@@ -51,7 +52,7 @@ public record FollowTrainArrival(
         example = "RED",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    TrainRoute route,
+    Route route,
 
     @Schema(
         description = "Stop ID for the train’s destination.",
@@ -125,7 +126,28 @@ public record FollowTrainArrival(
         description = "Additional flags or notes about the train's arrival. Not presently used.",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
-    String flags
+    String flags,
+
+    @Schema(
+        description = "Latitude of the train's current location, in decimal degrees.",
+        example = "41.9452",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    BigDecimal latitude,
+
+    @Schema(
+        description = "Longitude of the train's current location, in decimal degrees.",
+        example = "-87.65353",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    BigDecimal longitude,
+
+    @Schema(
+        description = "Compass heading of the train in degrees, where 0 is north.",
+        example = "178",
+        requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    int heading
 ) {
     private static long minutesBetween(Instant from, Instant to) {
         long mins = Duration.between(from, to)

@@ -8,7 +8,7 @@ import java.util.Objects;
     name = "TrainStation",
     description = "Represents a CTA train station with its unique identifier and display name."
 )
-public record TrainStation(
+public record Station(
     @Schema(
         description = "Unique identifier for the CTA station, as provided in the official CTA data feed.",
         example = "41320",
@@ -23,9 +23,9 @@ public record TrainStation(
     )
     String name
 ) {
-    public static TrainStation from(app.cta4j.train.model.TrainStation station) {
+    public static Station from(app.cta4j.train.model.Station station) {
         Objects.requireNonNull(station);
         
-        return new TrainStation(station.getId(), station.getName());
+        return new Station(station.getId(), station.getName());
     }
 }

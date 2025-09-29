@@ -1,6 +1,6 @@
 package app.cta4j.train.config;
 
-import app.cta4j.train.client.TrainApiClient;
+import app.cta4j.train.client.CtaApiClient;
 import app.cta4j.service.SecretService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
@@ -12,9 +12,9 @@ import org.springframework.core.env.Environment;
 import java.util.Objects;
 
 @Configuration
-public class TrainApiClientConfiguration {
+public class CtaApiClientConfiguration {
     @Bean
-    public TrainApiClient buildTrainApiClient(Environment env, SecretService secretService, ObjectMapper objectMapper) {
+    public CtaApiClient buildCtaApiClient(Environment env, SecretService secretService, ObjectMapper objectMapper) {
         Objects.requireNonNull(env);
 
         Objects.requireNonNull(secretService);
@@ -34,6 +34,6 @@ public class TrainApiClientConfiguration {
                         template.query("outputType", "JSON");
                     })
                     .decoder(decoder)
-                    .target(TrainApiClient.class, baseUrl);
+                    .target(CtaApiClient.class, baseUrl);
     }
 }

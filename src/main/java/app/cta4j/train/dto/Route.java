@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.util.Objects;
 
-public enum TrainRoute {
+public enum Route {
     RED,
 
     BLUE,
@@ -24,7 +24,7 @@ public enum TrainRoute {
     N_A;
 
     @JsonCreator
-    public static TrainRoute parseString(String string) {
+    public static Route parseString(String string) {
         Objects.requireNonNull(string);
 
         string = string.toUpperCase();

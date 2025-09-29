@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 
-public record FollowTrainPosition(
+public record LocationCoordinates(
     @Schema(
         description = "Latitude of the train's current location, in decimal degrees.",
         example = "41.9452",

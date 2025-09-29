@@ -7,8 +7,8 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 
 @Value
 @Builder
-@DynamoDbImmutable(builder = TrainStation.TrainStationBuilder.class)
-public class TrainStation {
+@DynamoDbImmutable(builder = Station.StationBuilder.class)
+public class Station {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
     int id;
 

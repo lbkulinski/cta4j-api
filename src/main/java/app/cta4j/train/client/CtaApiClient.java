@@ -5,7 +5,7 @@ import app.cta4j.train.external.follow.CtaFollowResponse;
 import feign.Param;
 import feign.RequestLine;
 
-public interface TrainApiClient {
+public interface CtaApiClient {
     @RequestLine("GET /api/1.0/ttarrivals.aspx?mapid={stationId}")
     CtaArrivalsResponse getArrivals(@Param String stationId);
 

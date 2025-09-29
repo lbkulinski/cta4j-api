@@ -1,8 +1,8 @@
 package app.cta4j.train.mapper;
 
 import app.cta4j.mapping.common.CtaMappingHelpers;
-import app.cta4j.train.dto.FollowTrainArrival;
-import app.cta4j.train.dto.FollowTrainPosition;
+import app.cta4j.train.dto.LocationArrival;
+import app.cta4j.train.dto.LocationCoordinates;
 import app.cta4j.train.external.follow.CtaFollowEta;
 import app.cta4j.train.external.follow.CtaFollowPosition;
 import org.mapstruct.Mapper;
@@ -11,11 +11,11 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = CtaMappingHelpers.class)
-public interface FollowTrainMapper {
+public interface LocationMapper {
     @Mapping(target = "latitude", source = "lat", qualifiedByName = "toBigDecimal")
     @Mapping(target = "longitude", source = "lon", qualifiedByName = "toBigDecimal")
     @Mapping(target = "heading", source = "heading", qualifiedByName = "toInt")
-    FollowTrainPosition toDomainPosition(CtaFollowPosition position);
+    LocationCoordinates toDomainCoordinates(CtaFollowPosition position);
 
     @Mapping(target = "stationId", source = "staId", qualifiedByName = "toInt")
     @Mapping(target = "stopId", source = "stpId", qualifiedByName = "toInt")
@@ -33,7 +33,7 @@ public interface FollowTrainMapper {
     @Mapping(target = "delayed", source = "isDly", qualifiedByName = "toBoolean01")
     @Mapping(target = "faulted", source = "isFlt", qualifiedByName = "toBoolean01")
     @Mapping(target = "flags", source = "flags")
-    FollowTrainArrival toDomainArrival(CtaFollowEta eta);
+    LocationArrival toDomainArrival(CtaFollowEta eta);
 
-    List<FollowTrainArrival> toDomainArrivalList(List<CtaFollowEta> eta);
+    List<LocationArrival> toDomainArrivalList(List<CtaFollowEta> eta);
 }

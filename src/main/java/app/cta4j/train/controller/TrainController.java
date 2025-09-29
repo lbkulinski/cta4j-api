@@ -1,9 +1,11 @@
 package app.cta4j.train.controller;
 
-import app.cta4j.train.dto.FollowTrain;
-import app.cta4j.train.dto.TrainArrival;
-import app.cta4j.train.dto.TrainStation;
-import app.cta4j.train.service.TrainService;
+import app.cta4j.train.dto.Location;
+import app.cta4j.train.dto.StationArrival;
+import app.cta4j.train.dto.Station;
+import app.cta4j.train.service.ArrivalService;
+import app.cta4j.train.service.LocationService;
+import app.cta4j.train.service.StationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,7 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Positive;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +28,14 @@ import java.util.Objects;
     description = "Provides access to train station data and upcoming train arrivals."
 )
 @RequestMapping("/api/trains")
+@RequiredArgsConstructor
 @RestController
 public final class TrainController {
-    private final TrainService trainService;
+    private final StationService stationService;
 
-    @Autowired
-    public TrainController(TrainService trainService) {
-        this.trainService = Objects.requireNonNull(trainService);
-    }
+    private final ArrivalService arrivalService;
+
+    private final LocationService locationService;
 
     @Operation(
         summary = "Retrieve all train stations",
@@ -45,7 +47,7 @@ public final class TrainController {
             description = "Successful retrieval of train stations",
             content = @Content(
                 mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = TrainStation.class))
+                array = @ArraySchema(schema = @Schema(implementation = Station.class))
             )
         ),
         @ApiResponse(
@@ -55,8 +57,8 @@ public final class TrainController {
         )
     })
     @GetMapping("/stations")
-    public List<TrainStation> getStations() {
-        return this.trainService.getStations();
+    public List<Station> getStations() {
+        return this.stationService.getStations();
     }
 
     @Operation(
@@ -69,7 +71,7 @@ public final class TrainController {
             description = "Successful retrieval of train arrivals",
             content = @Content(
                 mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = TrainArrival.class))
+                array = @ArraySchema(schema = @Schema(implementation = StationArrival.class))
             )
         ),
         @ApiResponse(
@@ -84,10 +86,10 @@ public final class TrainController {
         )
     })
     @GetMapping("/stations/{stationId}/arrivals")
-    public List<TrainArrival> getArrivals(@PathVariable String stationId) {
+    public List<StationArrival> getArrivals(@PathVariable String stationId) {
         Objects.requireNonNull(stationId);
 
-        return this.trainService.getArrivals(stationId);
+        return this.arrivalService.getArrivals(stationId);
     }
 
     @Operation(
@@ -100,7 +102,7 @@ public final class TrainController {
             description = "Successful retrieval of train position and upcoming arrivals",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = FollowTrain.class)
+                schema = @Schema(implementation = Location.class)
             )
         ),
         @ApiResponse(
@@ -114,8 +116,8 @@ public final class TrainController {
             content = @Content()
         )
     })
-    @GetMapping("/{run}/arrivals")
-    public FollowTrain followTrain(@PathVariable @Positive int run) {
-        return this.trainService.followTrain(run);
+    @GetMapping("/{run}/location")
+    public Location getLocation(@PathVariable @Positive int run) {
+        return this.locationService.getLocation(run);
     }
 }

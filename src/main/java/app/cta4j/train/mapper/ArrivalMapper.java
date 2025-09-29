@@ -1,7 +1,7 @@
 package app.cta4j.train.mapper;
 
 import app.cta4j.mapping.common.CtaMappingHelpers;
-import app.cta4j.train.dto.TrainArrival;
+import app.cta4j.train.dto.StationArrival;
 import app.cta4j.train.external.arrivals.CtaArrivalsEta;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = CtaMappingHelpers.class)
-public interface TrainArrivalMapper {
+public interface ArrivalMapper {
     @Mapping(target = "stationId", source = "staId", qualifiedByName = "toInt")
     @Mapping(target = "stopId", source = "stpId", qualifiedByName = "toInt")
     @Mapping(target = "stationName", source = "staNm")
@@ -29,7 +29,7 @@ public interface TrainArrivalMapper {
     @Mapping(target = "latitude", source = "lat", qualifiedByName = "toBigDecimal")
     @Mapping(target = "longitude", source = "lon", qualifiedByName = "toBigDecimal")
     @Mapping(target = "heading", source = "heading", qualifiedByName = "toInt")
-    TrainArrival toDomain(CtaArrivalsEta eta);
+    StationArrival toDomain(CtaArrivalsEta eta);
 
-    List<TrainArrival> toDomainList(List<CtaArrivalsEta> etas);
+    List<StationArrival> toDomainList(List<CtaArrivalsEta> etas);
 }
