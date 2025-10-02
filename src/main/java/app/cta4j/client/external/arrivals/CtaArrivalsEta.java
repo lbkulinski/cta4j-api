@@ -1,6 +1,6 @@
-package app.cta4j.train.external.follow;
+package app.cta4j.client.external.arrivals;
 
-public record CtaFollowEta(
+public record CtaArrivalsEta(
     String staId,
     String stpId,
     String staNm,
@@ -16,6 +16,9 @@ public record CtaFollowEta(
     String isSch,
     String isDly,
     String isFlt,
-    String flags
+    String flags,
+    String lat,
+    String lon,
+    String heading
 ) {
 }

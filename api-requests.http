@@ -17,12 +17,12 @@ GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/
 GET http://localhost:8080/api/buses/routes/{{routeId}}/stops/{{stopId}}/arrivals
 
 ###
-GET http://localhost:8080/api/trains/stations
+GET http://localhost:8080/api/stations
 
 ###
 @stationId = 41320
-GET http://localhost:8080/api/trains/stations/{{stationId}}/arrivals
+GET http://localhost:8080/api/stations/{{stationId}}/arrivals
 
 ###
-@run = 422
+@run = 925
 GET http://localhost:8080/api/trains/{{run}}/location

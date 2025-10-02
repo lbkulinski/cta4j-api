@@ -1,6 +1,6 @@
-package app.cta4j.train.config;
+package app.cta4j.config;
 
-import app.cta4j.train.client.CtaApiClient;
+import app.cta4j.client.CtaTrainApi;
 import app.cta4j.service.SecretService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
@@ -9,16 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
-import java.util.Objects;
-
 @Configuration
-public class CtaApiClientConfiguration {
+public class CtaApiConfiguration {
     @Bean
-    public CtaApiClient buildCtaApiClient(Environment env, SecretService secretService, ObjectMapper objectMapper) {
-        Objects.requireNonNull(env);
-
-        Objects.requireNonNull(secretService);
-
+    public CtaTrainApi buildCtaTrainApi(Environment env, SecretService secretService, ObjectMapper objectMapper) {
         String baseUrl = env.getRequiredProperty("app.cta.api.trains.base-url");
 
         String apiKey = secretService.getSecret()
@@ -34,6 +28,6 @@ public class CtaApiClientConfiguration {
                         template.query("outputType", "JSON");
                     })
                     .decoder(decoder)
-                    .target(CtaApiClient.class, baseUrl);
+                    .target(CtaTrainApi.class, baseUrl);
     }
 }

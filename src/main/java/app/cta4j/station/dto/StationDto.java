@@ -1,14 +1,15 @@
-package app.cta4j.train.dto;
+package app.cta4j.station.dto;
 
+import app.cta4j.station.model.Station;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Objects;
 
 @Schema(
-    name = "TrainStation",
+    name = "Station",
     description = "Represents a CTA train station with its unique identifier and display name."
 )
-public record Station(
+public record StationDto(
     @Schema(
         description = "Unique identifier for the CTA station, as provided in the official CTA data feed.",
         example = "41320",
@@ -17,15 +18,15 @@ public record Station(
     int id,
 
     @Schema(
-        description = "Display name of the station, which may include served transit lines in parentheses.",
+        description = "Display name of the CTA station, which may include served transit lines in parentheses.",
         example = "Belmont (Red, Brown & Purple lines)",
         requiredMode = Schema.RequiredMode.REQUIRED
     )
     String name
 ) {
-    public static Station from(app.cta4j.train.model.Station station) {
+    public static StationDto from(Station station) {
         Objects.requireNonNull(station);
         
-        return new Station(station.getId(), station.getName());
+        return new StationDto(station.getId(), station.getName());
     }
 }

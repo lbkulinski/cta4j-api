@@ -1,6 +1,6 @@
-package app.cta4j.train.dto.location;
+package app.cta4j.train.dto;
 
-import app.cta4j.train.dto.Route;
+import app.cta4j.model.Route;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -8,10 +8,10 @@ import java.time.Duration;
 import java.time.Instant;
 
 @Schema(
-    name = "FollowTrainArrival",
+    name = "UpcomingArrival",
     description = "Represents a predicted CTA train arrival with a specific run number."
 )
-public record LocationArrival(
+public record UpcomingArrival(
     @Schema(
         description = "CTA station ID where the train will arrive, from the official data feed.",
         example = "41320",

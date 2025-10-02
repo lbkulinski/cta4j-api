@@ -1,4 +1,4 @@
-package app.cta4j.train.dto;
+package app.cta4j.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

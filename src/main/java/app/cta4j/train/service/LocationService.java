@@ -1,13 +1,13 @@
 package app.cta4j.train.service;
 
-import app.cta4j.train.client.CtaApiClient;
-import app.cta4j.train.dto.location.Coordinates;
-import app.cta4j.train.dto.location.TrainLocation;
-import app.cta4j.train.dto.location.LocationArrival;
-import app.cta4j.train.external.follow.CtaFollowCtatt;
-import app.cta4j.train.external.follow.CtaFollowEta;
-import app.cta4j.train.external.follow.CtaFollowPosition;
-import app.cta4j.train.external.follow.CtaFollowResponse;
+import app.cta4j.client.CtaTrainApi;
+import app.cta4j.train.dto.Coordinates;
+import app.cta4j.train.dto.TrainLocation;
+import app.cta4j.train.dto.UpcomingArrival;
+import app.cta4j.client.external.follow.CtaFollowCtatt;
+import app.cta4j.client.external.follow.CtaFollowEta;
+import app.cta4j.client.external.follow.CtaFollowPosition;
+import app.cta4j.client.external.follow.CtaFollowResponse;
 import app.cta4j.train.mapper.LocationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,10 +16,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public final class LocationService {
-    private final CtaApiClient ctaApiClient;
+    private final CtaTrainApi ctaTrainApi;
 
     private final LocationMapper locationMapper;
 
@@ -28,7 +28,7 @@ public final class LocationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        CtaFollowResponse response = this.ctaApiClient.followTrain(run);
+        CtaFollowResponse response = this.ctaTrainApi.followTrain(run);
 
         if (response == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,7 +54,9 @@ public final class LocationService {
 
         Coordinates position = this.locationMapper.toDomainCoordinates(ctaPosition);
 
-        List<LocationArrival> arrivals = this.locationMapper.toDomainArrivalList(eta);
+        List<UpcomingArrival> arrivals = eta.stream()
+                                            .map(this.locationMapper::toDomainArrival)
+                                            .toList();
 
         return new TrainLocation(position, arrivals);
     }

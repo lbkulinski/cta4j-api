@@ -1,30 +1,27 @@
-package app.cta4j.train.service;
+package app.cta4j.station.service;
 
-import app.cta4j.train.client.CtaApiClient;
-import app.cta4j.train.dto.StationArrival;
-import app.cta4j.train.external.arrivals.CtaArrivalsCtatt;
-import app.cta4j.train.external.arrivals.CtaArrivalsEta;
-import app.cta4j.train.external.arrivals.CtaArrivalsResponse;
-import app.cta4j.train.mapper.ArrivalMapper;
+import app.cta4j.client.CtaTrainApi;
+import app.cta4j.station.dto.StationArrivalDto;
+import app.cta4j.client.external.arrivals.CtaArrivalsCtatt;
+import app.cta4j.client.external.arrivals.CtaArrivalsEta;
+import app.cta4j.client.external.arrivals.CtaArrivalsResponse;
+import app.cta4j.station.mapper.ArrivalMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public final class ArrivalService {
-    private final CtaApiClient ctaApiClient;
+    private final CtaTrainApi ctaTrainApi;
 
     private final ArrivalMapper arrivalMapper;
 
-    public List<StationArrival> getArrivals(String stationId) {
-        Objects.requireNonNull(stationId);
-
-        CtaArrivalsResponse response = this.ctaApiClient.getArrivals(stationId);
+    public List<StationArrivalDto> getArrivals(int stationId) {
+        CtaArrivalsResponse response = this.ctaTrainApi.getArrivals(stationId);
 
         if (response == null) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -42,7 +39,9 @@ public final class ArrivalService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        List<StationArrival> arrivals = this.arrivalMapper.toDomainList(eta);
+        List<StationArrivalDto> arrivals = eta.stream()
+                                              .map(this.arrivalMapper::toDomain)
+                                              .toList();
 
         return List.copyOf(arrivals);
     }

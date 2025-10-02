@@ -1,4 +1,4 @@
-package app.cta4j.train.external.arrivals;
+package app.cta4j.client.external.arrivals;
 
 public record CtaArrivalsResponse(
     CtaArrivalsCtatt ctatt

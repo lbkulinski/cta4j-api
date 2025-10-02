@@ -1,6 +1,6 @@
-package app.cta4j.mapping.common;
+package app.cta4j.mapper.common;
 
-import app.cta4j.train.dto.Route;
+import app.cta4j.model.Route;
 import org.mapstruct.Named;
 
 import java.math.BigDecimal;

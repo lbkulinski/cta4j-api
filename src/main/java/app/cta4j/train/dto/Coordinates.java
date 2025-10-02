@@ -1,4 +1,4 @@
-package app.cta4j.train.dto.location;
+package app.cta4j.train.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

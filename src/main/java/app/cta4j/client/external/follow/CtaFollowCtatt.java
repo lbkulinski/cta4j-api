@@ -1,4 +1,4 @@
-package app.cta4j.train.external.follow;
+package app.cta4j.client.external.follow;
 
 import java.util.List;
 
