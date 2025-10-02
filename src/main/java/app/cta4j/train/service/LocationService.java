@@ -1,13 +1,13 @@
 package app.cta4j.train.service;
 
-import app.cta4j.client.CtaTrainApi;
+import app.cta4j.api.CtaTrainApi;
 import app.cta4j.train.dto.Coordinates;
 import app.cta4j.train.dto.TrainLocation;
 import app.cta4j.train.dto.UpcomingArrival;
-import app.cta4j.client.external.follow.CtaFollowCtatt;
-import app.cta4j.client.external.follow.CtaFollowEta;
-import app.cta4j.client.external.follow.CtaFollowPosition;
-import app.cta4j.client.external.follow.CtaFollowResponse;
+import app.cta4j.api.external.train.follow.CtaFollowCtatt;
+import app.cta4j.api.external.train.follow.CtaFollowEta;
+import app.cta4j.api.external.train.follow.CtaFollowPosition;
+import app.cta4j.api.external.train.follow.CtaFollowResponse;
 import app.cta4j.train.mapper.LocationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

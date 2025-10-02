@@ -1,7 +1,7 @@
-package app.cta4j.client;
+package app.cta4j.api;
 
-import app.cta4j.client.external.arrivals.CtaArrivalsResponse;
-import app.cta4j.client.external.follow.CtaFollowResponse;
+import app.cta4j.api.external.train.arrivals.CtaArrivalsResponse;
+import app.cta4j.api.external.train.follow.CtaFollowResponse;
 import feign.Param;
 import feign.RequestLine;
 

@@ -1,14 +1,12 @@
 package app.cta4j.train.mapper;
 
-import app.cta4j.mapper.common.CtaMappingHelpers;
+import app.cta4j.mapper.CtaMappingHelpers;
 import app.cta4j.train.dto.UpcomingArrival;
 import app.cta4j.train.dto.Coordinates;
-import app.cta4j.client.external.follow.CtaFollowEta;
-import app.cta4j.client.external.follow.CtaFollowPosition;
+import app.cta4j.api.external.train.follow.CtaFollowEta;
+import app.cta4j.api.external.train.follow.CtaFollowPosition;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring", uses = CtaMappingHelpers.class)
 public interface LocationMapper {

@@ -1,8 +1,8 @@
 package app.cta4j.station.mapper;
 
-import app.cta4j.mapper.common.CtaMappingHelpers;
+import app.cta4j.mapper.CtaMappingHelpers;
 import app.cta4j.station.dto.StationArrivalDto;
-import app.cta4j.client.external.arrivals.CtaArrivalsEta;
+import app.cta4j.api.external.train.arrivals.CtaArrivalsEta;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

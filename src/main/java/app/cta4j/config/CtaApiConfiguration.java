@@ -1,6 +1,6 @@
 package app.cta4j.config;
 
-import app.cta4j.client.CtaTrainApi;
+import app.cta4j.api.CtaTrainApi;
 import app.cta4j.service.SecretService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;

@@ -1,6 +1,6 @@
-package app.cta4j.mapper.common;
+package app.cta4j.mapper;
 
-import app.cta4j.model.Route;
+import app.cta4j.model.TrainRoute;
 import org.mapstruct.Named;
 
 import java.math.BigDecimal;
@@ -79,7 +79,7 @@ public final class CtaMappingHelpers {
     }
 
     @Named("toTrainRoute")
-    public static Route toTrainRoute(String s) {
+    public static TrainRoute toTrainRoute(String s) {
         if ((s == null) || s.isBlank()) {
             return null;
         }
@@ -87,15 +87,15 @@ public final class CtaMappingHelpers {
         String upperCase = s.toUpperCase();
 
         return switch (upperCase) {
-            case "RED", "RED LINE" -> Route.RED;
-            case "BLUE", "BLUE LINE" -> Route.BLUE;
-            case "BRN", "BROWN LINE" -> Route.BROWN;
-            case "G", "GREEN LINE" -> Route.GREEN;
-            case "ORG", "ORANGE LINE" -> Route.ORANGE;
-            case "P", "PURPLE LINE" -> Route.PURPLE;
-            case "PINK", "PINK LINE" -> Route.PINK;
-            case "Y", "YELLOW LINE" -> Route.YELLOW;
-            case "N/A" -> Route.N_A;
+            case "RED", "RED LINE" -> TrainRoute.RED;
+            case "BLUE", "BLUE LINE" -> TrainRoute.BLUE;
+            case "BRN", "BROWN LINE" -> TrainRoute.BROWN;
+            case "G", "GREEN LINE" -> TrainRoute.GREEN;
+            case "ORG", "ORANGE LINE" -> TrainRoute.ORANGE;
+            case "P", "PURPLE LINE" -> TrainRoute.PURPLE;
+            case "PINK", "PINK LINE" -> TrainRoute.PINK;
+            case "Y", "YELLOW LINE" -> TrainRoute.YELLOW;
+            case "N/A" -> TrainRoute.N_A;
             default -> {
                 String message = "A route with the name \"%s\" does not exist".formatted(s);
 

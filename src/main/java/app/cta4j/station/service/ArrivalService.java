@@ -1,10 +1,10 @@
 package app.cta4j.station.service;
 
-import app.cta4j.client.CtaTrainApi;
+import app.cta4j.api.CtaTrainApi;
 import app.cta4j.station.dto.StationArrivalDto;
-import app.cta4j.client.external.arrivals.CtaArrivalsCtatt;
-import app.cta4j.client.external.arrivals.CtaArrivalsEta;
-import app.cta4j.client.external.arrivals.CtaArrivalsResponse;
+import app.cta4j.api.external.train.arrivals.CtaArrivalsCtatt;
+import app.cta4j.api.external.train.arrivals.CtaArrivalsEta;
+import app.cta4j.api.external.train.arrivals.CtaArrivalsResponse;
 import app.cta4j.station.mapper.ArrivalMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
