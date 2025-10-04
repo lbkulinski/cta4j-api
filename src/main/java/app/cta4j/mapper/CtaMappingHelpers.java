@@ -1,9 +1,13 @@
 package app.cta4j.mapper;
 
+import app.cta4j.busroute.dto.BusPredictionType;
+import app.cta4j.busroute.dto.FlagStop;
+import app.cta4j.busroute.dto.PassengerLoad;
 import app.cta4j.model.TrainRoute;
 import org.mapstruct.Named;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -36,6 +40,15 @@ public final class CtaMappingHelpers {
         }
 
         return Integer.parseInt(s);
+    }
+
+    @Named("toBigInteger")
+    public static BigInteger toBigInteger(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
+        return new BigInteger(s);
     }
 
     @Named("toBigDecimal")
@@ -101,6 +114,56 @@ public final class CtaMappingHelpers {
 
                 throw new IllegalArgumentException(message);
             }
+        };
+    }
+
+    @Named("toBusPredictionType")
+    public static BusPredictionType toBusPredictionType(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
+        String upperCase = s.toUpperCase();
+
+        return switch (upperCase) {
+            case "A" -> BusPredictionType.ARRIVAL;
+            case "D" -> BusPredictionType.DEPARTURE;
+            default -> {
+                String message = "A prediction type with the name \"%s\" does not exist".formatted(s);
+
+                throw new IllegalArgumentException(message);
+            }
+        };
+    }
+
+    @Named("toBusPassengerLoad")
+    public static PassengerLoad toBusPassengerLoad(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
+        String upperCase = s.toUpperCase();
+
+        return switch (upperCase) {
+            case "FULL" -> PassengerLoad.FULL;
+            case "HALF_EMPTY" -> PassengerLoad.HALF_EMPTY;
+            case "EMPTY" -> PassengerLoad.EMPTY;
+            default -> null;
+        };
+    }
+
+    @Named("toBusFlagStop")
+    public static FlagStop toBusFlagStop(String s) {
+        if ((s == null) || s.isBlank()) {
+            return null;
+        }
+
+        return switch (s) {
+            case "-1" -> FlagStop.UNDEFINED;
+            case "0" -> FlagStop.NORMAL;
+            case "1" -> FlagStop.PICKUP_AND_DISCHARGE;
+            case "2" -> FlagStop.ONLY_DISCHARGE;
+            default -> throw new IllegalArgumentException("Unknown FlagStop value: " + s);
         };
     }
 }

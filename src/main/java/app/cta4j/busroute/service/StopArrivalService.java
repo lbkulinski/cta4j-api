@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public final class ArrivalService {
+public final class StopArrivalService {
     private final CtaBusApi ctaBusApi;
 
     @Autowired
-    public ArrivalService(CtaBusApi ctaBusApi) {
+    public StopArrivalService(CtaBusApi ctaBusApi) {
         this.ctaBusApi = ctaBusApi;
     }
 }

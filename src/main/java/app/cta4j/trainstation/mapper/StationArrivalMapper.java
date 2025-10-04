@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = CtaMappingHelpers.class)
-public interface ArrivalMapper {
+public interface StationArrivalMapper {
     @Mapping(target = "stationId", source = "staId", qualifiedByName = "toInt")
     @Mapping(target = "stopId", source = "stpId", qualifiedByName = "toInt")
     @Mapping(target = "stationName", source = "staNm")

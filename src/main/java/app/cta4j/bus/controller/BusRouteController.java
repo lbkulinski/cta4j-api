@@ -2,8 +2,6 @@ package app.cta4j.bus.controller;
 
 import app.cta4j.bus.dto.BusArrivalDto;
 import app.cta4j.bus.dto.BusDetourDto;
-import app.cta4j.bus.dto.BusRouteDto;
-import app.cta4j.bus.dto.BusStopDto;
 import app.cta4j.bus.service.BusRouteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

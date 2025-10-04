@@ -14,7 +14,7 @@ public record StopArrival(
 
     String stopName,
 
-    String stopId,
+    int stopId,
 
     int vehicleId,
 

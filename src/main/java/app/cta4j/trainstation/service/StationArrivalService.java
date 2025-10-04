@@ -5,7 +5,7 @@ import app.cta4j.trainstation.dto.StationArrival;
 import app.cta4j.api.external.train.arrivals.CtaArrivalsCtatt;
 import app.cta4j.api.external.train.arrivals.CtaArrivalsEta;
 import app.cta4j.api.external.train.arrivals.CtaArrivalsResponse;
-import app.cta4j.trainstation.mapper.ArrivalMapper;
+import app.cta4j.trainstation.mapper.StationArrivalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,16 +14,16 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-public final class ArrivalService {
+public final class StationArrivalService {
     private final CtaTrainApi ctaTrainApi;
 
-    private final ArrivalMapper arrivalMapper;
+    private final StationArrivalMapper stationArrivalMapper;
 
     @Autowired
-    public ArrivalService(CtaTrainApi ctaTrainApi, ArrivalMapper arrivalMapper) {
+    public StationArrivalService(CtaTrainApi ctaTrainApi, StationArrivalMapper stationArrivalMapper) {
         this.ctaTrainApi = ctaTrainApi;
 
-        this.arrivalMapper = arrivalMapper;
+        this.stationArrivalMapper = stationArrivalMapper;
     }
 
     public List<StationArrival> getArrivals(int stationId) {
@@ -46,7 +46,7 @@ public final class ArrivalService {
         }
 
         List<StationArrival> arrivals = eta.stream()
-                                           .map(this.arrivalMapper::toDomain)
+                                           .map(this.stationArrivalMapper::toDomain)
                                            .toList();
 
         return List.copyOf(arrivals);

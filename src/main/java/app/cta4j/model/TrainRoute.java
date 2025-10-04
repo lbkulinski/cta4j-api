@@ -1,9 +1,5 @@
 package app.cta4j.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
-import java.util.Objects;
-
 public enum TrainRoute {
     RED,
 
@@ -22,28 +18,4 @@ public enum TrainRoute {
     YELLOW,
 
     N_A;
-
-    @JsonCreator
-    public static TrainRoute parseString(String string) {
-        Objects.requireNonNull(string);
-
-        string = string.toUpperCase();
-
-        return switch (string) {
-            case "RED", "RED LINE" -> RED;
-            case "BLUE", "BLUE LINE" -> BLUE;
-            case "BRN", "BROWN LINE" -> BROWN;
-            case "G", "GREEN LINE" -> GREEN;
-            case "ORG", "ORANGE LINE" -> ORANGE;
-            case "P", "PURPLE LINE" -> PURPLE;
-            case "PINK", "PINK LINE" -> PINK;
-            case "Y", "YELLOW LINE" -> YELLOW;
-            case "N/A" -> N_A;
-            default -> {
-                String message = "A route with the name \"%s\" does not exist".formatted(string);
-
-                throw new IllegalArgumentException(message);
-            }
-        };
-    }
 }
