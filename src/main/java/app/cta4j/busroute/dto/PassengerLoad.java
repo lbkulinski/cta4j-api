@@ -1,4 +1,4 @@
-package app.cta4j.bus.dto;
+package app.cta4j.busroute.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

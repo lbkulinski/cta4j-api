@@ -9,7 +9,7 @@ import app.cta4j.api.external.train.follow.CtaFollowEta;
 import app.cta4j.api.external.train.follow.CtaFollowPosition;
 import app.cta4j.api.external.train.follow.CtaFollowResponse;
 import app.cta4j.train.mapper.LocationMapper;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,11 +17,17 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public final class LocationService {
     private final CtaTrainApi ctaTrainApi;
 
     private final LocationMapper locationMapper;
+
+    @Autowired
+    public LocationService(CtaTrainApi ctaTrainApi, LocationMapper locationMapper) {
+        this.ctaTrainApi = ctaTrainApi;
+
+        this.locationMapper = locationMapper;
+    }
 
     public TrainLocation getLocation(int run) {
         if (run <= 0) {

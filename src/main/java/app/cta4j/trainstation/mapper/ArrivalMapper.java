@@ -1,7 +1,7 @@
-package app.cta4j.station.mapper;
+package app.cta4j.trainstation.mapper;
 
 import app.cta4j.mapper.CtaMappingHelpers;
-import app.cta4j.station.dto.StationArrivalDto;
+import app.cta4j.trainstation.dto.StationArrival;
 import app.cta4j.api.external.train.arrivals.CtaArrivalsEta;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,5 +27,5 @@ public interface ArrivalMapper {
     @Mapping(target = "latitude", source = "lat", qualifiedByName = "toBigDecimal")
     @Mapping(target = "longitude", source = "lon", qualifiedByName = "toBigDecimal")
     @Mapping(target = "heading", source = "heading", qualifiedByName = "toInt")
-    StationArrivalDto toDomain(CtaArrivalsEta eta);
+    StationArrival toDomain(CtaArrivalsEta eta);
 }

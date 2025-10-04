@@ -1,7 +1,6 @@
-package app.cta4j.station.service;
+package app.cta4j.trainstation.service;
 
-import app.cta4j.station.dto.StationDto;
-import app.cta4j.station.model.Station;
+import app.cta4j.trainstation.dto.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.env.Environment;
@@ -16,7 +15,7 @@ import java.util.Objects;
 
 @Service
 public class StationService {
-    private final DynamoDbTable<Station> stations;
+    private final DynamoDbTable<app.cta4j.trainstation.model.Station> stations;
 
     @Autowired
     public StationService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
@@ -26,17 +25,17 @@ public class StationService {
 
         String stationsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.stations");
 
-        ImmutableTableSchema<Station> stationsSchema = TableSchema.fromImmutableClass(Station.class);
+        ImmutableTableSchema<app.cta4j.trainstation.model.Station> stationsSchema = TableSchema.fromImmutableClass(app.cta4j.trainstation.model.Station.class);
 
         this.stations = dynamoDbClient.table(stationsTableName, stationsSchema);
     }
 
     @Cacheable("stations")
-    public List<StationDto> getStations() {
+    public List<Station> getStations() {
         return this.stations.scan()
                             .items()
                             .stream()
-                            .map(StationDto::from)
+                            .map(Station::from)
                             .toList();
     }
 }

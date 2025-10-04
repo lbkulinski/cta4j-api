@@ -1,14 +1,13 @@
-package app.cta4j.station.dto;
+package app.cta4j.trainstation.dto;
 
 import app.cta4j.model.TrainRoute;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 
-public record StationArrivalDto(
+public record StationArrival(
     int stationId,
 
     int stopId,

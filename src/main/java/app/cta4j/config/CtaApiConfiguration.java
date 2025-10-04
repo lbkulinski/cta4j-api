@@ -1,5 +1,6 @@
 package app.cta4j.config;
 
+import app.cta4j.api.CtaBusApi;
 import app.cta4j.api.CtaTrainApi;
 import app.cta4j.service.SecretService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,5 +30,25 @@ public class CtaApiConfiguration {
                     })
                     .decoder(decoder)
                     .target(CtaTrainApi.class, baseUrl);
+    }
+
+    @Bean
+    public CtaBusApi buildCtaBusApi(Environment env, SecretService secretService, ObjectMapper objectMapper) {
+        String baseUrl = env.getRequiredProperty("app.cta.api.buses.base-url");
+
+        String apiKey = secretService.getSecret()
+                                     .cta()
+                                     .busApiKey();
+
+        JacksonDecoder decoder = new JacksonDecoder(objectMapper);
+
+        return Feign.builder()
+                    .requestInterceptor(template -> {
+                        template.query("key", apiKey);
+
+                        template.query("outputType", "JSON");
+                    })
+                    .decoder(decoder)
+                    .target(CtaBusApi.class, baseUrl);
     }
 }

@@ -1,4 +1,4 @@
-package app.cta4j.station.model;
+package app.cta4j.trainstation.model;
 
 import lombok.Builder;
 import lombok.Getter;

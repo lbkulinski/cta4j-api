@@ -1,6 +1,8 @@
 package app.cta4j.bus.dto;
 
 import app.cta4j.bus.dto.serialization.StringToInstantDeserializer;
+import app.cta4j.busroute.dto.FlagStop;
+import app.cta4j.busroute.dto.PassengerLoad;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
