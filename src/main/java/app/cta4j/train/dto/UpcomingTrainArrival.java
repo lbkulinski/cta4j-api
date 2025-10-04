@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import java.time.Duration;
 import java.time.Instant;
 
-public record UpcomingArrival(
+public record UpcomingTrainArrival(
     int stationId,
 
     int stopId,

@@ -5,11 +5,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDate;
 
 public record StopArrival(
-    Instant timestamp,
-
     BusPredictionType predictionType,
 
     String stopName,
@@ -30,27 +27,7 @@ public record StopArrival(
 
     Instant arrivalTime,
 
-    boolean delayed,
-
-    boolean dynamicActions,
-
-    String taBlockId,
-
-    String taTripId,
-
-    String originalTripNumber,
-
-    int minutesAway,
-
-    String zone,
-
-    PassengerLoad passengerLoad,
-
-    int tripStartSeconds,
-
-    LocalDate tripStartDate,
-
-    FlagStop flagStop
+    boolean delayed
 ) {
     private static long minutesBetween(Instant from, Instant to) {
         long mins = Duration.between(from, to)

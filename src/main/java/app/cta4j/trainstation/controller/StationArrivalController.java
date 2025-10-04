@@ -13,11 +13,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/stations/{stationId}/arrivals")
-public final class ArrivalController {
+public final class StationArrivalController {
     private final StationArrivalService stationArrivalService;
 
     @Autowired
-    public ArrivalController(StationArrivalService stationArrivalService) {
+    public StationArrivalController(StationArrivalService stationArrivalService) {
         this.stationArrivalService = stationArrivalService;
     }
 

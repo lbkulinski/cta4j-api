@@ -1,6 +1,6 @@
 package app.cta4j;
 
-import app.cta4j.bus.client.BusApiClient;
+import app.cta4j.api.CtaBusApi;
 import app.cta4j.api.CtaTrainApi;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +17,7 @@ class ApplicationTests {
     DynamoDbEnhancedClient dynamoDbClient;
 
     @MockitoBean
-    BusApiClient busApiClient;
+    CtaBusApi ctaBusApi;
 
     @MockitoBean
     CtaTrainApi ctaTrainApi;

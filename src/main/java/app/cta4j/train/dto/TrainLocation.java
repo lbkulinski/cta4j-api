@@ -3,8 +3,8 @@ package app.cta4j.train.dto;
 import java.util.List;
 
 public record TrainLocation(
-    Coordinates coordinates,
+    TrainCoordinates coordinates,
 
-    List<UpcomingArrival> arrivals
+    List<UpcomingTrainArrival> arrivals
 ) {
 }

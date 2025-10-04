@@ -46,7 +46,7 @@ public class CtaApiConfiguration {
                     .requestInterceptor(template -> {
                         template.query("key", apiKey);
 
-                        template.query("outputType", "JSON");
+                        template.query("format", "json");
                     })
                     .decoder(decoder)
                     .target(CtaBusApi.class, baseUrl);
