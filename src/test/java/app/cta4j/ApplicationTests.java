@@ -1,7 +1,7 @@
 package app.cta4j;
 
-import app.cta4j.api.CtaBusApi;
-import app.cta4j.api.CtaTrainApi;
+import app.cta4j.common.api.CtaBusApi;
+import app.cta4j.common.api.CtaTrainApi;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;

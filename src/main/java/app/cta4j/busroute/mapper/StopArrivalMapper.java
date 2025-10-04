@@ -1,8 +1,8 @@
 package app.cta4j.busroute.mapper;
 
-import app.cta4j.api.external.bus.predictions.CtaPredictionsPrd;
+import app.cta4j.common.api.external.bus.predictions.CtaPredictionsPrd;
 import app.cta4j.busroute.dto.StopArrival;
-import app.cta4j.mapper.CtaMappingHelpers;
+import app.cta4j.common.mapper.CtaMappingHelpers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

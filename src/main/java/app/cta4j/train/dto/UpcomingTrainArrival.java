@@ -1,6 +1,6 @@
 package app.cta4j.train.dto;
 
-import app.cta4j.model.TrainRoute;
+import app.cta4j.secretsmanager.model.TrainRoute;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.time.Duration;

@@ -1,13 +1,13 @@
 package app.cta4j.train.service;
 
-import app.cta4j.api.CtaTrainApi;
+import app.cta4j.common.api.CtaTrainApi;
 import app.cta4j.train.dto.TrainCoordinates;
 import app.cta4j.train.dto.TrainLocation;
 import app.cta4j.train.dto.UpcomingTrainArrival;
-import app.cta4j.api.external.train.follow.CtaFollowCtatt;
-import app.cta4j.api.external.train.follow.CtaFollowEta;
-import app.cta4j.api.external.train.follow.CtaFollowPosition;
-import app.cta4j.api.external.train.follow.CtaFollowResponse;
+import app.cta4j.common.api.external.train.follow.CtaFollowCtatt;
+import app.cta4j.common.api.external.train.follow.CtaFollowEta;
+import app.cta4j.common.api.external.train.follow.CtaFollowPosition;
+import app.cta4j.common.api.external.train.follow.CtaFollowResponse;
 import app.cta4j.train.mapper.TrainLocationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

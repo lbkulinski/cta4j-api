@@ -1,10 +1,10 @@
 package app.cta4j.train.mapper;
 
-import app.cta4j.mapper.CtaMappingHelpers;
+import app.cta4j.common.mapper.CtaMappingHelpers;
 import app.cta4j.train.dto.TrainCoordinates;
 import app.cta4j.train.dto.UpcomingTrainArrival;
-import app.cta4j.api.external.train.follow.CtaFollowEta;
-import app.cta4j.api.external.train.follow.CtaFollowPosition;
+import app.cta4j.common.api.external.train.follow.CtaFollowEta;
+import app.cta4j.common.api.external.train.follow.CtaFollowPosition;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
