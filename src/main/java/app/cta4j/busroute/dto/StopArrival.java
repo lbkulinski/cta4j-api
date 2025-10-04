@@ -5,19 +5,24 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 
 public record StopArrival(
+    Instant timestamp,
+
     BusPredictionType predictionType,
 
-    String stopId,
-
     String stopName,
+
+    String stopId,
 
     int vehicleId,
 
     BigInteger distanceToStop,
 
     String route,
+
+    String routeDesignator,
 
     String routeDirection,
 
@@ -29,9 +34,21 @@ public record StopArrival(
 
     boolean dynamicActions,
 
+    String taBlockId,
+
+    String taTripId,
+
+    String originalTripNumber,
+
+    int minutesAway,
+
     String zone,
 
     PassengerLoad passengerLoad,
+
+    int tripStartSeconds,
+
+    LocalDate tripStartDate,
 
     FlagStop flagStop
 ) {
