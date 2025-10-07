@@ -1,9 +1,9 @@
 package app.cta4j.busroute.service;
 
 import app.cta4j.common.api.CtaBusApi;
-import app.cta4j.common.api.external.bus.predictions.CtaPredictionsBustimeResponse;
-import app.cta4j.common.api.external.bus.predictions.CtaPredictionsPrd;
-import app.cta4j.common.api.external.bus.predictions.CtaPredictionsResponse;
+import app.cta4j.common.api.external.bus.prediction.CtaPredictionsBustimeResponse;
+import app.cta4j.common.api.external.bus.prediction.CtaPredictionsPrd;
+import app.cta4j.common.api.external.bus.prediction.CtaPredictionsResponse;
 import app.cta4j.busroute.dto.StopArrival;
 import app.cta4j.busroute.mapper.StopArrivalMapper;
 import org.springframework.beans.factory.annotation.Autowired;

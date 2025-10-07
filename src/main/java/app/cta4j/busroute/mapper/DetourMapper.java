@@ -2,8 +2,8 @@ package app.cta4j.busroute.mapper;
 
 import app.cta4j.busroute.dto.Detour;
 import app.cta4j.busroute.dto.DetourRouteDirection;
-import app.cta4j.common.api.external.bus.detours.CtaDetour;
-import app.cta4j.common.api.external.bus.detours.CtaDetoursRouteDirection;
+import app.cta4j.common.api.external.bus.detour.CtaDetour;
+import app.cta4j.common.api.external.bus.detour.CtaDetoursRouteDirection;
 import app.cta4j.common.mapper.CtaMappingHelpers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

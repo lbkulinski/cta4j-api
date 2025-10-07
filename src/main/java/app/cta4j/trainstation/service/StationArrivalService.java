@@ -2,9 +2,9 @@ package app.cta4j.trainstation.service;
 
 import app.cta4j.common.api.CtaTrainApi;
 import app.cta4j.trainstation.dto.StationArrival;
-import app.cta4j.common.api.external.train.arrivals.CtaArrivalsCtatt;
-import app.cta4j.common.api.external.train.arrivals.CtaArrivalsEta;
-import app.cta4j.common.api.external.train.arrivals.CtaArrivalsResponse;
+import app.cta4j.common.api.external.train.arrival.CtaArrivalsCtatt;
+import app.cta4j.common.api.external.train.arrival.CtaArrivalsEta;
+import app.cta4j.common.api.external.train.arrival.CtaArrivalsResponse;
 import app.cta4j.trainstation.mapper.StationArrivalMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

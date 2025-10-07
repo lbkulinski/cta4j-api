@@ -1,4 +1,4 @@
-package app.cta4j.common.api.external.train.arrivals;
+package app.cta4j.common.api.external.train.arrival;
 
 import java.util.List;
 
