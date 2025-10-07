@@ -2,15 +2,15 @@
 GET http://localhost:8080/api/routes
 
 ###
-@routeId = 22
+@routeId = 50
 GET http://localhost:8080/api/routes/{{routeId}}/directions
 
 ###
-@direction = Northbound
+@direction = Southbound
 GET http://localhost:8080/api/routes/{{routeId}}/directions/{{direction}}/stops
 
 ###
-GET http://localhost:8080/api/buses/routes/{{routeId}}/directions/{{direction}}/detours
+GET http://localhost:8080/api/routes/{{routeId}}/directions/{{direction}}/detours
 
 ###
 @stopId = 18447

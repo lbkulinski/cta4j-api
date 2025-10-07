@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/routes/{routeId}/directions/{direction}/arrivals")
+@RequestMapping("/api/routes/{routeId}/directions/{direction}/detours")
 public final class DetourController {
     private final DetourService detourService;
 
