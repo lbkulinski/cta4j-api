@@ -6,9 +6,9 @@ import feign.Param;
 import feign.RequestLine;
 
 public interface CtaBusApi {
-    @RequestLine("GET /bustime/api/v3/getpredictions?rt={route}&stpid={stopId}")
-    CtaPredictionsResponse getPredictions(@Param String route, @Param int stopId);
+    @RequestLine("GET /bustime/api/v3/getpredictions?rt={routeId}&stpid={stopId}")
+    CtaPredictionsResponse getPredictions(@Param String routeId, @Param int stopId);
 
-    @RequestLine("GET /bustime/api/v3/getdetours?rt={route}&rtdir={direction}")
-    CtaDetoursResponse getDetours(@Param String route, @Param String direction);
+    @RequestLine("GET /bustime/api/v3/getdetours?rt={routeId}&rtdir={direction}")
+    CtaDetoursResponse getDetours(@Param String routeId, @Param String direction);
 }

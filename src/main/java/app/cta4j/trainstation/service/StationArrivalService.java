@@ -27,6 +27,10 @@ public final class StationArrivalService {
     }
 
     public List<StationArrival> getArrivals(int stationId) {
+        if (stationId <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
         CtaArrivalsResponse response = this.ctaTrainApi.getArrivals(stationId);
 
         if (response == null) {
