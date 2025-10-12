@@ -31,7 +31,7 @@ dependencies {
     implementation("io.github.openfeign:feign-core:13.6")
     implementation("io.github.openfeign:feign-jackson:13.6")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13")
-    implementation("org.apache.commons:commons-lang3:3.18.0") //added to avoid springdoc vulnerability
+    implementation("org.apache.commons:commons-lang3:3.19.0") //added to avoid springdoc vulnerability
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.mockito:mockito-core:5.20.0")
     testImplementation("org.mockito:mockito-junit-jupiter:5.20.0")
