@@ -2,10 +2,7 @@ package app.cta4j.busroute.service;
 
 import app.cta4j.busroute.dto.Detour;
 import app.cta4j.busroute.mapper.DetourMapper;
-import app.cta4j.common.api.CtaBusApi;
-import app.cta4j.common.api.external.bus.detour.CtaDetour;
-import app.cta4j.common.api.external.bus.detour.CtaDetoursBustimeResponse;
-import app.cta4j.common.api.external.bus.detour.CtaDetoursResponse;
+import com.cta4j.client.BusClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,13 +13,13 @@ import java.util.Objects;
 
 @Service
 public final class DetourService {
-    private final CtaBusApi ctaBusApi;
+    private final BusClient busClient;
 
     private final DetourMapper detourMapper;
 
     @Autowired
-    public DetourService(CtaBusApi ctaBusApi, DetourMapper detourMapper) {
-        this.ctaBusApi = ctaBusApi;
+    public DetourService(BusClient busClient, DetourMapper detourMapper) {
+        this.busClient = busClient;
 
         this.detourMapper = detourMapper;
     }
@@ -32,19 +29,7 @@ public final class DetourService {
 
         Objects.requireNonNull(direction);
 
-        CtaDetoursResponse response = this.ctaBusApi.getDetours(routeId, direction);
-
-        if (response == null) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        CtaDetoursBustimeResponse bustimeResponse = response.bustimeResponse();
-
-        if (bustimeResponse == null) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        List<CtaDetour> detours = bustimeResponse.dtrs();
+        List<com.cta4j.model.bus.Detour> detours = this.busClient.getDetours(routeId, direction);
 
         if ((detours == null) || detours.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

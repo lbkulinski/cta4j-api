@@ -11,9 +11,9 @@ public record StopArrival(
 
     String stopName,
 
-    int stopId,
+    String stopId,
 
-    int vehicleId,
+    String vehicleId,
 
     BigInteger distanceToStop,
 
@@ -27,7 +27,7 @@ public record StopArrival(
 
     Instant arrivalTime,
 
-    boolean delayed
+    Boolean delayed
 ) {
     private static long minutesBetween(Instant from, Instant to) {
         long mins = Duration.between(from, to)

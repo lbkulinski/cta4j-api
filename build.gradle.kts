@@ -29,8 +29,7 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine:3.2.2")
     implementation("software.amazon.awssdk:dynamodb-enhanced")
     implementation("software.amazon.awssdk:secretsmanager")
-    implementation("io.github.openfeign:feign-core:13.6")
-    implementation("io.github.openfeign:feign-jackson:13.6")
+    implementation("com.cta4j:cta4j-java-sdk:1.3.0")
     implementation("org.mapstruct:mapstruct:1.6.3")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13")
     implementation("org.apache.commons:commons-lang3:3.18.0") //added to avoid springdoc vulnerability
