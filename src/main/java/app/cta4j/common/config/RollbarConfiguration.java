@@ -11,7 +11,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class RollbarConfiguration {
     @Bean
-    public Rollbar buildRollbar(Environment env, SecretService secretService){
+    public Rollbar buildRollbar(Environment env, SecretService secretService) {
         String accessToken = secretService.getSecret()
                                           .rollbar()
                                           .accessToken();
