@@ -1,58 +1,40 @@
 package app.cta4j.trainstation.service;
 
-import app.cta4j.common.api.CtaTrainApi;
 import app.cta4j.trainstation.dto.StationArrival;
-import app.cta4j.common.api.external.train.arrival.CtaArrivalsCtatt;
-import app.cta4j.common.api.external.train.arrival.CtaArrivalsEta;
-import app.cta4j.common.api.external.train.arrival.CtaArrivalsResponse;
 import app.cta4j.trainstation.mapper.StationArrivalMapper;
+import com.cta4j.client.TrainClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public final class StationArrivalService {
-    private final CtaTrainApi ctaTrainApi;
+    private final TrainClient trainClient;
 
     private final StationArrivalMapper stationArrivalMapper;
 
     @Autowired
-    public StationArrivalService(CtaTrainApi ctaTrainApi, StationArrivalMapper stationArrivalMapper) {
-        this.ctaTrainApi = ctaTrainApi;
+    public StationArrivalService(TrainClient trainClient, StationArrivalMapper stationArrivalMapper) {
+        this.trainClient = trainClient;
 
         this.stationArrivalMapper = stationArrivalMapper;
     }
 
-    public List<StationArrival> getArrivals(int stationId) {
-        if (stationId <= 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+    public List<StationArrival> getArrivals(String stationId) {
+        Objects.requireNonNull(stationId);
 
-        CtaArrivalsResponse response = this.ctaTrainApi.getArrivals(stationId);
+        List<com.cta4j.model.train.StationArrival> arrivals = this.trainClient.getStationArrivals(stationId);
 
-        if (response == null) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        CtaArrivalsCtatt ctatt = response.ctatt();
-
-        if (ctatt == null) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        List<CtaArrivalsEta> eta = ctatt.eta();
-
-        if ((eta == null) || eta.isEmpty()) {
+        if ((arrivals == null) || arrivals.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        List<StationArrival> arrivals = eta.stream()
-                                           .map(this.stationArrivalMapper::toDomain)
-                                           .toList();
-
-        return List.copyOf(arrivals);
+        return arrivals.stream()
+                       .map(this.stationArrivalMapper::toDomain)
+                       .toList();
     }
 }

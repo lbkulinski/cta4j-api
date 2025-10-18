@@ -2,7 +2,6 @@ package app.cta4j.trainstation.controller;
 
 import app.cta4j.trainstation.dto.StationArrival;
 import app.cta4j.trainstation.service.StationArrivalService;
-import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +21,7 @@ public final class StationArrivalController {
     }
 
     @GetMapping
-    public List<StationArrival> getArrivals(@PathVariable @Positive int stationId) {
+    public List<StationArrival> getArrivals(@PathVariable String stationId) {
         return this.stationArrivalService.getArrivals(stationId);
     }
 }

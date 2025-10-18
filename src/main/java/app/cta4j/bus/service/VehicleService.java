@@ -1,9 +1,15 @@
 package app.cta4j.bus.service;
 
-import app.cta4j.common.api.CtaBusApi;
+import com.cta4j.client.BusClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public final class VehicleService {
-    private final CtaBusApi ctaBusApi;
+    private final BusClient busClient;
+
+    @Autowired
+    public VehicleService(BusClient busClient) {
+        this.busClient = busClient;
+    }
 }

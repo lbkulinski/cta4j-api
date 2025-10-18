@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.enhanced.dynamodb.mapper.ImmutableTableSchema;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class StationService {
@@ -19,13 +17,9 @@ public class StationService {
 
     @Autowired
     public StationService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
-        Objects.requireNonNull(env);
-
-        Objects.requireNonNull(dynamoDbClient);
-
         String stationsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.stations");
 
-        ImmutableTableSchema<app.cta4j.trainstation.model.Station> stationsSchema = TableSchema.fromImmutableClass(app.cta4j.trainstation.model.Station.class);
+        var stationsSchema = TableSchema.fromImmutableClass(app.cta4j.trainstation.model.Station.class);
 
         this.stations = dynamoDbClient.table(stationsTableName, stationsSchema);
     }

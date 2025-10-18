@@ -8,35 +8,35 @@ import java.time.Duration;
 import java.time.Instant;
 
 public record StationArrival(
-    int stationId,
+    String stationId,
 
-    int stopId,
+    String stopId,
 
     String stationName,
 
     String stopDescription,
 
-    int run,
+    String run,
 
     TrainRoute route,
 
-    int destinationStopId,
+    String destinationStopId,
 
     String destinationName,
 
-    int direction,
+    Integer direction,
 
     Instant predictionTime,
 
     Instant arrivalTime,
 
-    boolean approaching,
+    Boolean approaching,
 
-    boolean scheduled,
+    Boolean scheduled,
 
-    boolean delayed,
+    Boolean delayed,
 
-    boolean faulted,
+    Boolean faulted,
 
     String flags,
 
@@ -44,7 +44,7 @@ public record StationArrival(
 
     BigDecimal longitude,
 
-    int heading
+    Integer heading
 ) {
     private static long minutesBetween(Instant from, Instant to) {
         long mins = Duration.between(from, to)

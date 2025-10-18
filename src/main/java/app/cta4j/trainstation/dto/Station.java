@@ -3,7 +3,7 @@ package app.cta4j.trainstation.dto;
 import java.util.Objects;
 
 public record Station(
-    int id,
+    String id,
 
     String name
 ) {

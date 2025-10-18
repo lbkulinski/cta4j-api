@@ -10,7 +10,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 @DynamoDbImmutable(builder = Station.StationBuilder.class)
 public class Station {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
-    int id;
+    String id;
 
     @Getter
     String name;
