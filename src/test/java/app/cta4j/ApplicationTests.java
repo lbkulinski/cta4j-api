@@ -1,7 +1,7 @@
 package app.cta4j;
 
-import app.cta4j.bus.client.BusApiClient;
-import app.cta4j.train.client.TrainApiClient;
+import com.cta4j.bus.client.BusClient;
+import com.cta4j.train.client.TrainClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -17,10 +17,10 @@ class ApplicationTests {
     DynamoDbEnhancedClient dynamoDbClient;
 
     @MockitoBean
-    BusApiClient busApiClient;
+    BusClient busClient;
 
     @MockitoBean
-    TrainApiClient trainApiClient;
+    TrainClient trainClient;
 
     @Test
     void contextLoads() {
