@@ -1,6 +1,6 @@
 package app.cta4j.trainstation.dto;
 
-import app.cta4j.secretsmanager.model.TrainRoute;
+import app.cta4j.common.model.TrainRoute;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.math.BigDecimal;

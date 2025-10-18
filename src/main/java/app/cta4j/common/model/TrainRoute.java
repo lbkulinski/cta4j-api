@@ -1,4 +1,4 @@
-package app.cta4j.secretsmanager.model;
+package app.cta4j.common.model;
 
 public enum TrainRoute {
     RED,

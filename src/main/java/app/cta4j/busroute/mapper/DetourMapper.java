@@ -17,7 +17,7 @@ public interface DetourMapper {
     @Mapping(target = "active", source = "active")
     @Mapping(target = "description", source = "description")
     @Mapping(target = "routeDirections", source = "routeDirections")
-    @Mapping(target = "startDate", source = "startDate")
-    @Mapping(target = "endDate", source = "endDate")
-    Detour toDomainDetour(com.cta4j.model.bus.Detour detour);
+    @Mapping(target = "startTime", source = "startTime")
+    @Mapping(target = "endTime", source = "endTime")
+    Detour toDomain(com.cta4j.model.bus.Detour detour);
 }

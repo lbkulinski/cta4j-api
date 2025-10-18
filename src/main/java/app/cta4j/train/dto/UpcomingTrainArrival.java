@@ -1,41 +1,41 @@
 package app.cta4j.train.dto;
 
-import app.cta4j.secretsmanager.model.TrainRoute;
+import app.cta4j.common.model.TrainRoute;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.time.Duration;
 import java.time.Instant;
 
 public record UpcomingTrainArrival(
-    int stationId,
+    String stationId,
 
-    int stopId,
+    String stopId,
 
     String stationName,
 
     String stopDescription,
 
-    int run,
+    String run,
 
     TrainRoute route,
 
-    int destinationStopId,
+    String destinationStopId,
 
     String destinationName,
 
-    int direction,
+    Integer direction,
 
     Instant predictionTime,
 
     Instant arrivalTime,
 
-    boolean approaching,
+    Boolean approaching,
 
-    boolean scheduled,
+    Boolean scheduled,
 
-    boolean delayed,
+    Boolean delayed,
 
-    boolean faulted,
+    Boolean faulted,
 
     String flags
 ) {

@@ -7,6 +7,6 @@ public record TrainCoordinates(
 
     BigDecimal longitude,
 
-    int heading
+    Integer heading
 ) {
 }

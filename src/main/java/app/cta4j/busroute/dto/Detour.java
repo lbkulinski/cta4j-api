@@ -14,8 +14,8 @@ public record Detour(
 
     List<DetourRouteDirection> routeDirections,
 
-    Instant startDate,
+    Instant startTime,
 
-    Instant endDate
+    Instant endTime
 ) {
 }

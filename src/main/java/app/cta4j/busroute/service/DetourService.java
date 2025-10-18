@@ -36,7 +36,7 @@ public final class DetourService {
         }
 
         return detours.stream()
-                      .map(this.detourMapper::toDomainDetour)
+                      .map(this.detourMapper::toDomain)
                       .toList();
     }
 }
