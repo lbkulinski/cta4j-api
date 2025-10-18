@@ -5,8 +5,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Objects;
-
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
     private static final String[] ALLOWED_ORIGINS;
@@ -30,8 +28,6 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(@NonNull CorsRegistry registry) {
-        Objects.requireNonNull(registry);
-
         registry.addMapping("/**")
                 .allowedOrigins(ALLOWED_ORIGINS)
                 .allowedMethods(ALLOWED_METHODS)

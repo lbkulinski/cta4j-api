@@ -9,8 +9,6 @@ import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
-import java.util.Objects;
-
 @Service
 public final class SecretService {
     private final Environment env;
@@ -21,11 +19,11 @@ public final class SecretService {
 
     @Autowired
     public SecretService(Environment env, SecretsManagerClient secretsManagerClient, ObjectMapper objectMapper) {
-        this.env = Objects.requireNonNull(env);
+        this.env = env;
 
-        this.secretsManagerClient = Objects.requireNonNull(secretsManagerClient);
+        this.secretsManagerClient = secretsManagerClient;
 
-        this.objectMapper = Objects.requireNonNull(objectMapper);
+        this.objectMapper = objectMapper;
     }
 
     public Secret getSecret() {

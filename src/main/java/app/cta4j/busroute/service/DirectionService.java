@@ -32,8 +32,6 @@ public class DirectionService {
     public List<String> getDirections(String routeId) {
         Objects.requireNonNull(routeId);
 
-        Objects.requireNonNull(routeId);
-
         Key key = Key.builder()
                      .partitionValue(routeId)
                      .build();
