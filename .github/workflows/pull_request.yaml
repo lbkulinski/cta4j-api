@@ -22,7 +22,5 @@ jobs:
         with:
           distribution: "corretto"
           java-version: "25"
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-      - name: Build with Gradle
-        run: ./gradlew clean build --no-daemon
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
