@@ -30,8 +30,9 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '25'
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
+      - name: Build JAR File
+        run: |
+          mvn clean package
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.3.1
         with:
