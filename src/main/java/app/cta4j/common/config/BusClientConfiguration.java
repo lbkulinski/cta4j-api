@@ -1,7 +1,7 @@
 package app.cta4j.common.config;
 
 import app.cta4j.secretsmanager.service.SecretService;
-import com.cta4j.client.BusClient;
+import com.cta4j.bus.client.BusClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +13,8 @@ public class BusClientConfiguration {
                                      .cta()
                                      .busApiKey();
 
-        return new BusClient(apiKey);
+        return BusClient.builder()
+                        .apiKey(apiKey)
+                        .build();
     }
 }

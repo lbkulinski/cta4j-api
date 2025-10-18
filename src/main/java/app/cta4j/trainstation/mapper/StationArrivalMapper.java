@@ -26,5 +26,5 @@ public interface StationArrivalMapper {
     @Mapping(target = "latitude", source = "latitude")
     @Mapping(target = "longitude", source = "longitude")
     @Mapping(target = "heading", source = "heading")
-    StationArrival toDomain(com.cta4j.model.train.StationArrival eta);
+    StationArrival toDomain(com.cta4j.train.model.StationArrival eta);
 }

@@ -1,6 +1,7 @@
 package app.cta4j.train.mapper;
 
 import app.cta4j.common.mapper.CtaMappingHelpers;
+import app.cta4j.train.dto.Train;
 import app.cta4j.train.dto.TrainCoordinates;
 import app.cta4j.train.dto.UpcomingTrainArrival;
 import org.mapstruct.Mapper;
@@ -11,7 +12,7 @@ public interface TrainMapper {
     @Mapping(target = "latitude", source = "latitude")
     @Mapping(target = "longitude", source = "longitude")
     @Mapping(target = "heading", source = "heading")
-    TrainCoordinates toDomainCoordinates(com.cta4j.model.train.TrainCoordinates coordinates);
+    TrainCoordinates toDomainCoordinates(com.cta4j.train.model.TrainCoordinates coordinates);
 
     @Mapping(target = "stationId", source = "stationId")
     @Mapping(target = "stopId", source = "stopId")
@@ -29,5 +30,9 @@ public interface TrainMapper {
     @Mapping(target = "delayed", source = "delayed")
     @Mapping(target = "faulted", source = "faulted")
     @Mapping(target = "flags", source = "flags")
-    UpcomingTrainArrival toDomainArrival(com.cta4j.model.train.UpcomingTrainArrival arrival);
+    UpcomingTrainArrival toDomainArrival(com.cta4j.train.model.UpcomingTrainArrival arrival);
+
+    @Mapping(target = "coordinates", source = "coordinates")
+    @Mapping(target = "arrivals", source = "arrivals")
+    Train toDomain(com.cta4j.train.model.Train train);
 }

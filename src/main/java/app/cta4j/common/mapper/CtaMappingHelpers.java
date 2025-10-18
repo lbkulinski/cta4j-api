@@ -2,7 +2,7 @@ package app.cta4j.common.mapper;
 
 import app.cta4j.busroute.dto.BusPredictionType;
 import app.cta4j.common.model.TrainRoute;
-import com.cta4j.model.train.Route;
+import com.cta4j.train.model.Route;
 import org.mapstruct.Named;
 
 public final class CtaMappingHelpers {
@@ -38,7 +38,7 @@ public final class CtaMappingHelpers {
     }
 
     @Named("toBusPredictionType")
-    public static BusPredictionType toBusPredictionType(com.cta4j.model.bus.BusPredictionType predictionType) {
+    public static BusPredictionType toBusPredictionType(com.cta4j.bus.model.BusPredictionType predictionType) {
         if (predictionType == null) {
             return null;
         }

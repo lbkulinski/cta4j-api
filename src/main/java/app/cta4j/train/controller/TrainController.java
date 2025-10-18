@@ -20,6 +20,6 @@ public final class TrainController {
 
     @GetMapping("/{run}")
     public Train getTrain(@PathVariable String run) {
-        return this.trainService.getLocation(run);
+        return this.trainService.getTrain(run);
     }
 }

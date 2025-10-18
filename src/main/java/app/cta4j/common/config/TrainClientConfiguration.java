@@ -1,7 +1,7 @@
 package app.cta4j.common.config;
 
 import app.cta4j.secretsmanager.service.SecretService;
-import com.cta4j.client.TrainClient;
+import com.cta4j.train.client.TrainClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +13,8 @@ public class TrainClientConfiguration {
                                      .cta()
                                      .trainApiKey();
 
-        return new TrainClient(apiKey);
+        return TrainClient.builder()
+                          .apiKey(apiKey)
+                          .build();
     }
 }
