@@ -2,6 +2,8 @@ spring:
   application:
     name: cta4j-api
 app:
+  rollbar:
+    environment: ${APP_ROLLBAR_ENVIRONMENT}
   aws:
     secrets-manager:
       secret-id: ${APP_AWS_SECRETS_MANAGER_SECRET_ID}
