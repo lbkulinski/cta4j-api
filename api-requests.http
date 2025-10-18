@@ -28,5 +28,5 @@ GET http://localhost:8080/api/stations
 GET http://localhost:8080/api/stations/{{stationId}}/arrivals
 
 ###
-@run = 433
+@run = 409
 GET http://localhost:8080/api/trains/{{run}}
