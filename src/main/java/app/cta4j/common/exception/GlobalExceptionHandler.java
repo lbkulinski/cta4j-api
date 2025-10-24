@@ -23,7 +23,7 @@ public final class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public void handleCta4jException(Cta4jException exception) {
+    public void handleException(Exception exception) {
         String message = "An exception occurred";
 
         log.error(message, exception);
