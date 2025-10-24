@@ -22,13 +22,13 @@ public final class GlobalExceptionHandler {
         this.rollbar = rollbar;
     }
 
+    @ExceptionHandler(ResponseStatusException.class)
+    public void handleException(ResponseStatusException exception) {
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleException(Exception exception) {
-        if (exception instanceof ResponseStatusException) {
-            return;
-        }
-
         String message = "An exception occurred";
 
         log.error(message, exception);
