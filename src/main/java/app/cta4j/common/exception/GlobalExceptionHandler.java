@@ -24,6 +24,7 @@ public final class GlobalExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public void handleException(ResponseStatusException exception) {
+        throw exception;
     }
 
     @ExceptionHandler(Exception.class)
