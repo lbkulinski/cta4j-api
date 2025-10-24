@@ -54,7 +54,6 @@ public record UpcomingTrainArrival(
     @NotNull
     Boolean faulted,
 
-    @NotNull
     String flags
 ) {
     public UpcomingTrainArrival {
