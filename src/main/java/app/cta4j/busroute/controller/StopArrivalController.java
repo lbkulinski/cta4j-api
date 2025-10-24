@@ -21,7 +21,7 @@ public final class StopArrivalController {
     }
 
     @GetMapping
-    public List<StopArrival> getArrivals(@PathVariable String routeId, @PathVariable String stopId) {
+    public List<StopArrival> getStopArrivals(@PathVariable String routeId, @PathVariable String stopId) {
         return this.stopArrivalService.getArrivals(routeId, stopId);
     }
 }

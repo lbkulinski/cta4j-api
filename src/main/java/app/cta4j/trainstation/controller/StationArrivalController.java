@@ -21,7 +21,7 @@ public final class StationArrivalController {
     }
 
     @GetMapping
-    public List<StationArrival> getArrivals(@PathVariable String stationId) {
+    public List<StationArrival> getStationArrivals(@PathVariable String stationId) {
         return this.stationArrivalService.getArrivals(stationId);
     }
 }

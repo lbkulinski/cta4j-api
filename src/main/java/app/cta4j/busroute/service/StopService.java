@@ -1,6 +1,7 @@
 package app.cta4j.busroute.service;
 
 import app.cta4j.busroute.dto.Stop;
+import app.cta4j.busroute.mapper.StopMapper;
 import app.cta4j.busroute.model.RouteStops;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,13 +21,17 @@ import java.util.Objects;
 public class StopService {
     private final DynamoDbTable<RouteStops> stops;
 
+    private final StopMapper stopMapper;
+
     @Autowired
-    public StopService(Environment env, DynamoDbEnhancedClient dynamoDbClient) {
+    public StopService(Environment env, DynamoDbEnhancedClient dynamoDbClient, StopMapper stopMapper) {
         String tableName = env.getRequiredProperty("app.aws.dynamodb.tables.route-stops");
 
         TableSchema<RouteStops> schema = TableSchema.fromImmutableClass(RouteStops.class);
 
         this.stops = dynamoDbClient.table(tableName, schema);
+
+        this.stopMapper = stopMapper;
     }
 
     @Cacheable("stops")
@@ -53,7 +58,7 @@ public class StopService {
         }
 
         return stops.stream()
-                    .map(Stop::from)
+                    .map(this.stopMapper::toDomain)
                     .toList();
     }
 }

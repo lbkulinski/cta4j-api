@@ -21,7 +21,7 @@ public final class DetourController {
     }
 
     @GetMapping
-    public List<Detour> getArrivals(@PathVariable String routeId, @PathVariable String direction) {
+    public List<Detour> getDetours(@PathVariable String routeId, @PathVariable String direction) {
         return this.detourService.getDetours(routeId, direction);
     }
 }
