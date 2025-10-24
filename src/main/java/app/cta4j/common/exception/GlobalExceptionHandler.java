@@ -21,10 +21,10 @@ public final class GlobalExceptionHandler {
         this.rollbar = rollbar;
     }
 
-    @ExceptionHandler(Cta4jException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleCta4jException(Cta4jException exception) {
-        String message = "A cta4j exception occurred";
+        String message = "An exception occurred";
 
         log.error(message, exception);
 
