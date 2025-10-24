@@ -86,8 +86,6 @@ public record UpcomingTrainArrival(
         Objects.requireNonNull(delayed);
 
         Objects.requireNonNull(faulted);
-
-        Objects.requireNonNull(flags);
     }
 
     private static long minutesBetween(Instant from, Instant to) {
