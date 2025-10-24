@@ -57,13 +57,10 @@ public record StationArrival(
 
     String flags,
 
-    @NotNull
     BigDecimal latitude,
 
-    @NotNull
     BigDecimal longitude,
 
-    @NotNull
     Integer heading
 ) {
     public StationArrival {
@@ -96,12 +93,6 @@ public record StationArrival(
         Objects.requireNonNull(delayed);
 
         Objects.requireNonNull(faulted);
-
-        Objects.requireNonNull(latitude);
-
-        Objects.requireNonNull(longitude);
-
-        Objects.requireNonNull(heading);
     }
 
     private static long minutesBetween(Instant from, Instant to) {
