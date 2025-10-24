@@ -1,15 +1,19 @@
 package app.cta4j.busroute.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Objects;
 
 public record Stop(
+    @NotNull
     String id,
 
+    @NotNull
     String name
 ) {
-    public static Stop from(app.cta4j.busroute.model.Stop stop) {
-        Objects.requireNonNull(stop);
+    public Stop {
+        Objects.requireNonNull(id);
 
-        return new Stop(stop.getId(), stop.getName());
+        Objects.requireNonNull(name);
     }
 }
