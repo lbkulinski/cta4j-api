@@ -1,6 +1,5 @@
 package app.cta4j.common.exception;
 
-import com.cta4j.exception.Cta4jException;
 import com.rollbar.notifier.Rollbar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 public final class GlobalExceptionHandler {
@@ -24,6 +24,11 @@ public final class GlobalExceptionHandler {
 
     @ExceptionHandler(ResponseStatusException.class)
     public void handleException(ResponseStatusException exception) {
+        throw exception;
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public void handleException(NoResourceFoundException exception) throws NoResourceFoundException {
         throw exception;
     }
 
