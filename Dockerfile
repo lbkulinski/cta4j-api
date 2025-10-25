@@ -1,10 +1,7 @@
-FROM alpine:latest
+FROM amazoncorretto:25-alpine3.19
 
-RUN apk add --no-cache openjdk21
-
-ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk
-
-RUN java -version
+ENV JAVA_TOOL_OPTIONS="-XX:InitialRAMPercentage=40 -XX:MaxRAMPercentage=60 -XX:+ExitOnOutOfMemoryError \
+  -XX:MaxMetaspaceSize=96m -XX:ReservedCodeCacheSize=64m"
 
 WORKDIR /app
 
@@ -12,4 +9,4 @@ COPY target/cta4j-api-0.0.1-SNAPSHOT.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
