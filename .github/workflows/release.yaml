@@ -21,7 +21,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -42,7 +42,7 @@ jobs:
       - name: Set JAR_FILE
         run: echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$GITHUB_ENV"
 
-      - name: Download build artifact
+      - name: Download JAR artifact
         uses: actions/download-artifact@v4
         with:
           name: cta4j-api-jar-${{ steps.ver.outputs.version }}

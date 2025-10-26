@@ -24,10 +24,10 @@ env:
 
 jobs:
   build:
-    name: Build
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -48,7 +48,7 @@ jobs:
         run: echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$GITHUB_ENV"
 
       - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
+        run: mvn -B -DskipTests=true clean package
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
