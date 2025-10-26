@@ -10,6 +10,7 @@ env:
   APP_AWS_DYNAMODB_TABLES_STATIONS: ${{ vars.APP_AWS_DYNAMODB_TABLES_STATIONS }}
   APP_CTA_API_TRAINS_BASE_URL: ${{ vars.APP_CTA_API_TRAINS_BASE_URL }}
   APP_CTA_API_BUSES_BASE_URL: ${{ vars.APP_CTA_API_BUSES_BASE_URL }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
 jobs:
   build:
     name: Build with Maven
@@ -17,6 +18,7 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
+
       - name: Cache Maven Dependencies
         uses: actions/cache@v4
         with:
@@ -24,10 +26,23 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+
       - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '25'
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4.3.1
+        with:
+          role-to-assume: arn:aws:iam::038462756529:role/cta4j-api-github-actions-role
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
       - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
+        run: mvn -B package --file pom.xml
