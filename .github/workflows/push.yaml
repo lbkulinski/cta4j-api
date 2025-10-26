@@ -42,6 +42,9 @@ jobs:
         run: |
           echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$GITHUB_ENV"
 
+      - name: Build with Maven
+        run: mvn -B package -DskipTests --file pom.xml
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.3.1
         with:
@@ -53,9 +56,6 @@ jobs:
         if: "!contains(steps.ver.outputs.version, 'SNAPSHOT')"
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
 
       - name: Build, tag, and push image to Amazon ECR
         if: "!contains(steps.ver.outputs.version, 'SNAPSHOT')"
