@@ -11,6 +11,9 @@ env:
   APP_CTA_API_TRAINS_BASE_URL: ${{ vars.APP_CTA_API_TRAINS_BASE_URL }}
   APP_CTA_API_BUSES_BASE_URL: ${{ vars.APP_CTA_API_BUSES_BASE_URL }}
   AWS_REGION: ${{ vars.AWS_REGION }}
+permissions:
+  id-token: write
+  contents: read
 jobs:
   build:
     name: Build with Maven
