@@ -17,7 +17,7 @@ env:
   ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
 permissions:
   id-token: write
-  contents: read
+  contents: write
 jobs:
   deploy:
     name: Deploy
