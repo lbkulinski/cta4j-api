@@ -1,0 +1,60 @@
+name: cta4j API - Build & Test
+
+on:
+  push:
+    branches: [ "main" ]
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  APP_AWS_SECRETS_MANAGER_SECRET_ID: ${{ vars.APP_AWS_SECRETS_MANAGER_SECRET_ID }}
+  APP_AWS_DYNAMODB_TABLES_ROUTES: ${{ vars.APP_AWS_DYNAMODB_TABLES_ROUTES }}
+  APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS: ${{ vars.APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS }}
+  APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS: ${{ vars.APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS }}
+  APP_AWS_DYNAMODB_TABLES_STATIONS: ${{ vars.APP_AWS_DYNAMODB_TABLES_STATIONS }}
+  APP_CTA_API_TRAINS_BASE_URL: ${{ vars.APP_CTA_API_TRAINS_BASE_URL }}
+  APP_CTA_API_BUSES_BASE_URL: ${{ vars.APP_CTA_API_BUSES_BASE_URL }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  ECR_REPOSITORY: ${{ vars.ECR_REPOSITORY }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: '25'
+
+      - name: Read project version from pom.xml
+        id: ver
+        run: |
+          VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:3.5.0:exec)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Set JAR_FILE
+        run: echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$GITHUB_ENV"
+
+      - name: Build with Maven
+        run: mvn -B package -DskipTests --file pom.xml
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cta4j-api-jar-${{ steps.ver.outputs.version }}
+          path: ${{ env.JAR_FILE }}
+          if-no-files-found: error
+          retention-days: 7
