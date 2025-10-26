@@ -70,8 +70,11 @@ jobs:
       - name: Set JAR_FILE
         run: echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$GITHUB_ENV"
 
-      - name: Build with Maven (release)
-        run: mvn -B package -DskipTests --file pom.xml
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: cta4j-api-jar
+          path: target/
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.3.1
