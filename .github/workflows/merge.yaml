@@ -38,22 +38,5 @@ jobs:
           distribution: corretto
           java-version: '25'
 
-      - name: Read project version from pom.xml
-        id: ver
-        run: |
-          VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:3.5.0:exec)
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Set JAR_FILE
-        run: echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$GITHUB_ENV"
-
       - name: Build with Maven
         run: mvn -B -DskipTests=true clean package
-
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: cta4j-api-jar-${{ steps.ver.outputs.version }}
-          path: ${{ env.JAR_FILE }}
-          if-no-files-found: error
-          retention-days: 7
