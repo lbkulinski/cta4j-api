@@ -5,7 +5,7 @@ ENV JAVA_TOOL_OPTIONS="-XX:InitialRAMPercentage=40 -XX:MaxRAMPercentage=60 -XX:+
 
 WORKDIR /app
 
-COPY target/cta4j-api-0.0.1-SNAPSHOT.jar app.jar
+COPY target/cta4j-api-*.jar app.jar
 
 EXPOSE 8080
 
