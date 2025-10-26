@@ -40,7 +40,7 @@ jobs:
 
       - name: Set JAR_FILE
         run: |
-          echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$
+          echo "JAR_FILE=target/cta4j-api-${{ steps.ver.outputs.version }}.jar" >> "$GITHUB_ENV"
 
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
