@@ -27,6 +27,12 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: '25'
+
       - name: Read project version from pom.xml
         id: ver
         run: |
