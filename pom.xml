@@ -10,24 +10,30 @@
     </parent>
     <groupId>app.cta4j</groupId>
     <artifactId>cta4j-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>cta4j-api</name>
-    <description>A REST API for the Chicago Transit Authority</description>
-    <url/>
+    <description>An improved API for the Chicago Transit Authority</description>
+    <url>https://cta4j.app</url>
     <licenses>
-        <license/>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
     </licenses>
     <developers>
-        <developer/>
+        <developer>
+            <name>Logan Kulinski</name>
+            <url>https://lbku.net</url>
+        </developer>
     </developers>
     <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
+        <url>https://github.com/lbkulinski/cta4j-api</url>
+        <connection>scm:git:https://github.com/lbkulinski/cta4j-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/lbkulinski/cta4j-api.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -117,6 +123,19 @@
     </dependencyManagement>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.42</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

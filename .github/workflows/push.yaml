@@ -25,23 +25,36 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Set up JDK 21
+
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
-          java-version: '21'
+          java-version: '25'
+
+      - name: Read project version from pom.xml
+        id: ver
+        run: |
+          VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive org.codehaus.mojo:exec-maven-plugin:3.5.0:exec)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.3.1
         with:
           role-to-assume: arn:aws:iam::038462756529:role/cta4j-api-github-actions-role
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: ${{ env.AWS_REGION }}
+
       - name: Login to Amazon ECR
+        if: "!contains(steps.ver.outputs.version, 'SNAPSHOT')"
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
+
       - name: Build, tag, and push image to Amazon ECR
+        if: "!contains(steps.ver.outputs.version, 'SNAPSHOT')"
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
@@ -52,3 +65,45 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Create tag if missing
+        if: "!contains(steps.ver.outputs.version, 'SNAPSHOT')"
+        run: |
+          TAG="v${{ steps.ver.outputs.version }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$TAG" -m "Release $TAG"
+            git push origin "$TAG"
+          fi
+
+      - name: Extract release notes from CHANGELOG.md
+        if: "!contains(steps.ver.outputs.version, 'SNAPSHOT')"
+        id: notes
+        run: |
+          VER="${{ steps.ver.outputs.version }}"
+
+          # Match either "## [VER]" or "## VER" and allow optional " - date" after the version
+          awk -v ver="$VER" 'BEGIN { regex="^##[[:space:]]+\\[?" ver "\\]?(\\s*-.*)?$" } $0 ~ regex {flag=1; next} flag && /^##[[:space:]]/ {flag=0} flag' CHANGELOG.md > RELEASE_NOTES.md || true
+
+          # Fallback if empty
+          if [ ! -s RELEASE_NOTES.md ]; then
+            echo "No changelog section found for ${VER}." > RELEASE_NOTES.md
+          fi
+
+          echo "path=RELEASE_NOTES.md" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release using CHANGELOG section
+        if: "!contains(steps.ver.outputs.version, 'SNAPSHOT')"
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          name: cta4j-api v${{ steps.ver.outputs.version }}
+          body_path: ${{ steps.notes.outputs.path }}
+          overwrite_files: true
+          files: |
+            target/cta4j-api-${{ steps.ver.outputs.version }}.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
