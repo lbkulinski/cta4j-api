@@ -13,4 +13,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of API.
 
-[Unreleased]: https://github.com/lbkulinski/cta4j-java-sdk/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.0...HEAD
