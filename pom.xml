@@ -10,7 +10,7 @@
     </parent>
     <groupId>app.cta4j</groupId>
     <artifactId>cta4j-api</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>cta4j-api</name>
     <description>An improved API for the Chicago Transit Authority</description>
     <url>https://cta4j.app</url>
