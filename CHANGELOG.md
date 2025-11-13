@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Removed `ch.qos.logback:logback-core` dependency.
+
 ## [1.0.2] - 2025-10-26
 
 ### Changed
