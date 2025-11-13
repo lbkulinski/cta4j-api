@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Bump `org.springdoc:springdoc-openapi-starter-webmvc-ui` from `2.8.13` to `2.8.14`.
 - Bump `software.amazon.awssdk:bom` from `2.35.10` to `2.38.2`.
 
+### Removed
+
+- Removed `ch.qos.logback:logback-core` dependency.
 ## [1.0.2] - 2025-10-26
 
 ### Changed
