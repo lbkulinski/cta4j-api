@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed LICENSE file copyright.
 - Bump `org.springframework.boot:spring-boot-starter-parent` from `3.5.7` to `4.0.0`.
 - Bump `org.springdoc:springdoc-openapi-starter-webmvc-ui` from `2.8.14` to `3.0.0`.
+- Bump `com.cta4j:cta4j-java-sdk` from `3.0.0` to `3.0.1`.
 - Bump `software.amazon.awssdk:bom` from `2.38.2` to `2.39.2`.
 
 ### Removed
