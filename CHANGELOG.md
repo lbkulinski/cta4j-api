@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.4] - 2025-11-28
+
+### Changed
+
+- Fixed LICENSE file copyright.
+- Bump `org.springframework.boot:spring-boot-starter-parent` from `3.5.7` to `4.0.0`.
+- Bump `org.springdoc:springdoc-openapi-starter-webmvc-ui` from `2.8.14` to `3.0.0`.
+- Bump `software.amazon.awssdk:bom` from `2.38.2` to `2.39.2`.
+
+### Removed
+
+- Removed `org.apache.commons:commons-lang3` dependency.
+
 ## [1.0.3] - 2025-11-13
 
 ### Changed
@@ -38,7 +51,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of API.
 
-[Unreleased]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.0...v1.0.1

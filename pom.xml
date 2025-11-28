@@ -10,7 +10,7 @@
     </parent>
     <groupId>app.cta4j</groupId>
     <artifactId>cta4j-api</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <name>cta4j-api</name>
     <description>An improved API for the Chicago Transit Authority</description>
     <url>https://cta4j.app</url>
@@ -92,12 +92,6 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>3.0.0</version>
-        </dependency>
-        <!-- Transitive dependency fix for springdoc-openapi-starter-webmvc-ui -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.20.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
