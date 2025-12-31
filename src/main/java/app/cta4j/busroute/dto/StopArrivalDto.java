@@ -1,26 +1,35 @@
-package app.cta4j.bus.dto;
+package app.cta4j.busroute.dto;
 
-import app.cta4j.busroute.dto.BusPredictionType;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.Instant;
 
-public record UpcomingBusArrival(
+public record StopArrivalDto(
     BusPredictionType predictionType,
+
     String stopName,
+
     String stopId,
+
     String vehicleId,
+
     BigInteger distanceToStop,
+
     String route,
+
     String routeDesignator,
+
     String routeDirection,
+
     String destination,
+
     Instant arrivalTime,
+
     Boolean delayed
 ) {
-    public UpcomingBusArrival {
+    public StopArrivalDto {
         if (predictionType == null) {
             throw new IllegalArgumentException("predictionType must not be null");
         }
@@ -66,13 +75,6 @@ public record UpcomingBusArrival(
         }
     }
 
-    private static long minutesBetween(Instant from, Instant to) {
-        long mins = Duration.between(from, to)
-                            .toMinutes();
-
-        return Math.max(mins, 0L);
-    }
-
     @JsonGetter("etaMinutes")
     public Long etaMinutes() {
         Instant now = Instant.now();
@@ -87,5 +89,12 @@ public record UpcomingBusArrival(
         long mins = minutesBetween(now, this.arrivalTime);
 
         return (mins <= 1) ? "Due" : mins + "m";
+    }
+
+    private static long minutesBetween(Instant from, Instant to) {
+        long mins = Duration.between(from, to)
+                            .toMinutes();
+
+        return Math.max(mins, 0L);
     }
 }

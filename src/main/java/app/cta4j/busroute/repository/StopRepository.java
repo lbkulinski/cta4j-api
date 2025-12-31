@@ -1,44 +1,45 @@
-package app.cta4j.busroute.service;
+package app.cta4j.busroute.repository;
 
-import app.cta4j.busroute.dto.Stop;
+import app.cta4j.busroute.dto.StopDto;
 import app.cta4j.busroute.mapper.StopMapper;
 import app.cta4j.busroute.model.RouteStops;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.core.env.Environment;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.stereotype.Repository;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
-import java.util.Objects;
 
-@Service
-public class StopService {
+@Repository
+public class StopRepository {
     private final DynamoDbTable<RouteStops> stops;
-
     private final StopMapper stopMapper;
 
     @Autowired
-    public StopService(Environment env, DynamoDbEnhancedClient dynamoDbClient, StopMapper stopMapper) {
-        String tableName = env.getRequiredProperty("app.aws.dynamodb.tables.route-stops");
-
+    public StopRepository(
+        DynamoDbEnhancedClient dynamoDbClient,
+        StopMapper stopMapper,
+        @Value("${app.aws.dynamodb.tables.route-stops}") String tableName
+    ) {
         TableSchema<RouteStops> schema = TableSchema.fromImmutableClass(RouteStops.class);
 
         this.stops = dynamoDbClient.table(tableName, schema);
-
         this.stopMapper = stopMapper;
     }
 
     @Cacheable("stops")
-    public List<Stop> getStops(String routeId, String direction) {
-        Objects.requireNonNull(routeId);
+    public List<StopDto> findAllByRouteIdAndDirection(String routeId, String direction) {
+        if (routeId == null) {
+            throw new IllegalArgumentException("routeId must not be null");
+        }
 
-        Objects.requireNonNull(direction);
+        if (direction == null) {
+            throw new IllegalArgumentException("direction must not be null");
+        }
 
         Key key = Key.builder()
                      .partitionValue(routeId)
@@ -48,13 +49,13 @@ public class StopService {
         RouteStops item = this.stops.getItem(key);
 
         if (item == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return List.of();
         }
 
         List<app.cta4j.busroute.model.Stop> stops = item.getStops();
 
         if ((stops == null) || stops.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return List.of();
         }
 
         return stops.stream()

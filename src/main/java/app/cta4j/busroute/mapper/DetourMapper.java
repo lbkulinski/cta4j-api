@@ -1,12 +1,14 @@
 package app.cta4j.busroute.mapper;
 
-import app.cta4j.busroute.dto.Detour;
-import app.cta4j.busroute.dto.DetourRouteDirection;
+import app.cta4j.busroute.dto.DetourDto;
+import app.cta4j.busroute.dto.DetourRouteDirectionDto;
+import com.cta4j.bus.model.Detour;
+import com.cta4j.bus.model.DetourRouteDirection;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface DetourMapper {
-    DetourRouteDirection toDomainDetourRouteDirection(com.cta4j.bus.model.DetourRouteDirection routeDirection);
+    DetourRouteDirectionDto toDomainDetourRouteDirection(DetourRouteDirection routeDirection);
 
-    Detour toDomain(com.cta4j.bus.model.Detour detour);
+    DetourDto toDomain(Detour detour);
 }

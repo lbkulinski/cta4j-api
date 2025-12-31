@@ -19,6 +19,5 @@ public class RouteStops {
     @Getter(onMethod_ = @DynamoDbSortKey)
     String direction;
 
-    @Getter
     List<Stop> stops;
 }

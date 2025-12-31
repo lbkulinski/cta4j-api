@@ -15,6 +15,5 @@ public class RouteDirections {
     @Getter(onMethod_ = @DynamoDbPartitionKey)
     String routeId;
 
-    @Getter
     List<String> directions;
 }

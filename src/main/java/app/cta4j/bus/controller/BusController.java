@@ -1,6 +1,6 @@
 package app.cta4j.bus.controller;
 
-import app.cta4j.bus.dto.Bus;
+import app.cta4j.bus.dto.BusDto;
 import app.cta4j.bus.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,12 +19,12 @@ public final class BusController {
     }
 
     @GetMapping("/{id}")
-    public Bus getBus(@PathVariable String id) {
+    public BusDto getBus(@PathVariable String id) {
         return this.busService.getBus(id);
     }
 
     @GetMapping(value = "/{id}", version = "1")
-    public Bus getBusV1(@PathVariable String id) {
+    public BusDto getBusV1(@PathVariable String id) {
         return this.busService.getBus(id);
     }
 }

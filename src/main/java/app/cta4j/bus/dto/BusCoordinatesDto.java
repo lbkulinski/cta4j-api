@@ -2,12 +2,14 @@ package app.cta4j.bus.dto;
 
 import java.math.BigDecimal;
 
-public record BusCoordinates(
+public record BusCoordinatesDto(
     BigDecimal latitude,
+
     BigDecimal longitude,
+
     Integer heading
 ) {
-    public BusCoordinates {
+    public BusCoordinatesDto {
         if (latitude == null) {
             throw new IllegalArgumentException("latitude must not be null");
         }

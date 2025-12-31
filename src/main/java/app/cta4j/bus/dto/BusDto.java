@@ -2,15 +2,20 @@ package app.cta4j.bus.dto;
 
 import java.util.List;
 
-public record Bus(
+public record BusDto(
     String id,
+
     String route,
+
     String destination,
+
     Boolean delayed,
-    BusCoordinates coordinates,
-    List<UpcomingBusArrival> arrivals
+
+    BusCoordinatesDto coordinates,
+
+    List<UpcomingBusArrivalDto> arrivals
 ) {
-    public Bus {
+    public BusDto {
         if (id == null) {
             throw new IllegalArgumentException("id must not be null");
         }
@@ -35,7 +40,7 @@ public record Bus(
             throw new IllegalArgumentException("arrivals must not be null");
         }
 
-        for (UpcomingBusArrival arrival : arrivals) {
+        for (UpcomingBusArrivalDto arrival : arrivals) {
             if (arrival == null) {
                 throw new IllegalArgumentException("arrivals must not contain null elements");
             }
