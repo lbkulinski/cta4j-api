@@ -36,7 +36,7 @@ public final class StopArrivalService {
 
         List<StopArrival> arrivals = this.busClient.getStopArrivals(route, stopId);
 
-        if ((arrivals == null) || arrivals.isEmpty()) {
+        if (arrivals == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 

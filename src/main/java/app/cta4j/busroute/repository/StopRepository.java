@@ -3,6 +3,7 @@ package app.cta4j.busroute.repository;
 import app.cta4j.busroute.dto.StopDto;
 import app.cta4j.busroute.mapper.StopMapper;
 import app.cta4j.busroute.model.RouteStops;
+import app.cta4j.busroute.model.Stop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,6 +14,7 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class StopRepository {
@@ -32,7 +34,7 @@ public class StopRepository {
     }
 
     @Cacheable("stops")
-    public List<StopDto> findAllByRouteIdAndDirection(String routeId, String direction) {
+    public Optional<List<StopDto>> findAllByRouteIdAndDirection(String routeId, String direction) {
         if (routeId == null) {
             throw new IllegalArgumentException("routeId must not be null");
         }
@@ -49,17 +51,19 @@ public class StopRepository {
         RouteStops item = this.stops.getItem(key);
 
         if (item == null) {
-            return List.of();
+            return Optional.empty();
         }
 
-        List<app.cta4j.busroute.model.Stop> stops = item.getStops();
+        List<Stop> stops = item.getStops();
 
-        if ((stops == null) || stops.isEmpty()) {
-            return List.of();
+        if (stops.isEmpty()) {
+            return Optional.of(List.of());
         }
 
-        return stops.stream()
-                    .map(this.stopMapper::toDomain)
-                    .toList();
+        List<StopDto> stopDtos =  stops.stream()
+                                       .map(this.stopMapper::toDomain)
+                                       .toList();
+
+        return Optional.of(stopDtos);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public final class DirectoryService {
@@ -32,10 +33,6 @@ public final class DirectoryService {
     public List<RouteDto> getRoutes() {
         List<RouteDto> routes = this.routeRepository.findAll();
 
-        if (routes.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
         return List.copyOf(routes);
     }
 
@@ -44,11 +41,13 @@ public final class DirectoryService {
             throw new IllegalArgumentException("routeId must not be null");
         }
 
-        List<String> directions = this.directionRepository.findAllByRouteId(routeId);
+        Optional<List<String>> optionalDirections = this.directionRepository.findAllByRouteId(routeId);
 
-        if (directions.isEmpty()) {
+        if (optionalDirections.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
+        List<String> directions = optionalDirections.get();
 
         return List.copyOf(directions);
     }
@@ -62,11 +61,13 @@ public final class DirectoryService {
             throw new IllegalArgumentException("direction must not be null");
         }
 
-        List<StopDto> stops = this.stopRepository.findAllByRouteIdAndDirection(routeId, direction);
+        Optional<List<StopDto>> optionalStops = this.stopRepository.findAllByRouteIdAndDirection(routeId, direction);
 
-        if (stops.isEmpty()) {
+        if (optionalStops.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
+        List<StopDto> stops = optionalStops.get();
 
         return List.copyOf(stops);
     }

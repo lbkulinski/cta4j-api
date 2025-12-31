@@ -36,7 +36,7 @@ public final class DetourService {
 
         List<Detour> detours = this.busClient.getDetours(routeId, direction);
 
-        if ((detours == null) || detours.isEmpty()) {
+        if (detours == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
