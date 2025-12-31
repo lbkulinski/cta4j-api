@@ -27,7 +27,7 @@ public class DirectionRepository {
         this.routeDirections = dynamoDbClient.table(tableName, schema);
     }
 
-    @Cacheable("directions")
+    @Cacheable(value = "directions", key = "#routeId")
     public Optional<List<String>> findAllByRouteId(String routeId) {
         if (routeId == null) {
             throw new IllegalArgumentException("routeId must not be null");

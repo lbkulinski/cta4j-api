@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RollbarConfiguration {
+public class RollbarConfig {
     private final AwsSecretsClient awsSecretsClient;
 
     private final String environment;
     private final String codeVersion;
 
-    public RollbarConfiguration(
+    public RollbarConfig(
         AwsSecretsClient awsSecretsClient,
         @Value("${app.rollbar.environment}") String environment,
         @Value("${app.rollbar.code-version}") String codeVersion

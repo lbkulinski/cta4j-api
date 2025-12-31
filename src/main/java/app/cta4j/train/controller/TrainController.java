@@ -1,6 +1,6 @@
 package app.cta4j.train.controller;
 
-import app.cta4j.train.dto.Train;
+import app.cta4j.train.dto.TrainDto;
 import app.cta4j.train.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,12 @@ public final class TrainController {
     }
 
     @GetMapping("/{run}")
-    public Train getTrain(@PathVariable String run) {
+    public TrainDto getTrain(@PathVariable String run) {
+        return this.trainService.getTrain(run);
+    }
+
+    @GetMapping(value = "/{run}", version = "1")
+    public TrainDto getTrainV1(@PathVariable String run) {
         return this.trainService.getTrain(run);
     }
 }

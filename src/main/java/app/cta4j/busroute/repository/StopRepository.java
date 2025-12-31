@@ -33,7 +33,7 @@ public class StopRepository {
         this.stopMapper = stopMapper;
     }
 
-    @Cacheable("stops")
+    @Cacheable(value = "stops", key = "#routeId + '_' + #direction")
     public Optional<List<StopDto>> findAllByRouteIdAndDirection(String routeId, String direction) {
         if (routeId == null) {
             throw new IllegalArgumentException("routeId must not be null");

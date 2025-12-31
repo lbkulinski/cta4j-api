@@ -30,7 +30,7 @@ public class RouteRepository {
         this.routeMapper = routeMapper;
     }
 
-    @Cacheable("routes")
+    @Cacheable(value = "routes", key = "'all'")
     public List<RouteDto> findAll() {
         return routes.scan()
                      .items()
