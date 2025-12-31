@@ -4,7 +4,9 @@ spring:
 app:
   rollbar:
     environment: ${APP_ROLLBAR_ENVIRONMENT}
+    code-version: ${APP_ROLLBAR_CODE_VERSION}
   aws:
+    region: ${APP_AWS_REGION}
     secrets-manager:
       secret-id: ${APP_AWS_SECRETS_MANAGER_SECRET_ID}
     dynamodb:
@@ -13,9 +15,18 @@ app:
         route-directions: ${APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS}
         route-stops: ${APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS}
         stations: ${APP_AWS_DYNAMODB_TABLES_STATIONS}
-  cta:
-    api:
-      trains:
-        base-url: ${APP_CTA_API_TRAINS_BASE_URL}
-      buses:
-        base-url: ${APP_CTA_API_BUSES_BASE_URL}
+  cors:
+    allowed-origins:
+      - https://cta4j.app
+      - https://www.cta4j.app
+      - https://cta4j.com
+      - https://www.cta4j.com
+      - https://chat.openai.com
+    allowed-methods:
+      - GET
+      - OPTIONS
+    allowed-headers:
+      - Authorization
+      - Content-Type
+      - Accept
+      - Origin

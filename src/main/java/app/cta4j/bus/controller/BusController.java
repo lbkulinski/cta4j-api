@@ -22,4 +22,9 @@ public final class BusController {
     public Bus getBus(@PathVariable String id) {
         return this.busService.getBus(id);
     }
+
+    @GetMapping(value = "/{id}", version = "1")
+    public Bus getBusV1(@PathVariable String id) {
+        return this.busService.getBus(id);
+    }
 }

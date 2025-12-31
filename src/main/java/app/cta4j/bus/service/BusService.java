@@ -14,13 +14,14 @@ import java.util.Optional;
 @Service
 public final class BusService {
     private final BusClient busClient;
-
     private final BusMapper busMapper;
 
     @Autowired
-    public BusService(BusClient busClient, BusMapper busMapper) {
+    public BusService(
+        BusClient busClient,
+        BusMapper busMapper
+    ) {
         this.busClient = busClient;
-
         this.busMapper = busMapper;
     }
 

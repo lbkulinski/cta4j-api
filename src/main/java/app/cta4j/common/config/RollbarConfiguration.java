@@ -1,25 +1,39 @@
 package app.cta4j.common.config;
 
-import app.cta4j.secretsmanager.service.SecretService;
+import app.cta4j.aws.client.AwsSecretsClient;
 import com.rollbar.notifier.Rollbar;
 import com.rollbar.notifier.config.Config;
 import com.rollbar.notifier.config.ConfigBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 @Configuration
 public class RollbarConfiguration {
-    @Bean
-    public Rollbar buildRollbar(Environment env, SecretService secretService) {
-        String accessToken = secretService.getSecret()
-                                          .rollbar()
-                                          .accessToken();
+    private final AwsSecretsClient awsSecretsClient;
 
-        String environment = env.getRequiredProperty("app.rollbar.environment");
+    private final String environment;
+    private final String codeVersion;
+
+    public RollbarConfiguration(
+        AwsSecretsClient awsSecretsClient,
+        @Value("${app.rollbar.environment}") String environment,
+        @Value("${app.rollbar.code-version}") String codeVersion
+    ) {
+        this.awsSecretsClient = awsSecretsClient;
+        this.environment = environment;
+        this.codeVersion = codeVersion;
+    }
+
+    @Bean
+    public Rollbar rollbar() {
+        String accessToken = this.awsSecretsClient.getAppSecret()
+                                                  .rollbar()
+                                                  .accessToken();
 
         Config config = ConfigBuilder.withAccessToken(accessToken)
-                                     .environment(environment)
+                                     .environment(this.environment)
+                                     .codeVersion(this.codeVersion)
                                      .build();
 
         return Rollbar.init(config);

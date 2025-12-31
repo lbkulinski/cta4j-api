@@ -1,40 +1,44 @@
 package app.cta4j.bus.dto;
 
-import jakarta.validation.constraints.NotNull;
-
 import java.util.List;
-import java.util.Objects;
 
 public record Bus(
-    @NotNull
     String id,
-
-    @NotNull
     String route,
-
-    @NotNull
     String destination,
-
-    @NotNull
     Boolean delayed,
-
-    @NotNull
     BusCoordinates coordinates,
-
-    @NotNull
     List<UpcomingBusArrival> arrivals
 ) {
     public Bus {
-        Objects.requireNonNull(id);
+        if (id == null) {
+            throw new IllegalArgumentException("id must not be null");
+        }
 
-        Objects.requireNonNull(route);
+        if (route == null) {
+            throw new IllegalArgumentException("route must not be null");
+        }
 
-        Objects.requireNonNull(destination);
+        if (destination == null) {
+            throw new IllegalArgumentException("destination must not be null");
+        }
 
-        Objects.requireNonNull(delayed);
+        if (delayed == null) {
+            throw new IllegalArgumentException("delayed must not be null");
+        }
 
-        Objects.requireNonNull(coordinates);
+        if (coordinates == null) {
+            throw new IllegalArgumentException("coordinates must not be null");
+        }
 
-        Objects.requireNonNull(arrivals);
+        if (arrivals == null) {
+            throw new IllegalArgumentException("arrivals must not be null");
+        }
+
+        for (UpcomingBusArrival arrival : arrivals) {
+            if (arrival == null) {
+                throw new IllegalArgumentException("arrivals must not contain null elements");
+            }
+        }
     }
 }

@@ -2,69 +2,68 @@ package app.cta4j.bus.dto;
 
 import app.cta4j.busroute.dto.BusPredictionType;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import jakarta.validation.constraints.NotNull;
 
 import java.math.BigInteger;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Objects;
 
 public record UpcomingBusArrival(
-    @NotNull
     BusPredictionType predictionType,
-
-    @NotNull
     String stopName,
-
-    @NotNull
     String stopId,
-
-    @NotNull
     String vehicleId,
-
-    @NotNull
     BigInteger distanceToStop,
-
-    @NotNull
     String route,
-
-    @NotNull
     String routeDesignator,
-
-    @NotNull
     String routeDirection,
-
-    @NotNull
     String destination,
-
-    @NotNull
     Instant arrivalTime,
-
-    @NotNull
     Boolean delayed
 ) {
     public UpcomingBusArrival {
-        Objects.requireNonNull(predictionType);
+        if (predictionType == null) {
+            throw new IllegalArgumentException("predictionType must not be null");
+        }
 
-        Objects.requireNonNull(stopName);
+        if (stopName == null) {
+            throw new IllegalArgumentException("stopName must not be null");
+        }
 
-        Objects.requireNonNull(stopId);
+        if (stopId == null) {
+            throw new IllegalArgumentException("stopId must not be null");
+        }
 
-        Objects.requireNonNull(vehicleId);
+        if (vehicleId == null) {
+            throw new IllegalArgumentException("vehicleId must not be null");
+        }
 
-        Objects.requireNonNull(distanceToStop);
+        if (distanceToStop == null) {
+            throw new IllegalArgumentException("distanceToStop must not be null");
+        }
 
-        Objects.requireNonNull(route);
+        if (route == null) {
+            throw new IllegalArgumentException("route must not be null");
+        }
 
-        Objects.requireNonNull(routeDesignator);
+        if (routeDesignator == null) {
+            throw new IllegalArgumentException("routeDesignator must not be null");
+        }
 
-        Objects.requireNonNull(routeDirection);
+        if (routeDirection == null) {
+            throw new IllegalArgumentException("routeDirection must not be null");
+        }
 
-        Objects.requireNonNull(destination);
+        if (destination == null) {
+            throw new IllegalArgumentException("destination must not be null");
+        }
 
-        Objects.requireNonNull(arrivalTime);
+        if (arrivalTime == null) {
+            throw new IllegalArgumentException("arrivalTime must not be null");
+        }
 
-        Objects.requireNonNull(delayed);
+        if (delayed == null) {
+            throw new IllegalArgumentException("delayed must not be null");
+        }
     }
 
     private static long minutesBetween(Instant from, Instant to) {
@@ -74,7 +73,6 @@ public record UpcomingBusArrival(
         return Math.max(mins, 0L);
     }
 
-    @NotNull
     @JsonGetter("etaMinutes")
     public Long etaMinutes() {
         Instant now = Instant.now();
@@ -82,7 +80,6 @@ public record UpcomingBusArrival(
         return minutesBetween(now, this.arrivalTime);
     }
 
-    @NotNull
     @JsonGetter("etaLabel")
     public String etaLabel() {
         Instant now = Instant.now();

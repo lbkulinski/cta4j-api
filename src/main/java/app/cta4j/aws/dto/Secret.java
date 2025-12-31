@@ -1,10 +1,8 @@
-package app.cta4j.secretsmanager.dto;
+package app.cta4j.aws.dto;
 
 public record Secret(
     RollbarSecret rollbar,
-
     MetroSecret metro,
-
     CtaSecret cta
 ) {
     public record RollbarSecret(String accessToken) {}
