@@ -6,7 +6,7 @@ app:
     environment: ${APP_ROLLBAR_ENVIRONMENT}
     code-version: ${APP_ROLLBAR_CODE_VERSION}
   aws:
-    region: ${APP_AWS_REGION}
+    region: ${AWS_REGION}
     secrets-manager:
       secret-id: ${APP_AWS_SECRETS_MANAGER_SECRET_ID}
     dynamodb:

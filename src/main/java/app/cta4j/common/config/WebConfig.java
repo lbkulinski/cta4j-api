@@ -32,9 +32,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(false)
                 .maxAge(3600);
     }
-
-    @Override
-    public void configureApiVersioning(ApiVersionConfigurer configurer) {
-        configurer.useRequestHeader("API-Version");
-    }
 }
