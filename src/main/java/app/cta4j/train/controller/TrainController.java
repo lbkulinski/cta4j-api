@@ -22,9 +22,4 @@ public final class TrainController {
     public TrainDto getTrain(@PathVariable String run) {
         return this.trainService.getTrain(run);
     }
-
-    @GetMapping(value = "/{run}", version = "1")
-    public TrainDto getTrainV1(@PathVariable String run) {
-        return this.trainService.getTrain(run);
-    }
 }

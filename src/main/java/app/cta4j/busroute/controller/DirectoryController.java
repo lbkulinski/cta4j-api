@@ -35,19 +35,4 @@ public final class DirectoryController {
     public List<StopDto> getStops(@PathVariable String routeId, @PathVariable String direction) {
         return this.directoryService.getStops(routeId, direction);
     }
-
-    @GetMapping(version = "1")
-    public List<RouteDto> getRoutesV1() {
-        return this.directoryService.getRoutes();
-    }
-
-    @GetMapping(value = "/{routeId}/directions", version = "1")
-    public List<String> getDirectionsV1(@PathVariable String routeId) {
-        return this.directoryService.getDirections(routeId);
-    }
-
-    @GetMapping(value = "/{routeId}/directions/{direction}/stops", version = "1")
-    public List<StopDto> getStopsV1(@PathVariable String routeId, @PathVariable String direction) {
-        return this.directoryService.getStops(routeId, direction);
-    }
 }

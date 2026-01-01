@@ -30,3 +30,10 @@ app:
       - Content-Type
       - Accept
       - Origin
+  cache:
+    names:
+      - routes
+      - directions
+      - stops
+      - stations
+    ttl-seconds: ${APP_CACHE_TTL_SECONDS:86400}

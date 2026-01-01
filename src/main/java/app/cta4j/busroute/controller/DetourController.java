@@ -24,9 +24,4 @@ public final class DetourController {
     public List<DetourDto> getDetours(@PathVariable String routeId, @PathVariable String direction) {
         return this.detourService.getDetours(routeId, direction);
     }
-
-    @GetMapping(version = "1")
-    public List<DetourDto> getDetoursV1(@PathVariable String routeId, @PathVariable String direction) {
-        return this.detourService.getDetours(routeId, direction);
-    }
 }

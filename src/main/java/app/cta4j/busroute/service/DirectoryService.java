@@ -49,8 +49,11 @@ public final class DirectoryService {
             throw new IllegalArgumentException("routeId must not be null");
         }
 
-        return this.directionRepository.findAllByRouteId(routeId)
-                                       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (!this.routeRepository.existsById(routeId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        return this.directionRepository.findAllByRouteId(routeId);
     }
 
     public List<StopDto> getStops(String routeId, String direction) {
@@ -62,8 +65,11 @@ public final class DirectoryService {
             throw new IllegalArgumentException("direction must not be null");
         }
 
+        if (!this.directionRepository.existsByRouteIdAndDirection(routeId, direction)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
         return this.stopRepository.findAllByRouteIdAndDirection(routeId, direction)
-                                  .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND))
                                   .stream()
                                   .map(this.stopMapper::toDomain)
                                   .toList();

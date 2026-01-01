@@ -1,6 +1,6 @@
-package app.cta4j.busroute.repository;
+package app.cta4j.trainstation.repository;
 
-import app.cta4j.busroute.model.Route;
+import app.cta4j.trainstation.model.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,17 +13,17 @@ import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import java.util.List;
 
 @Repository
-public class RouteRepository {
-    private final DynamoDbTable<Route> routes;
+public class StationRepository {
+    private final DynamoDbTable<Station> stations;
 
     @Autowired
-    public RouteRepository(
+    public StationRepository(
         DynamoDbEnhancedClient dynamoDbClient,
-        @Value("${app.aws.dynamodb.tables.routes}") String tableName
+        @Value("${app.aws.dynamodb.tables.stations}") String tableName
     ) {
-        TableSchema<Route> schema = TableSchema.fromImmutableClass(Route.class);
+        TableSchema<Station> tableSchema = TableSchema.fromImmutableClass(Station.class);
 
-        this.routes = dynamoDbClient.table(tableName, schema);
+        this.stations = dynamoDbClient.table(tableName, tableSchema);
     }
 
     public boolean existsById(String id) {
@@ -35,16 +35,16 @@ public class RouteRepository {
                      .partitionValue(id)
                      .build();
 
-        Route item = this.routes.getItem(key);
+        Station item = this.stations.getItem(key);
 
         return item != null;
     }
 
-    @Cacheable(value = "routes", key = "'all'")
-    public List<Route> findAll() {
-        return routes.scan()
-                     .items()
-                     .stream()
-                     .toList();
+    @Cacheable("stations")
+    public List<Station> findAll() {
+        return this.stations.scan()
+                            .items()
+                            .stream()
+                            .toList();
     }
 }

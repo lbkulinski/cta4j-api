@@ -11,7 +11,6 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class DirectionRepository {
@@ -27,8 +26,32 @@ public class DirectionRepository {
         this.routeDirections = dynamoDbClient.table(tableName, schema);
     }
 
+    public boolean existsByRouteIdAndDirection(String routeId, String direction) {
+        if (routeId == null) {
+            throw new IllegalArgumentException("routeId must not be null");
+        }
+
+        if (direction == null) {
+            throw new IllegalArgumentException("direction must not be null");
+        }
+
+        Key key = Key.builder()
+                     .partitionValue(routeId)
+                     .build();
+
+        RouteDirections item = this.routeDirections.getItem(key);
+
+        if (item == null) {
+            return false;
+        }
+
+        List<String> directions = item.getDirections();
+
+        return directions.contains(direction);
+    }
+
     @Cacheable(value = "directions", key = "#routeId")
-    public Optional<List<String>> findAllByRouteId(String routeId) {
+    public List<String> findAllByRouteId(String routeId) {
         if (routeId == null) {
             throw new IllegalArgumentException("routeId must not be null");
         }
@@ -40,12 +63,11 @@ public class DirectionRepository {
         RouteDirections item = this.routeDirections.getItem(key);
 
         if (item == null) {
-            return Optional.empty();
+            return List.of();
         }
 
         List<String> directions = item.getDirections();
-        List<String> copy = List.copyOf(directions);
 
-        return Optional.of(copy);
+        return List.copyOf(directions);
     }
 }

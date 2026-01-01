@@ -1,6 +1,8 @@
 package app.cta4j.common.config;
 
+import app.cta4j.common.config.properties.CacheProperties;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
@@ -13,25 +15,29 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableCaching
 public class CacheConfig {
-    private static final List<String> CACHE_NAMES = List.of(
-        "routes",
-        "directions",
-        "stops",
-        "stations"
-    );
+    private final CacheProperties cacheProperties;
+
+    @Autowired
+    public CacheConfig(CacheProperties cacheProperties) {
+        this.cacheProperties = cacheProperties;
+    }
 
     @Bean
     public Caffeine<Object, Object> caffeine() {
+        long ttlSeconds = this.cacheProperties.getTtlSeconds();
+
         return Caffeine.newBuilder()
-                       .expireAfterAccess(1L, TimeUnit.DAYS);
+                       .expireAfterAccess(ttlSeconds, TimeUnit.SECONDS);
     }
 
     @Bean
     public CacheManager cacheManager(Caffeine<Object, Object> caffeine) {
+        List<String> cacheNames = this.cacheProperties.getNames();
+
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
 
         cacheManager.setCaffeine(caffeine);
-        cacheManager.setCacheNames(CACHE_NAMES);
+        cacheManager.setCacheNames(cacheNames);
 
         return cacheManager;
     }

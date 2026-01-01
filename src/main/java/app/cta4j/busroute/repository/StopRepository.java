@@ -12,7 +12,6 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class StopRepository {
@@ -29,7 +28,7 @@ public class StopRepository {
     }
 
     @Cacheable(value = "stops", key = "#routeId + '_' + #direction")
-    public Optional<List<Stop>> findAllByRouteIdAndDirection(String routeId, String direction) {
+    public List<Stop> findAllByRouteIdAndDirection(String routeId, String direction) {
         if (routeId == null) {
             throw new IllegalArgumentException("routeId must not be null");
         }
@@ -46,12 +45,11 @@ public class StopRepository {
         RouteStops item = this.stops.getItem(key);
 
         if (item == null) {
-            return Optional.empty();
+            return List.of();
         }
 
         List<Stop> stops = item.getStops();
-        List<Stop> copy = List.copyOf(stops);
 
-        return Optional.of(copy);
+        return List.copyOf(stops);
     }
 }
