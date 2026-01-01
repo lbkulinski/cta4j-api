@@ -1,6 +1,6 @@
 package app.cta4j.trainstation.controller;
 
-import app.cta4j.trainstation.dto.StationArrival;
+import app.cta4j.trainstation.dto.StationArrivalDto;
 import app.cta4j.trainstation.service.StationArrivalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public final class StationArrivalController {
     }
 
     @GetMapping
-    public List<StationArrival> getStationArrivals(@PathVariable String stationId) {
+    public List<StationArrivalDto> getStationArrivals(@PathVariable String stationId) {
         return this.stationArrivalService.getArrivals(stationId);
     }
 }

@@ -4,14 +4,14 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
-public record Station(
+public record StationDto(
     @NotNull
     String id,
 
     @NotNull
     String name
 ) {
-    public Station {
+    public StationDto {
         Objects.requireNonNull(id);
 
         Objects.requireNonNull(name);

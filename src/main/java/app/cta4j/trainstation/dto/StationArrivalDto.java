@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 
-public record StationArrival(
+public record StationArrivalDto(
     @NotNull
     String stationId,
 
@@ -63,7 +63,7 @@ public record StationArrival(
 
     Integer heading
 ) {
-    public StationArrival {
+    public StationArrivalDto {
         Objects.requireNonNull(stationId);
 
         Objects.requireNonNull(stopId);

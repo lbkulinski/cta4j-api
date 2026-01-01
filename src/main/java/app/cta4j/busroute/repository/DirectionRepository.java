@@ -44,11 +44,8 @@ public class DirectionRepository {
         }
 
         List<String> directions = item.getDirections();
+        List<String> copy = List.copyOf(directions);
 
-        if (directions.isEmpty()) {
-            return Optional.of(List.of());
-        }
-
-        return Optional.of(List.copyOf(directions));
+        return Optional.of(copy);
     }
 }

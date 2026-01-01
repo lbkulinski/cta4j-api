@@ -1,6 +1,6 @@
 package app.cta4j.trainstation.service;
 
-import app.cta4j.trainstation.dto.StationArrival;
+import app.cta4j.trainstation.dto.StationArrivalDto;
 import app.cta4j.trainstation.mapper.StationArrivalMapper;
 import com.cta4j.train.client.TrainClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public final class StationArrivalService {
         this.stationArrivalMapper = stationArrivalMapper;
     }
 
-    public List<StationArrival> getArrivals(String stationId) {
+    public List<StationArrivalDto> getArrivals(String stationId) {
         Objects.requireNonNull(stationId);
 
         List<com.cta4j.train.model.StationArrival> arrivals = this.trainClient.getStationArrivals(stationId);

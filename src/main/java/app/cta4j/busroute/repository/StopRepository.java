@@ -1,7 +1,5 @@
 package app.cta4j.busroute.repository;
 
-import app.cta4j.busroute.dto.StopDto;
-import app.cta4j.busroute.mapper.StopMapper;
 import app.cta4j.busroute.model.RouteStops;
 import app.cta4j.busroute.model.Stop;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +17,19 @@ import java.util.Optional;
 @Repository
 public class StopRepository {
     private final DynamoDbTable<RouteStops> stops;
-    private final StopMapper stopMapper;
 
     @Autowired
     public StopRepository(
         DynamoDbEnhancedClient dynamoDbClient,
-        StopMapper stopMapper,
         @Value("${app.aws.dynamodb.tables.route-stops}") String tableName
     ) {
         TableSchema<RouteStops> schema = TableSchema.fromImmutableClass(RouteStops.class);
 
         this.stops = dynamoDbClient.table(tableName, schema);
-        this.stopMapper = stopMapper;
     }
 
     @Cacheable(value = "stops", key = "#routeId + '_' + #direction")
-    public Optional<List<StopDto>> findAllByRouteIdAndDirection(String routeId, String direction) {
+    public Optional<List<Stop>> findAllByRouteIdAndDirection(String routeId, String direction) {
         if (routeId == null) {
             throw new IllegalArgumentException("routeId must not be null");
         }
@@ -55,15 +50,8 @@ public class StopRepository {
         }
 
         List<Stop> stops = item.getStops();
+        List<Stop> copy = List.copyOf(stops);
 
-        if (stops.isEmpty()) {
-            return Optional.of(List.of());
-        }
-
-        List<StopDto> stopDtos =  stops.stream()
-                                       .map(this.stopMapper::toDomain)
-                                       .toList();
-
-        return Optional.of(stopDtos);
+        return Optional.of(copy);
     }
 }
