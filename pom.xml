@@ -10,7 +10,7 @@
     </parent>
     <groupId>app.cta4j</groupId>
     <artifactId>cta4j-api</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <name>cta4j-api</name>
     <description>An improved API for the Chicago Transit Authority</description>
     <url>https://cta4j.app</url>
@@ -73,9 +73,14 @@
             <artifactId>secretsmanager</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.amazonaws.secretsmanager</groupId>
+            <artifactId>aws-secretsmanager-caching-java</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.cta4j</groupId>
             <artifactId>cta4j-java-sdk</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>

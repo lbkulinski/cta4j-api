@@ -1,37 +1,50 @@
 package app.cta4j.busroute.service;
 
-import app.cta4j.busroute.dto.Detour;
+import app.cta4j.busroute.dto.DetourDto;
 import app.cta4j.busroute.mapper.DetourMapper;
+import app.cta4j.busroute.repository.DirectionRepository;
 import com.cta4j.bus.client.BusClient;
+import com.cta4j.bus.model.Detour;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public final class DetourService {
+    private final DirectionRepository directionRepository;
     private final BusClient busClient;
-
     private final DetourMapper detourMapper;
 
     @Autowired
-    public DetourService(BusClient busClient, DetourMapper detourMapper) {
+    public DetourService(
+        DirectionRepository directionRepository,
+        BusClient busClient,
+        DetourMapper detourMapper
+    ) {
+        this.directionRepository = directionRepository;
         this.busClient = busClient;
-
         this.detourMapper = detourMapper;
     }
 
-    public List<Detour> getDetours(String routeId, String direction) {
-        Objects.requireNonNull(routeId);
+    public List<DetourDto> getDetours(String routeId, String direction) {
+        if (routeId == null) {
+            throw new IllegalArgumentException("routeId must not be null");
+        }
 
-        Objects.requireNonNull(direction);
+        if (direction == null) {
+            throw new IllegalArgumentException("direction must not be null");
+        }
 
-        List<com.cta4j.bus.model.Detour> detours = this.busClient.getDetours(routeId, direction);
+        if (!this.directionRepository.existsByRouteIdAndDirection(routeId, direction)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
 
-        if ((detours == null) || detours.isEmpty()) {
+        List<Detour> detours = this.busClient.getDetours(routeId, direction);
+
+        if (detours == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
