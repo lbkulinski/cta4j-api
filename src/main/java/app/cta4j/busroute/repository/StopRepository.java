@@ -12,6 +12,7 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class StopRepository {
@@ -25,6 +26,32 @@ public class StopRepository {
         TableSchema<RouteStops> schema = TableSchema.fromImmutableClass(RouteStops.class);
 
         this.stops = dynamoDbClient.table(tableName, schema);
+    }
+
+    public boolean existsByRouteIdAndStopId(String routeId, String stopId) {
+        if (routeId == null) {
+            throw new IllegalArgumentException("routeId must not be null");
+        }
+
+        if (stopId == null) {
+            throw new IllegalArgumentException("stopId must not be null");
+        }
+
+        Key key = Key.builder()
+                     .partitionValue(routeId)
+                     .build();
+
+        RouteStops item = this.stops.getItem(key);
+
+        if (item == null) {
+            return false;
+        }
+
+        List<Stop> stops = item.getStops();
+
+        return stops.stream()
+                    .map(Stop::getId)
+                    .anyMatch(id -> Objects.equals(id, stopId));
     }
 
     @Cacheable(value = "stops", key = "#routeId + '_' + #direction")
