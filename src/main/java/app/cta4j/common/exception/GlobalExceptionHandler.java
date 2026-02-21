@@ -13,9 +13,9 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @RestControllerAdvice
 public final class GlobalExceptionHandler {
-    private final Rollbar rollbar;
-
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    private final Rollbar rollbar;
 
     @Autowired
     public GlobalExceptionHandler(Rollbar rollbar) {

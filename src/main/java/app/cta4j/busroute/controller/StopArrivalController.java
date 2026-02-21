@@ -1,6 +1,6 @@
 package app.cta4j.busroute.controller;
 
-import app.cta4j.busroute.dto.StopArrival;
+import app.cta4j.busroute.dto.StopArrivalDto;
 import app.cta4j.busroute.service.StopArrivalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public final class StopArrivalController {
     }
 
     @GetMapping
-    public List<StopArrival> getStopArrivals(@PathVariable String routeId, @PathVariable String stopId) {
+    public List<StopArrivalDto> getStopArrivals(@PathVariable String routeId, @PathVariable String stopId) {
         return this.stopArrivalService.getArrivals(routeId, stopId);
     }
 }

@@ -1,9 +1,10 @@
 package app.cta4j.busroute.mapper;
 
-import app.cta4j.busroute.dto.Stop;
+import app.cta4j.busroute.dto.StopDto;
+import app.cta4j.busroute.model.Stop;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface StopMapper {
-    Stop toDomain(app.cta4j.busroute.model.Stop stop);
+    StopDto toDomain(Stop stop);
 }
