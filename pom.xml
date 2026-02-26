@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
         <relativePath/>
     </parent>
     <groupId>app.cta4j</groupId>
     <artifactId>cta4j-api</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <name>cta4j-api</name>
     <description>An improved API for the Chicago Transit Authority</description>
     <url>https://cta4j.app</url>
@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
