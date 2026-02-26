@@ -1,37 +1,33 @@
 package app.cta4j.common.config;
 
+import app.cta4j.common.config.properties.CorsProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
-    private static final String[] ALLOWED_ORIGINS;
+    private final CorsProperties corsProperties;
 
-    private static final String[] ALLOWED_METHODS;
-
-    static {
-        ALLOWED_ORIGINS = new String[] {
-            "https://cta4j.app",
-            "https://www.cta4j.app",
-            "https://cta4j.com",
-            "https://www.cta4j.com",
-            "https://chat.openai.com"
-        };
-
-        ALLOWED_METHODS = new String[] {
-            "GET",
-            "OPTIONS"
-        };
+    @Autowired
+    public WebConfiguration(CorsProperties corsProperties) {
+        this.corsProperties = corsProperties;
     }
 
     @Override
-    public void addCorsMappings(@NonNull CorsRegistry registry) {
+    public void addCorsMappings(CorsRegistry registry) {
+        String[] allowedOrigins = this.corsProperties.getAllowedOrigins()
+                                                     .toArray(String[]::new);
+        String[] allowedMethods = this.corsProperties.getAllowedMethods()
+                                                     .toArray(String[]::new);
+        String[] allowedHeaders = this.corsProperties.getAllowedHeaders()
+                                                     .toArray(String[]::new);
+
         registry.addMapping("/**")
-                .allowedOrigins(ALLOWED_ORIGINS)
-                .allowedMethods(ALLOWED_METHODS)
-                .allowedHeaders("*")
+                .allowedOrigins(allowedOrigins)
+                .allowedMethods(allowedMethods)
+                .allowedHeaders(allowedHeaders)
                 .allowCredentials(false)
                 .maxAge(3600);
     }

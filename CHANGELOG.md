@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.7] - 2025-02-26
+
+### Changed
+
+- Changed CORS configuration to use configuration properties instead of hardcoding them.
+- Changed CORS configuration to allow requests from `https://ctasmokers.com`, `https://www.ctasmokers.com`.
+- Changed `org.springframework.boot:spring-boot-starter-web` to `org.springframework.boot:spring-boot-starter-webmvc`.
+- Bump `org.springframework.boot:spring-boot-starter-parent` from `4.0.0` to `4.0.3`.
+- Bump `com.rollbar:rollbar-java` from `2.0.0` to `2.1.0`.
+- Bump `com.cta4j:cta4j-java-sdk` from `3.0.3` to `3.0.4`.
+- Bump `org.springdoc:springdoc-openapi-starter-webmvc-ui` from `3.0.0` to `3.0.1`.
+- Bump `software.amazon.awssdk:bom` from `2.39.2` to `2.41.34`.
+
 ## [1.0.6] - 2025-11-28
 
 ### Changed
