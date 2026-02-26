@@ -22,8 +22,6 @@ app:
       - https://chat.openai.com
       - https://ctasmokers.com
       - https://www.ctasmokers.com
-      - http://localhost:3000
-      - http://localhost:5173
     allowed-methods:
       - GET
       - OPTIONS
