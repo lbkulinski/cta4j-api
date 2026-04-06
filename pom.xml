@@ -13,7 +13,7 @@
     <version>1.0.8</version>
     <name>cta4j-api</name>
     <description>An improved API for the Chicago Transit Authority</description>
-    <url>https://cta4j.app</url>
+    <url>https://github.com/lbkulinski/cta4j-api</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
