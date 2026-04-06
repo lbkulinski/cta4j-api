@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.8] - 2026-04-06
+
+### Changed
+
+- Bump `org.springframework.boot:spring-boot-starter-parent` from `4.0.3` to `4.0.4`.
+- Bump `org.projectlombok:lombok` from `1.18.42` to `1.18.44`.
+- Bump `org.springdoc:springdoc-openapi-starter-webmvc-ui` from `3.0.1` to `3.0.2`.
+- Bump `software.amazon.awssdk:bom` from `2.41.34` to `2.42.18`.
+
 ## [1.0.7] - 2025-02-26
 
 ### Changed
@@ -77,7 +86,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of API.
 
-[Unreleased]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.6...HEAD
+[Unreleased]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.8...HEAD
+[1.0.8]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.7...v1.0.8
+[1.0.7]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.3...v1.0.4
