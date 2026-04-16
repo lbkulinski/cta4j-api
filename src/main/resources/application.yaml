@@ -5,6 +5,7 @@ app:
   rollbar:
     environment: ${APP_ROLLBAR_ENVIRONMENT}
   aws:
+    region: ${AWS_REGION}
     secrets-manager:
       secret-id: ${APP_AWS_SECRETS_MANAGER_SECRET_ID}
     dynamodb:

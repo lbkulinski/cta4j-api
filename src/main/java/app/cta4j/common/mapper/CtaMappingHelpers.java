@@ -1,6 +1,6 @@
 package app.cta4j.common.mapper;
 
-import app.cta4j.busroute.dto.BusPredictionType;
+import app.cta4j.bus.dto.BusPredictionType;
 import app.cta4j.common.model.TrainRoute;
 import com.cta4j.train.model.Route;
 import org.mapstruct.Named;

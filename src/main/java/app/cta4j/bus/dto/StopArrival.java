@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
 
-public record UpcomingBusArrival(
+public record StopArrival(
     @NotNull
     BusPredictionType predictionType,
 
@@ -42,7 +42,7 @@ public record UpcomingBusArrival(
     @NotNull
     Boolean delayed
 ) {
-    public UpcomingBusArrival {
+    public StopArrival {
         Objects.requireNonNull(predictionType);
 
         Objects.requireNonNull(stopName);
