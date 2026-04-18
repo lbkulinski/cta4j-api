@@ -2,7 +2,7 @@
 
 Real‑time Chicago Transit Authority (CTA) data — simple, fast, and free.
 
-The **cta4j API** powers [cta4j.app](https://cta4j.app) and provides clean, unified endpoints for accessing CTA **train** and **bus** data. Built for developers who want reliable, human‑friendly transit information without managing raw XML feeds or API keys.
+The **cta4j API** powers [cta4j.com](https://cta4j.com) and provides clean, unified endpoints for accessing CTA **train** and **bus** data. Built for developers who want reliable, human‑friendly transit information without managing raw XML feeds or API keys.
 
 ---
 
@@ -19,7 +19,7 @@ The API aggregates CTA’s public data into an easy-to-use REST interface:
 ## 🌐 Base URL
 
 ```
-https://api.cta4j.app
+https://api.cta4j.com
 ```
 
 > All responses are JSON.
@@ -39,7 +39,7 @@ You can view or import it directly in tools like [Swagger Editor](https://editor
 Example:
 
 ```bash
-curl -s https://api.cta4j.app/v3/api-docs | jq '.'
+curl -s https://api.cta4j.com/v3/api-docs | jq '.'
 ```
 
 ---
@@ -49,19 +49,19 @@ curl -s https://api.cta4j.app/v3/api-docs | jq '.'
 ### Fetch upcoming train arrivals for a station
 
 ```bash
-curl -s https://api.cta4j.app/api/stations/40380/arrivals | jq '[.[] | {stationName, etaLabel, arrivalTime, route}]'
+curl -s https://api.cta4j.com/api/stations/40380/arrivals | jq '[.[] | {stationName, etaLabel, arrivalTime, route}]'
 ```
 
 ### Follow a train by its run number
 
 ```bash
-curl -s https://api.cta4j.app/api/trains/902 | jq '{coordinates, arrivals: (.arrivals[0:3])}'
+curl -s https://api.cta4j.com/api/trains/902 | jq '{coordinates, arrivals: (.arrivals[0:3])}'
 ```
 
 ### Fetch upcoming bus arrivals for a stop
 
 ```bash
-curl -s https://api.cta4j.app/api/routes/22/stops/14734/arrivals | jq '[.[] | {routeDesignator, destination, etaLabel}]'
+curl -s https://api.cta4j.com/api/routes/22/stops/14734/arrivals | jq '[.[] | {routeDesignator, destination, etaLabel}]'
 ```
 
 ---
