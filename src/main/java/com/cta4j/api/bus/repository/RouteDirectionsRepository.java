@@ -4,7 +4,6 @@ import com.cta4j.api.aws.config.DynamoDbTableProperties;
 import com.cta4j.api.bus.exception.RouteNotFoundException;
 import com.cta4j.api.bus.model.RouteDirections;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -18,11 +17,11 @@ import java.util.Objects;
 
 @Repository
 @NullMarked
-public class DirectionRepository {
-    private final DynamoDbTable<@Nullable RouteDirections> routeDirections;
+public class RouteDirectionsRepository {
+    private final DynamoDbTable<RouteDirections> routeDirections;
 
     @Autowired
-    public DirectionRepository(
+    public RouteDirectionsRepository(
         DynamoDbEnhancedClient dynamoDbClient,
         DynamoDbTableProperties tableProperties
     ) {
@@ -31,24 +30,20 @@ public class DirectionRepository {
         this.routeDirections = dynamoDbClient.table(tableProperties.routeDirections(), schema);
     }
 
-    @Cacheable("directions")
-    public List<String> findAllByRouteId(String routeId) {
-        Objects.requireNonNull(routeId, "routeId must not be null");
+    @Cacheable("routeDirections")
+    public List<String> findAllByRoute(String route) {
+        Objects.requireNonNull(route);
 
         Key key = Key.builder()
-                     .partitionValue(routeId)
+                     .partitionValue(route)
                      .build();
 
         RouteDirections item = this.routeDirections.getItem(key);
 
         if (item == null) {
-            String message = "Route with id '%s' not found".formatted(routeId);
-
-            throw new RouteNotFoundException(message);
+            throw new RouteNotFoundException(route);
         }
 
-        List<String> directions = item.getDirections();
-
-        return List.copyOf(directions);
+        return List.copyOf(item.directions());
     }
 }

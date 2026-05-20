@@ -2,13 +2,11 @@ package com.cta4j.api.bus.service;
 
 import com.cta4j.api.bus.dto.StopArrival;
 import com.cta4j.api.bus.repository.RouteRepository;
-import com.cta4j.api.bus.repository.StopRepository;
+import com.cta4j.api.bus.repository.RouteStopRepository;
 import com.cta4j.bus.BusApi;
 import com.cta4j.bus.prediction.model.Prediction;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,17 +14,17 @@ import java.util.Objects;
 @Service
 public final class StopArrivalService {
     private final RouteRepository routeRepository;
-    private final StopRepository stopRepository;
+    private final RouteStopRepository routeStopRepository;
     private final BusApi busApi;
 
     @Autowired
     public StopArrivalService(
         RouteRepository routeRepository,
-        StopRepository stopRepository,
+        RouteStopRepository routeStopRepository,
         BusApi busApi
     ) {
         this.routeRepository = routeRepository;
-        this.stopRepository = stopRepository;
+        this.routeStopRepository = routeStopRepository;
         this.busApi = busApi;
     }
 

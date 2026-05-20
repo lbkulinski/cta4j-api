@@ -2,9 +2,9 @@ package com.cta4j.api.bus.controller;
 
 import com.cta4j.api.bus.dto.Route;
 import com.cta4j.api.bus.dto.Stop;
-import com.cta4j.api.bus.repository.DirectionRepository;
+import com.cta4j.api.bus.repository.RouteDirectionsRepository;
 import com.cta4j.api.bus.repository.RouteRepository;
-import com.cta4j.api.bus.repository.StopRepository;
+import com.cta4j.api.bus.repository.RouteStopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/routes")
-public final class DirectoryController {
+@RequestMapping("/api/bus/routes")
+public final class RouteController {
     private final RouteRepository routeRepository;
 
-    private final DirectionRepository directionRepository;
+    private final RouteDirectionsRepository routeDirectionsRepository;
 
-    private final StopRepository stopRepository;
+    private final RouteStopRepository routeStopRepository;
 
     @Autowired
-    public DirectoryController(RouteRepository routeRepository, DirectionRepository directionRepository, StopRepository stopRepository) {
+    public RouteController(RouteRepository routeRepository, RouteDirectionsRepository routeDirectionsRepository, RouteStopRepository routeStopRepository) {
         this.routeRepository = routeRepository;
 
-        this.directionRepository = directionRepository;
+        this.routeDirectionsRepository = routeDirectionsRepository;
 
-        this.stopRepository = stopRepository;
+        this.routeStopRepository = routeStopRepository;
     }
 
     @GetMapping
@@ -38,11 +38,11 @@ public final class DirectoryController {
 
     @GetMapping("/{routeId}/directions")
     public List<String> getDirections(@PathVariable String routeId) {
-        return this.directionRepository.getDirections(routeId);
+        return this.routeDirectionsRepository.getDirections(routeId);
     }
 
     @GetMapping("/{routeId}/directions/{direction}/stops")
     public List<Stop> getStops(@PathVariable String routeId, @PathVariable String direction) {
-        return this.stopRepository.findAllByRouteIdAndDirection(routeId, direction);
+        return this.routeStopRepository.findAllByRouteAndDirection(routeId, direction);
     }
 }
