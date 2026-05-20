@@ -44,10 +44,7 @@ public class RouteStopRepository {
         RouteStops item = this.routeStops.getItem(key);
 
         if (item == null) {
-            //TODO: fix RouteNotFoundException to include direction as well in a constructor overload
-            String message = "Route with id '%s' and direction '%s' not found".formatted(route, direction);
-
-            throw new RouteNotFoundException(message);
+            throw new RouteNotFoundException(route, direction);
         }
 
         List<RouteStop> stops = item.stops();

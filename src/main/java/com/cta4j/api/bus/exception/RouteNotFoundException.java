@@ -4,4 +4,8 @@ public final class RouteNotFoundException extends RuntimeException {
     public RouteNotFoundException(String route) {
         super("Route '%s' not found".formatted(route));
     }
+
+    public RouteNotFoundException(String route, String direction) {
+        super("Route '%s' and direction '%s' not found".formatted(route, direction));
+    }
 }
