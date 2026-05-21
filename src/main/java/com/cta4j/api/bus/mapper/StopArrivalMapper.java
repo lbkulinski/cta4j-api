@@ -1,12 +1,21 @@
 package com.cta4j.api.bus.mapper;
 
-import com.cta4j.api.bus.dto.StopArrival;
-import com.cta4j.api.common.mapper.CtaMappingHelpers;
+import com.cta4j.api.bus.dto.StopArrivalDto;
+import com.cta4j.api.bus.model.StopArrival;
+import com.cta4j.bus.prediction.model.Prediction;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = CtaMappingHelpers.class)
+@Mapper
 public interface StopArrivalMapper {
-    @Mapping(target = "predictionType", source = "predictionType", qualifiedByName = "toBusPredictionType")
-    StopArrival toDomain(com.cta4j.bus.model.StopArrival prd);
+    StopArrivalMapper INSTANCE = Mappers.getMapper(StopArrivalMapper.class);
+
+    @Mapping(source = "predictionType", target = "type")
+    @Mapping(source = "routeDirection", target = "direction")
+    @Mapping(source = "delayed", target = "delayed", qualifiedByName = "toBoolean")
+    @Mapping(source = "metadata.dynamicAction", target = "dynamicAction")
+    StopArrival toModel(Prediction prediction);
+
+    StopArrivalDto toDto(StopArrival stopArrival);
 }
