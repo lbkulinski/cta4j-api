@@ -1,10 +1,14 @@
 package com.cta4j.api.bus.controller;
 
-import com.cta4j.api.bus.dto.Route;
-import com.cta4j.api.bus.dto.Stop;
-import com.cta4j.api.bus.repository.RouteDirectionsRepository;
-import com.cta4j.api.bus.repository.RouteRepository;
-import com.cta4j.api.bus.repository.RouteStopRepository;
+import com.cta4j.api.bus.response.RouteDirectionsResponse;
+import com.cta4j.api.bus.dto.RouteDto;
+import com.cta4j.api.bus.dto.RouteStopDto;
+import com.cta4j.api.bus.response.RouteStopsResponse;
+import com.cta4j.api.bus.response.RoutesResponse;
+import com.cta4j.api.bus.mapper.RouteMapper;
+import com.cta4j.api.bus.mapper.RouteStopMapper;
+import com.cta4j.api.bus.service.RouteService;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,34 +19,42 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bus/routes")
+@NullMarked
 public final class RouteController {
-    private final RouteRepository routeRepository;
-
-    private final RouteDirectionsRepository routeDirectionsRepository;
-
-    private final RouteStopRepository routeStopRepository;
+    private final RouteService routeService;
 
     @Autowired
-    public RouteController(RouteRepository routeRepository, RouteDirectionsRepository routeDirectionsRepository, RouteStopRepository routeStopRepository) {
-        this.routeRepository = routeRepository;
-
-        this.routeDirectionsRepository = routeDirectionsRepository;
-
-        this.routeStopRepository = routeStopRepository;
+    public RouteController(RouteService routeService) {
+        this.routeService = routeService;
     }
 
     @GetMapping
-    public List<Route> getRoutes() {
-        return this.routeRepository.findAll();
+    public RoutesResponse getRoutes() {
+        List<RouteDto> routes = this.routeService.getRoutes()
+                                                 .stream()
+                                                 .map(RouteMapper.INSTANCE::toDto)
+                                                 .toList();
+
+        return new RoutesResponse(routes);
     }
 
-    @GetMapping("/{routeId}/directions")
-    public List<String> getDirections(@PathVariable String routeId) {
-        return this.routeDirectionsRepository.getDirections(routeId);
+    @GetMapping("/{route}/directions")
+    public RouteDirectionsResponse getDirections(@PathVariable String route) {
+        List<String> directions = this.routeService.getDirections(route);
+
+        return new RouteDirectionsResponse(directions);
     }
 
-    @GetMapping("/{routeId}/directions/{direction}/stops")
-    public List<Stop> getStops(@PathVariable String routeId, @PathVariable String direction) {
-        return this.routeStopRepository.findAllByRouteAndDirection(routeId, direction);
+    @GetMapping("/{route}/directions/{direction}/stops")
+    public RouteStopsResponse getStops(
+        @PathVariable String route,
+        @PathVariable String direction
+    ) {
+        List<RouteStopDto> stops = this.routeService.getStops(route, direction)
+                                                    .stream()
+                                                    .map(RouteStopMapper.INSTANCE::toDto)
+                                                    .toList();
+
+        return new RouteStopsResponse(stops);
     }
 }

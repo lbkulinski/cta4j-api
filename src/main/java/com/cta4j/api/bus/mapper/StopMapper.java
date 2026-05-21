@@ -1,10 +1,13 @@
 package com.cta4j.api.bus.mapper;
 
-import com.cta4j.api.bus.dto.Stop;
-import com.cta4j.api.bus.model.RouteStop;
+import com.cta4j.api.bus.dto.StopDto;
+import com.cta4j.api.bus.model.Stop;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface StopMapper {
-    Stop toDomain(RouteStop stop);
+    StopMapper INSTANCE = Mappers.getMapper(StopMapper.class);
+
+    StopDto toDto(Stop stop);
 }

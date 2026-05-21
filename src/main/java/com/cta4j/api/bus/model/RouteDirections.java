@@ -6,6 +6,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbImmut
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @DynamoDbImmutable(builder = RouteDirections.RouteDirectionsBuilder.class)
@@ -13,4 +14,10 @@ import java.util.List;
 public record RouteDirections(
     @DynamoDbPartitionKey String route,
     List<String> directions
-) {}
+) {
+    public RouteDirections {
+        Objects.requireNonNull(route);
+
+        directions = List.copyOf(directions);
+    }
+}

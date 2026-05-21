@@ -7,6 +7,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortKey;
 
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @DynamoDbImmutable(builder = RouteStops.RouteStopsBuilder.class)
@@ -15,4 +16,11 @@ public record RouteStops(
     @DynamoDbPartitionKey String route,
     @DynamoDbSortKey String direction,
     List<RouteStop> stops
-) {}
+) {
+    public RouteStops {
+        Objects.requireNonNull(route);
+        Objects.requireNonNull(direction);
+
+        stops = List.copyOf(stops);
+    }
+}

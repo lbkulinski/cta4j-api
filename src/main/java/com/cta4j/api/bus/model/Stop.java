@@ -5,21 +5,22 @@ import org.jspecify.annotations.NullMarked;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbImmutable;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Builder
-@DynamoDbImmutable(builder = Route.RouteBuilder.class)
+@DynamoDbImmutable(builder = Stop.StopBuilder.class)
 @NullMarked
-public record Route(
+public record Stop(
     @DynamoDbPartitionKey String id,
-    String designator,
-    String hexColor,
-    String name
+    String name,
+    BigDecimal latitude,
+    BigDecimal longitude
 ) {
-    public Route {
+    public Stop {
         Objects.requireNonNull(id);
-        Objects.requireNonNull(designator);
-        Objects.requireNonNull(hexColor);
         Objects.requireNonNull(name);
+        Objects.requireNonNull(latitude);
+        Objects.requireNonNull(longitude);
     }
 }

@@ -1,9 +1,13 @@
 package com.cta4j.api.bus.mapper;
 
-import com.cta4j.api.bus.dto.Route;
+import com.cta4j.api.bus.dto.RouteDto;
+import com.cta4j.api.bus.model.Route;
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper
 public interface RouteMapper {
-    Route toDomain(com.cta4j.api.bus.model.Route route);
+    RouteMapper INSTANCE = Mappers.getMapper(RouteMapper.class);
+
+    RouteDto toDto(Route route);
 }

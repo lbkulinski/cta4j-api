@@ -14,6 +14,7 @@ app:
         route-directions: ${APP_AWS_DYNAMODB_TABLES_ROUTE_DIRECTIONS}
         route-stops: ${APP_AWS_DYNAMODB_TABLES_ROUTE_STOPS}
         stations: ${APP_AWS_DYNAMODB_TABLES_STATIONS}
+        stops: ${APP_AWS_DYNAMODB_TABLES_STOPS}
   cors:
     allowed-origins:
       - https://cta4j.app

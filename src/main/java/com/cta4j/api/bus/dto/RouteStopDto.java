@@ -1,19 +1,16 @@
 package com.cta4j.api.bus.dto;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
 
-public record Route(
-    @NotNull
+@NullMarked
+public record RouteStopDto(
     String id,
-
-    @NotNull
     String name
 ) {
-    public Route {
+    public RouteStopDto {
         Objects.requireNonNull(id);
-
         Objects.requireNonNull(name);
     }
 }

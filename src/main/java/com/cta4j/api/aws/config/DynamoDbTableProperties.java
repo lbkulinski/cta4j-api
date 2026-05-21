@@ -12,5 +12,6 @@ public record DynamoDbTableProperties(
     @NotEmpty String routes,
     @NotEmpty String routeDirections,
     @NotEmpty String routeStops,
-    @NotEmpty String stations
+    @NotEmpty String stations,
+    @NotEmpty String stops
 ) {}

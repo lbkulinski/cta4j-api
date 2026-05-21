@@ -1,8 +1,8 @@
 package com.cta4j.api.bus.repository;
 
 import com.cta4j.api.aws.config.DynamoDbTableProperties;
-import com.cta4j.api.bus.exception.RouteNotFoundException;
-import com.cta4j.api.bus.model.RouteDirections;
+import com.cta4j.api.bus.exception.StopNotFoundException;
+import com.cta4j.api.bus.model.Stop;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,38 +13,37 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
-import java.util.List;
 import java.util.Objects;
 
 @Repository
 @NullMarked
-public class RouteDirectionsRepository {
-    private final DynamoDbTable<@Nullable RouteDirections> routeDirections;
+public class StopRepository {
+    private final DynamoDbTable<@Nullable Stop> stops;
 
     @Autowired
-    public RouteDirectionsRepository(
+    public StopRepository(
         DynamoDbEnhancedClient dynamoDbClient,
         DynamoDbTableProperties tableProperties
     ) {
-        TableSchema<RouteDirections> schema = TableSchema.fromImmutableClass(RouteDirections.class);
+        TableSchema<Stop> schema = TableSchema.fromImmutableClass(Stop.class);
 
-        this.routeDirections = dynamoDbClient.table(tableProperties.routeDirections(), schema);
+        this.stops = dynamoDbClient.table(tableProperties.stops(), schema);
     }
 
-    @Cacheable("directionsByRoute")
-    public List<String> getAllByRoute(String route) {
-        Objects.requireNonNull(route);
+    @Cacheable("stopById")
+    public Stop getById(String id) {
+        Objects.requireNonNull(id);
 
         Key key = Key.builder()
-                     .partitionValue(route)
+                     .partitionValue(id)
                      .build();
 
-        RouteDirections item = this.routeDirections.getItem(key);
+        Stop stop = this.stops.getItem(key);
 
-        if (item == null) {
-            throw new RouteNotFoundException(route);
+        if (stop == null) {
+            throw new StopNotFoundException(id);
         }
 
-        return List.copyOf(item.directions());
+        return stop;
     }
 }

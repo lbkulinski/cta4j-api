@@ -3,7 +3,6 @@ package com.cta4j.api.bus.repository;
 import com.cta4j.api.aws.config.DynamoDbTableProperties;
 import com.cta4j.api.bus.model.Route;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -28,11 +27,11 @@ public class RouteRepository {
         this.routes = dynamoDbClient.table(tableProperties.routes(), schema);
     }
 
-    @Cacheable("routes")
-    public List<Route> findAll() {
-        return routes.scan()
-                     .items()
-                     .stream()
-                     .toList();
+    @Cacheable("allRoutes")
+    public List<Route> getAll() {
+        return this.routes.scan()
+                          .items()
+                          .stream()
+                          .toList();
     }
 }

@@ -5,6 +5,7 @@ import com.cta4j.api.bus.exception.RouteNotFoundException;
 import com.cta4j.api.bus.model.RouteStops;
 import com.cta4j.api.bus.model.RouteStop;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ import java.util.Objects;
 @Repository
 @NullMarked
 public class RouteStopRepository {
-    private final DynamoDbTable<RouteStops> routeStops;
+    private final DynamoDbTable<@Nullable RouteStops> routeStops;
 
     @Autowired
     public RouteStopRepository(
@@ -31,8 +32,8 @@ public class RouteStopRepository {
         this.routeStops = dynamoDbClient.table(tableProperties.routeStops(), schema);
     }
 
-    @Cacheable("routeStops")
-    public List<RouteStop> findAllByRouteAndDirection(String route, String direction) {
+    @Cacheable("stopsByRouteAndDirection")
+    public List<RouteStop> getAllByRouteAndDirection(String route, String direction) {
         Objects.requireNonNull(route);
         Objects.requireNonNull(direction);
 
