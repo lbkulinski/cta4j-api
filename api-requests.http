@@ -1,20 +1,23 @@
 ###
-GET http://localhost:8080/api/routes
+GET http://localhost:8080/api/bus/routes
 
 ###
 @routeId = 22
-GET http://localhost:8080/api/routes/{{routeId}}/directions
+GET http://localhost:8080/api/bus/routes/{{routeId}}/directions
 
 ###
 @direction = Southbound
-GET http://localhost:8080/api/routes/{{routeId}}/directions/{{direction}}/stops
+GET http://localhost:8080/api/bus/routes/{{routeId}}/directions/{{direction}}/stops
+
+###
+@stopId = 1828
+GET http://localhost:8080/api/bus/stops/{{stopId}}
+
+###
+GET http://localhost:8080/api/bus/stops/{{stopId}}/arrivals
 
 ###
 GET http://localhost:8080/api/routes/{{routeId}}/directions/{{direction}}/detours
-
-###
-@stopId = 18447
-GET http://localhost:8080/api/routes/{{routeId}}/stops/{{stopId}}/arrivals
 
 ###
 @busId = 4325

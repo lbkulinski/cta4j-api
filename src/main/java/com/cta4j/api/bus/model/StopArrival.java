@@ -15,7 +15,6 @@ public record StopArrival(
     String destination,
     Instant arrivalTime,
     boolean delayed,
-    long etaMinutes,
     DynamicAction dynamicAction
 ) {
     public StopArrival {
@@ -25,9 +24,5 @@ public record StopArrival(
         Objects.requireNonNull(destination);
         Objects.requireNonNull(arrivalTime);
         Objects.requireNonNull(dynamicAction);
-
-        if (etaMinutes < 0) {
-            throw new IllegalArgumentException("etaMinutes must be non-negative");
-        }
     }
 }
