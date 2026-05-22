@@ -1,5 +1,6 @@
 package com.cta4j.api.bus.service;
 
+import com.cta4j.api.bus.mapper.DetourMapper;
 import com.cta4j.api.bus.model.Detour;
 import com.cta4j.bus.BusApi;
 import org.jspecify.annotations.NullMarked;
@@ -20,6 +21,23 @@ public final class DetourService {
     }
 
     public List<Detour> getDetours(@Nullable String routeId, @Nullable String direction) {
-        return null;
+        List<com.cta4j.bus.detour.model.Detour> detours;
+
+        if (routeId == null && direction == null) {
+            detours = this.busApi.detours()
+                                 .list();
+        } else if (routeId != null && direction == null) {
+            detours = this.busApi.detours()
+                                 .findByRouteId(routeId);
+        } else if (routeId != null) {
+            detours = this.busApi.detours()
+                                 .findByRouteIdAndDirection(routeId, direction);
+        } else {
+            throw new IllegalArgumentException("direction cannot be provided without routeId");
+        }
+
+        return detours.stream()
+                      .map(DetourMapper.INSTANCE::toModel)
+                      .toList();
     }
 }
