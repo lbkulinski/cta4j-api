@@ -7,6 +7,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = CtaMappingHelpers.class)
 public interface StationArrivalMapper {
-    @Mapping(target = "route", source = "route", qualifiedByName = "toTrainRoute")
+    @Mapping(target = "route", source = "routeId", qualifiedByName = "toTrainRoute")
     StationArrival toDomain(com.cta4j.train.model.StationArrival eta);
 }

@@ -29,25 +29,25 @@ public final class StopService {
         this.busApi = busApi;
     }
 
-    public Stop getStop(String id) {
-        Objects.requireNonNull(id);
+    public Stop getStop(String stopId) {
+        Objects.requireNonNull(stopId);
 
-        return this.stopRepository.getById(id);
+        return this.stopRepository.getById(stopId);
     }
 
-    public List<StopArrival> getArrivals(String stopId, @Nullable String route) {
+    public List<StopArrival> getArrivals(String stopId, @Nullable String routeId) {
         Objects.requireNonNull(stopId);
 
         this.validateStopId(stopId);
 
         List<Prediction> predictions;
 
-        if (route == null) {
+        if (routeId == null) {
             predictions = this.busApi.predictions()
                                      .findByStopId(stopId);
         } else {
             predictions = this.busApi.predictions()
-                                     .findByRouteIdAndStopId(route, stopId);
+                                     .findByRouteIdAndStopId(routeId, stopId);
         }
 
         return predictions.stream()

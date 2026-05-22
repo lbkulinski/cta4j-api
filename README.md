@@ -49,7 +49,7 @@ curl -s https://api.cta4j.com/v3/api-docs | jq '.'
 ### Fetch upcoming train arrivals for a station
 
 ```bash
-curl -s https://api.cta4j.com/api/stations/40380/arrivals | jq '[.[] | {stationName, etaLabel, arrivalTime, route}]'
+curl -s https://api.cta4j.com/api/stations/40380/arrivals | jq '[.[] | {stationName, etaLabel, arrivalTime, routeId}]'
 ```
 
 ### Follow a train by its run number

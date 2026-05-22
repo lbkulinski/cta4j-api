@@ -34,16 +34,16 @@ public final class RouteService {
         return this.routeRepository.getAll();
     }
 
-    public List<String> getDirections(String route) {
-        Objects.requireNonNull(route);
+    public List<String> getDirections(String routeId) {
+        Objects.requireNonNull(routeId);
 
-        return this.routeDirectionsRepository.getAllByRoute(route);
+        return this.routeDirectionsRepository.getAllByRouteId(routeId);
     }
 
-    public List<RouteStop> getStops(String route, String direction) {
-        Objects.requireNonNull(route);
+    public List<RouteStop> getStops(String routeId, String direction) {
+        Objects.requireNonNull(routeId);
         Objects.requireNonNull(direction);
 
-        return this.routeStopRepository.getAllByRouteAndDirection(route, direction);
+        return this.routeStopRepository.getAllByRouteIdAndDirection(routeId, direction);
     }
 }

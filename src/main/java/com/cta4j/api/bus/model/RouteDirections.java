@@ -12,11 +12,11 @@ import java.util.Objects;
 @DynamoDbImmutable(builder = RouteDirections.RouteDirectionsBuilder.class)
 @NullMarked
 public record RouteDirections(
-    @DynamoDbPartitionKey String route,
+    @DynamoDbPartitionKey String routeId,
     List<String> directions
 ) {
     public RouteDirections {
-        Objects.requireNonNull(route);
+        Objects.requireNonNull(routeId);
 
         directions = List.copyOf(directions);
     }

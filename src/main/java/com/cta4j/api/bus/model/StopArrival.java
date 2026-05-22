@@ -10,7 +10,7 @@ import java.util.Objects;
 @NullMarked
 public record StopArrival(
     PredictionType type,
-    String route,
+    String routeId,
     String direction,
     String destination,
     Instant arrivalTime,
@@ -20,7 +20,7 @@ public record StopArrival(
 ) {
     public StopArrival {
         Objects.requireNonNull(type);
-        Objects.requireNonNull(route);
+        Objects.requireNonNull(routeId);
         Objects.requireNonNull(direction);
         Objects.requireNonNull(destination);
         Objects.requireNonNull(arrivalTime);

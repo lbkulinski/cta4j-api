@@ -10,7 +10,7 @@ import java.time.Instant;
 @NullMarked
 public record StopArrivalDto(
     PredictionType type,
-    String route,
+    String routeId,
     String direction,
     String destination,
     Instant arrivalTime,

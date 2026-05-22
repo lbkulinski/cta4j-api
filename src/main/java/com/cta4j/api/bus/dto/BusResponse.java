@@ -15,7 +15,7 @@ public record BusResponse(
 ) {
     public BusResponse {
         Objects.requireNonNull(id, "id must not be null");
-        Objects.requireNonNull(route, "route must not be null");
+        Objects.requireNonNull(route, "routeId must not be null");
         Objects.requireNonNull(destination, "destination must not be null");
         Objects.requireNonNull(coordinates, "coordinates must not be null");
     }

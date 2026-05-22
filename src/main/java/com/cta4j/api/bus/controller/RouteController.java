@@ -38,19 +38,19 @@ public final class RouteController {
         return new RoutesResponse(routes);
     }
 
-    @GetMapping("/{route}/directions")
-    public RouteDirectionsResponse getDirections(@PathVariable String route) {
-        List<String> directions = this.routeService.getDirections(route);
+    @GetMapping("/{routeId}/directions")
+    public RouteDirectionsResponse getDirections(@PathVariable String routeId) {
+        List<String> directions = this.routeService.getDirections(routeId);
 
         return new RouteDirectionsResponse(directions);
     }
 
-    @GetMapping("/{route}/directions/{direction}/stops")
+    @GetMapping("/{routeId}/directions/{direction}/stops")
     public RouteStopsResponse getStops(
-        @PathVariable String route,
+        @PathVariable String routeId,
         @PathVariable String direction
     ) {
-        List<RouteStopDto> stops = this.routeService.getStops(route, direction)
+        List<RouteStopDto> stops = this.routeService.getStops(routeId, direction)
                                                     .stream()
                                                     .map(RouteStopMapper.INSTANCE::toDto)
                                                     .toList();

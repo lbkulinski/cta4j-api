@@ -31,18 +31,18 @@ public class RouteDirectionsRepository {
         this.routeDirections = dynamoDbClient.table(tableProperties.routeDirections(), schema);
     }
 
-    @Cacheable("directionsByRoute")
-    public List<String> getAllByRoute(String route) {
-        Objects.requireNonNull(route);
+    @Cacheable("directionsByRouteId")
+    public List<String> getAllByRouteId(String routeId) {
+        Objects.requireNonNull(routeId);
 
         Key key = Key.builder()
-                     .partitionValue(route)
+                     .partitionValue(routeId)
                      .build();
 
         RouteDirections item = this.routeDirections.getItem(key);
 
         if (item == null) {
-            throw new RouteNotFoundException(route);
+            throw new RouteNotFoundException(routeId);
         }
 
         return List.copyOf(item.directions());

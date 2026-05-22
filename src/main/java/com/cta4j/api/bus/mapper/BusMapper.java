@@ -12,7 +12,7 @@ public interface BusMapper {
     BusMapper INSTANCE = Mappers.getMapper(BusMapper.class);
 
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "route", source = "route")
+    @Mapping(target = "route", source = "routeId")
     @Mapping(target = "destination", source = "destination")
     @Mapping(target = "delayed", source = "delayed")
     @Mapping(target = "coordinates", source = "coordinates")

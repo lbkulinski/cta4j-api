@@ -1,6 +1,6 @@
 package com.cta4j.api.bus.controller;
 
-import com.cta4j.api.bus.dto.Detour;
+import com.cta4j.api.bus.model.Detour;
 import com.cta4j.api.bus.service.DetourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

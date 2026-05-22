@@ -8,11 +8,11 @@ Spring Boot REST API for CTA bus and train data. Backed by DynamoDB on AWS, depl
 
 **Bus**
 - `GET /api/bus/routes` — all bus routes
-- `GET /api/bus/routes/{route}/directions` — directions for a route
-- `GET /api/bus/routes/{route}/directions/{direction}/stops` — stops for a route+direction
+- `GET /api/bus/routes/{routeId}/directions` — directions for a route
+- `GET /api/bus/routes/{routeId}/directions/{direction}/stops` — stops for a route+direction
 - `GET /api/bus/stops/{stopId}` — a specific stop
 - `GET /api/bus/stops/{stopId}/arrivals` — arrivals for a stop
-- `GET /api/bus/detours` — detours (optional `?route=` and `?direction=` query params)
+- `GET /api/bus/detours` — detours (optional `?routeId=` and `?direction=` query params)
 
 **Train**
 - `GET /api/train/stations` — all train stations
@@ -74,12 +74,12 @@ Table: `cta-bus-routes`
   - `designator`
 
 Table: `cta-bus-route-directions`
-- PK: `route`
+- PK: `routeId`
 - Attributes:
   - `directions` (list of strings)
 
 Table: `cta-bus-route-stops`
-- PK: `route`
+- PK: `routeId`
 - SK: `direction`
 - Attributes:
   - `stops` (list of `{id, name}`)

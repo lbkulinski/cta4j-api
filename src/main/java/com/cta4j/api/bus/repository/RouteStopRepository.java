@@ -32,20 +32,20 @@ public class RouteStopRepository {
         this.routeStops = dynamoDbClient.table(tableProperties.routeStops(), schema);
     }
 
-    @Cacheable("stopsByRouteAndDirection")
-    public List<RouteStop> getAllByRouteAndDirection(String route, String direction) {
-        Objects.requireNonNull(route);
+    @Cacheable("stopsByRouteIdAndDirection")
+    public List<RouteStop> getAllByRouteIdAndDirection(String routeId, String direction) {
+        Objects.requireNonNull(routeId);
         Objects.requireNonNull(direction);
 
         Key key = Key.builder()
-                     .partitionValue(route)
+                     .partitionValue(routeId)
                      .sortValue(direction)
                      .build();
 
         RouteStops item = this.routeStops.getItem(key);
 
         if (item == null) {
-            throw new RouteNotFoundException(route, direction);
+            throw new RouteNotFoundException(routeId, direction);
         }
 
         List<RouteStop> stops = item.stops();

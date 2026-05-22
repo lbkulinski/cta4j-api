@@ -1,46 +1,38 @@
-package com.cta4j.api.bus.dto;
+package com.cta4j.api.bus.model;
 
-import jakarta.validation.constraints.NotNull;
+import org.jspecify.annotations.NullMarked;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
+@NullMarked
 public record Detour(
-    @NotNull
     String id,
-
-    @NotNull
     String version,
-
-    @NotNull
-    Boolean active,
-
-    @NotNull
+    boolean active,
     String description,
-
-    @NotNull
-    List<DetourRouteDirection> routeDirections,
-
-    @NotNull
+    List<RouteDirection> routeDirections,
     Instant startTime,
-
-    @NotNull
     Instant endTime
 ) {
     public Detour {
         Objects.requireNonNull(id);
-
         Objects.requireNonNull(version);
-
-        Objects.requireNonNull(active);
-
         Objects.requireNonNull(description);
-
-        Objects.requireNonNull(routeDirections);
-
         Objects.requireNonNull(startTime);
-
         Objects.requireNonNull(endTime);
+
+        routeDirections = List.copyOf(routeDirections);
+    }
+
+    public record RouteDirection(
+        String routeId,
+        String direction
+    ) {
+        public RouteDirection {
+            Objects.requireNonNull(routeId);
+            Objects.requireNonNull(direction);
+        }
     }
 }
