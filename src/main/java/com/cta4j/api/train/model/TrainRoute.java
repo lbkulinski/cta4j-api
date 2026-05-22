@@ -1,4 +1,4 @@
-package com.cta4j.api.common.model;
+package com.cta4j.api.train.model;
 
 public enum TrainRoute {
     RED,

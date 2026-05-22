@@ -42,9 +42,9 @@ public final class StopController {
     @GetMapping("/{id}/arrivals")
     public StopArrivalsResponse getArrivals(
         @PathVariable String id,
-        @RequestParam(required = false) @Nullable String route
+        @RequestParam(required = false) @Nullable String routeId
     ) {
-        List<StopArrivalDto> arrivals = this.stopService.getArrivals(id, route)
+        List<StopArrivalDto> arrivals = this.stopService.getArrivals(id, routeId)
                                                         .stream()
                                                         .map(StopArrivalMapper.INSTANCE::toDto)
                                                         .toList();

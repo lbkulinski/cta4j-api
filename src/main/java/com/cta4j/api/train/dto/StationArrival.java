@@ -1,6 +1,6 @@
 package com.cta4j.api.train.dto;
 
-import com.cta4j.api.common.model.TrainRoute;
+import com.cta4j.api.train.model.TrainRoute;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import jakarta.validation.constraints.NotNull;
 

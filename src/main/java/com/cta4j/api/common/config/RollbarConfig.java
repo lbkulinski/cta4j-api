@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 @Configuration
-public class RollbarConfiguration {
+public class RollbarConfig {
     @Bean
-    public Rollbar buildRollbar(Environment env, AwsSecretsClient awsSecretsClient) {
+    public Rollbar rollbar(Environment env, AwsSecretsClient awsSecretsClient) {
         String accessToken = awsSecretsClient.getSecret()
                                              .rollbar()
                                              .accessToken();

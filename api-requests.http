@@ -20,8 +20,8 @@ GET http://localhost:8080/api/bus/stops/{{stopId}}/arrivals
 GET http://localhost:8080/api/bus/detours
 
 ###
-@busId = 4325
-GET http://localhost:8080/api/buses/{{busId}}
+@vehicleId = 4325
+GET http://localhost:8080/api/bus/vehicles/{{vehicleId}}
 
 ###
 GET http://localhost:8080/api/stations
