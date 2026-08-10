@@ -1,7 +1,7 @@
-package com.cta4j.api.bus.mapper;
+package com.cta4j.api.bus.vehicle.mapper;
 
-import com.cta4j.api.bus.dto.VehicleDto;
-import com.cta4j.api.bus.model.Vehicle;
+import com.cta4j.api.bus.vehicle.dto.VehicleDto;
+import com.cta4j.api.bus.vehicle.model.Vehicle;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

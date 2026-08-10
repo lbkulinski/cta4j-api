@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.model;
+package com.cta4j.api.bus.vehicle.dto;
 
 import com.cta4j.api.common.geo.Coordinates;
 import com.cta4j.bus.prediction.model.PassengerLoad;
@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 @NullMarked
-public record Vehicle(
+public record VehicleDto(
     String id,
     String routeId,
     String destination,
@@ -20,7 +20,7 @@ public record Vehicle(
     PassengerLoad passengerLoad,
     @Nullable String stopId
 ) {
-    public Vehicle {
+    public VehicleDto {
         Objects.requireNonNull(id);
         Objects.requireNonNull(routeId);
         Objects.requireNonNull(destination);

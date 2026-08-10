@@ -1,9 +1,9 @@
 package com.cta4j.api.bus.stop.service;
 
+import com.cta4j.api.bus.common.mapper.ArrivalMapper;
+import com.cta4j.api.bus.common.model.Arrival;
 import com.cta4j.api.bus.stop.exception.StopNotFoundException;
-import com.cta4j.api.bus.stop.mapper.StopArrivalMapper;
 import com.cta4j.api.bus.stop.model.Stop;
-import com.cta4j.api.bus.stop.model.StopArrival;
 import com.cta4j.api.bus.stop.repository.StopRepository;
 import com.cta4j.bus.BusApi;
 import com.cta4j.bus.prediction.model.Prediction;
@@ -37,7 +37,7 @@ public final class StopService {
                                   .orElseThrow(() -> new StopNotFoundException(stopId));
     }
 
-    public List<StopArrival> getArrivals(String stopId, @Nullable String routeId) {
+    public List<Arrival> getArrivals(String stopId, @Nullable String routeId) {
         Objects.requireNonNull(stopId);
 
         this.requireStopExists(stopId);
@@ -53,7 +53,7 @@ public final class StopService {
         }
 
         return predictions.stream()
-                          .map(StopArrivalMapper.INSTANCE::toModel)
+                          .map(ArrivalMapper.INSTANCE::toModel)
                           .toList();
     }
 

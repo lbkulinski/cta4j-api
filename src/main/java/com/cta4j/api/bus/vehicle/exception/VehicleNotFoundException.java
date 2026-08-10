@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.exception;
+package com.cta4j.api.bus.vehicle.exception;
 
 public final class VehicleNotFoundException extends RuntimeException {
     public VehicleNotFoundException(String vehicleId) {

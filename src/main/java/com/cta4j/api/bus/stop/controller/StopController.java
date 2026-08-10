@@ -1,9 +1,9 @@
 package com.cta4j.api.bus.stop.controller;
 
-import com.cta4j.api.bus.stop.dto.StopArrivalDto;
-import com.cta4j.api.bus.stop.dto.StopArrivalsDto;
+import com.cta4j.api.bus.common.dto.ArrivalDto;
+import com.cta4j.api.bus.common.dto.ArrivalsDto;
+import com.cta4j.api.bus.common.mapper.ArrivalMapper;
 import com.cta4j.api.bus.stop.dto.StopDto;
-import com.cta4j.api.bus.stop.mapper.StopArrivalMapper;
 import com.cta4j.api.bus.stop.mapper.StopMapper;
 import com.cta4j.api.bus.stop.model.Stop;
 import com.cta4j.api.bus.stop.service.StopService;
@@ -37,15 +37,15 @@ public final class StopController {
     }
 
     @GetMapping("/{id}/arrivals")
-    public StopArrivalsDto getArrivals(
+    public ArrivalsDto getArrivals(
         @PathVariable String id,
         @RequestParam(required = false) @Nullable String routeId
     ) {
-        List<StopArrivalDto> arrivals = this.stopService.getArrivals(id, routeId)
-                                                        .stream()
-                                                        .map(StopArrivalMapper.INSTANCE::toDto)
-                                                        .toList();
+        List<ArrivalDto> arrivals = this.stopService.getArrivals(id, routeId)
+                                                    .stream()
+                                                    .map(ArrivalMapper.INSTANCE::toDto)
+                                                    .toList();
 
-        return new StopArrivalsDto(arrivals);
+        return new ArrivalsDto(arrivals);
     }
 }
