@@ -1,9 +1,10 @@
-package com.cta4j.api.bus.service;
+package com.cta4j.api.bus.stop.service;
 
-import com.cta4j.api.bus.mapper.StopArrivalMapper;
-import com.cta4j.api.bus.model.Stop;
-import com.cta4j.api.bus.model.StopArrival;
-import com.cta4j.api.bus.repository.StopRepository;
+import com.cta4j.api.bus.stop.exception.StopNotFoundException;
+import com.cta4j.api.bus.stop.mapper.StopArrivalMapper;
+import com.cta4j.api.bus.stop.model.Stop;
+import com.cta4j.api.bus.stop.model.StopArrival;
+import com.cta4j.api.bus.stop.repository.StopRepository;
 import com.cta4j.bus.BusApi;
 import com.cta4j.bus.prediction.model.Prediction;
 import org.jspecify.annotations.NullMarked;
@@ -32,13 +33,14 @@ public final class StopService {
     public Stop getStop(String stopId) {
         Objects.requireNonNull(stopId);
 
-        return this.stopRepository.getById(stopId);
+        return this.stopRepository.getById(stopId)
+                                  .orElseThrow(() -> new StopNotFoundException(stopId));
     }
 
     public List<StopArrival> getArrivals(String stopId, @Nullable String routeId) {
         Objects.requireNonNull(stopId);
 
-        this.validateStopId(stopId);
+        this.requireStopExists(stopId);
 
         List<Prediction> predictions;
 
@@ -55,7 +57,8 @@ public final class StopService {
                           .toList();
     }
 
-    private void validateStopId(String stopId) {
-        this.stopRepository.getById(stopId);
+    private void requireStopExists(String stopId) {
+        this.stopRepository.getById(stopId)
+                           .orElseThrow(() -> new StopNotFoundException(stopId));
     }
 }

@@ -1,10 +1,8 @@
-package com.cta4j.api.bus.repository;
+package com.cta4j.api.bus.stop.repository;
 
 import com.cta4j.api.aws.config.DynamoDbProperties;
-import com.cta4j.api.bus.exception.StopNotFoundException;
-import com.cta4j.api.bus.model.Stop;
+import com.cta4j.api.bus.stop.model.Stop;
 import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -14,11 +12,12 @@ import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Repository
 @NullMarked
 public class StopRepository {
-    private final DynamoDbTable<@Nullable Stop> stops;
+    private final DynamoDbTable<Stop> stops;
 
     @Autowired
     public StopRepository(
@@ -31,7 +30,7 @@ public class StopRepository {
     }
 
     @Cacheable("stopById")
-    public Stop getById(String id) {
+    public Optional<Stop> getById(String id) {
         Objects.requireNonNull(id);
 
         Key key = Key.builder()
@@ -40,10 +39,6 @@ public class StopRepository {
 
         Stop stop = this.stops.getItem(key);
 
-        if (stop == null) {
-            throw new StopNotFoundException(id);
-        }
-
-        return stop;
+        return Optional.ofNullable(stop);
     }
 }

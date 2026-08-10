@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.model;
+package com.cta4j.api.bus.stop.model;
 
 import lombok.Builder;
 import org.jspecify.annotations.NullMarked;

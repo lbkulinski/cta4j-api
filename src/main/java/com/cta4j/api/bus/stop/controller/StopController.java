@@ -1,13 +1,12 @@
-package com.cta4j.api.bus.controller;
+package com.cta4j.api.bus.stop.controller;
 
-import com.cta4j.api.bus.dto.StopArrivalDto;
-import com.cta4j.api.bus.dto.StopDto;
-import com.cta4j.api.bus.mapper.StopArrivalMapper;
-import com.cta4j.api.bus.mapper.StopMapper;
-import com.cta4j.api.bus.model.Stop;
-import com.cta4j.api.bus.response.StopArrivalsResponse;
-import com.cta4j.api.bus.response.StopResponse;
-import com.cta4j.api.bus.service.StopService;
+import com.cta4j.api.bus.stop.dto.StopArrivalDto;
+import com.cta4j.api.bus.stop.dto.StopArrivalsDto;
+import com.cta4j.api.bus.stop.dto.StopDto;
+import com.cta4j.api.bus.stop.mapper.StopArrivalMapper;
+import com.cta4j.api.bus.stop.mapper.StopMapper;
+import com.cta4j.api.bus.stop.model.Stop;
+import com.cta4j.api.bus.stop.service.StopService;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +30,14 @@ public final class StopController {
     }
 
     @GetMapping("/{id}")
-    public StopResponse getStop(@PathVariable String id) {
+    public StopDto getStop(@PathVariable String id) {
         Stop stop = this.stopService.getStop(id);
 
-        StopDto stopDto = StopMapper.INSTANCE.toDto(stop);
-
-        return new StopResponse(stopDto);
+        return StopMapper.INSTANCE.toDto(stop);
     }
 
     @GetMapping("/{id}/arrivals")
-    public StopArrivalsResponse getArrivals(
+    public StopArrivalsDto getArrivals(
         @PathVariable String id,
         @RequestParam(required = false) @Nullable String routeId
     ) {
@@ -49,6 +46,6 @@ public final class StopController {
                                                         .map(StopArrivalMapper.INSTANCE::toDto)
                                                         .toList();
 
-        return new StopArrivalsResponse(arrivals);
+        return new StopArrivalsDto(arrivals);
     }
 }

@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.dto;
+package com.cta4j.api.bus.stop.dto;
 
 import org.jspecify.annotations.NullMarked;
 

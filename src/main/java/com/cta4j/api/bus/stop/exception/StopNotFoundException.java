@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.exception;
+package com.cta4j.api.bus.stop.exception;
 
 public final class StopNotFoundException extends RuntimeException {
     public StopNotFoundException(String id) {

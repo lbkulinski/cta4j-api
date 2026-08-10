@@ -1,9 +1,8 @@
 package com.cta4j.api.bus.route.repository;
 
 import com.cta4j.api.aws.config.DynamoDbProperties;
-import com.cta4j.api.bus.route.exception.RouteNotFoundException;
-import com.cta4j.api.bus.route.model.RouteStops;
 import com.cta4j.api.bus.route.model.RouteStop;
+import com.cta4j.api.bus.route.model.RouteStops;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +44,9 @@ public class RouteStopRepository {
         RouteStops item = this.routeStops.getItem(key);
 
         if (item == null) {
-            throw new RouteNotFoundException(routeId, direction);
+            return List.of();
         }
 
-        List<RouteStop> stops = item.stops();
-
-        return List.copyOf(stops);
+        return List.copyOf(item.stops());
     }
 }

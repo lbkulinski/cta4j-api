@@ -1,7 +1,6 @@
 package com.cta4j.api.bus.route.repository;
 
 import com.cta4j.api.aws.config.DynamoDbProperties;
-import com.cta4j.api.bus.route.exception.RouteNotFoundException;
 import com.cta4j.api.bus.route.model.RouteDirections;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -42,7 +41,7 @@ public class RouteDirectionsRepository {
         RouteDirections item = this.routeDirections.getItem(key);
 
         if (item == null) {
-            throw new RouteNotFoundException(routeId);
+            return List.of();
         }
 
         return List.copyOf(item.directions());

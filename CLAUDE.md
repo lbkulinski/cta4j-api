@@ -25,7 +25,8 @@ Spring Boot REST API for CTA bus and train data. Backed by DynamoDB on AWS, depl
 
 - **Controllers** — HTTP concerns only (path/query binding, returning DTOs)
 - **Services** — business logic; validate against DB first, then call CTA SDK for live data
-- **Repositories** — DynamoDB access via `DynamoDbEnhancedClient`; return data only, no business logic; throw typed domain exceptions (e.g. `RouteNotFoundException`) when a required item is not found — do not return `Optional` or `null` for collections
+- **Repositories** — DynamoDB access via `DynamoDbEnhancedClient`; return data only, no business logic; return `Optional<T>` for single-item lookups that may be absent, and empty collections (never `null`) when nothing matches — do not throw domain exceptions
+- **Services** own not-found handling: unwrap a repository's `Optional<T>` with `.orElseThrow(() -> new SomeNotFoundException(...))` (or check for an empty collection) so the decision of what "missing" means stays in the business layer, not the data-access layer
 - **`@ConfigurationProperties` records** — one record per config namespace, validated with JSR-303
 
 Package layout: transit type (`bus`, `train`) then layer (`controller`, `service`, `repository`, `dto`, `model`, `exception`, `mapper`). Shared types live in `common`.

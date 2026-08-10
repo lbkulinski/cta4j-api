@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.model;
+package com.cta4j.api.bus.stop.model;
 
 import com.cta4j.bus.prediction.model.DynamicAction;
 import com.cta4j.bus.prediction.model.PredictionType;

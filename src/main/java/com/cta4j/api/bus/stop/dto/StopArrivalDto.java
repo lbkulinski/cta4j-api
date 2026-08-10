@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.dto;
+package com.cta4j.api.bus.stop.dto;
 
 import com.cta4j.bus.prediction.model.DynamicAction;
 import com.cta4j.bus.prediction.model.PredictionType;
@@ -7,6 +7,7 @@ import org.jspecify.annotations.NullMarked;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Objects;
 
 @NullMarked
 public record StopArrivalDto(
@@ -18,12 +19,18 @@ public record StopArrivalDto(
     boolean delayed,
     DynamicAction dynamicAction
 ) {
+    public StopArrivalDto {
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(routeId);
+        Objects.requireNonNull(direction);
+        Objects.requireNonNull(destination);
+        Objects.requireNonNull(arrivalTime);
+        Objects.requireNonNull(dynamicAction);
+    }
+
     @JsonGetter("etaMinutes")
     public long etaMinutes() {
-        Instant now = Instant.now();
-
-        long minutes = Duration.between(now, this.arrivalTime)
-                               .toMinutes();
+        long minutes = Duration.between(Instant.now(), this.arrivalTime).toMinutes();
 
         return Math.max(minutes, 0L);
     }
