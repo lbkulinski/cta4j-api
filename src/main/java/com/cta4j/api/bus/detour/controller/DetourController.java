@@ -1,9 +1,9 @@
-package com.cta4j.api.bus.controller;
+package com.cta4j.api.bus.detour.controller;
 
-import com.cta4j.api.bus.dto.DetourDto;
-import com.cta4j.api.bus.mapper.DetourMapper;
-import com.cta4j.api.bus.response.DetoursResponse;
-import com.cta4j.api.bus.service.DetourService;
+import com.cta4j.api.bus.detour.dto.DetourDto;
+import com.cta4j.api.bus.detour.mapper.DetourMapper;
+import com.cta4j.api.bus.detour.dto.DetoursDto;
+import com.cta4j.api.bus.detour.service.DetourService;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public final class DetourController {
     }
 
     @GetMapping
-    public DetoursResponse getDetours(
+    public DetoursDto getDetours(
         @RequestParam(required = false) @Nullable String routeId,
         @RequestParam(required = false) @Nullable String direction
     ) {
@@ -35,6 +35,6 @@ public final class DetourController {
                                                     .map(DetourMapper.INSTANCE::toDto)
                                                     .toList();
 
-        return new DetoursResponse(detours);
+        return new DetoursDto(detours);
     }
 }

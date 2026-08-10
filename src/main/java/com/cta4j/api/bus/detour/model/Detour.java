@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.model;
+package com.cta4j.api.bus.detour.model;
 
 import org.jspecify.annotations.NullMarked;
 

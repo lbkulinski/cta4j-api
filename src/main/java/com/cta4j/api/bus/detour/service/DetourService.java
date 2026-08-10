@@ -1,7 +1,7 @@
-package com.cta4j.api.bus.service;
+package com.cta4j.api.bus.detour.service;
 
-import com.cta4j.api.bus.mapper.DetourMapper;
-import com.cta4j.api.bus.model.Detour;
+import com.cta4j.api.bus.detour.mapper.DetourMapper;
+import com.cta4j.api.bus.detour.model.Detour;
 import com.cta4j.bus.BusApi;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;

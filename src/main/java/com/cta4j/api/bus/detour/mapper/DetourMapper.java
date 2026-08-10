@@ -1,7 +1,7 @@
-package com.cta4j.api.bus.mapper;
+package com.cta4j.api.bus.detour.mapper;
 
-import com.cta4j.api.bus.dto.DetourDto;
-import com.cta4j.api.bus.model.Detour;
+import com.cta4j.api.bus.detour.dto.DetourDto;
+import com.cta4j.api.bus.detour.model.Detour;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
