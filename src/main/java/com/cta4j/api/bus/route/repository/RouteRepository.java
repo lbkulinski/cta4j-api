@@ -1,7 +1,7 @@
-package com.cta4j.api.bus.repository;
+package com.cta4j.api.bus.route.repository;
 
 import com.cta4j.api.aws.config.DynamoDbProperties;
-import com.cta4j.api.bus.model.Route;
+import com.cta4j.api.bus.route.model.Route;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -28,7 +28,7 @@ public class RouteRepository {
     }
 
     @Cacheable("allRoutes")
-    public List<Route> getAll() {
+    public List<Route> findAll() {
         return this.routes.scan()
                           .items()
                           .stream()

@@ -1,13 +1,13 @@
-package com.cta4j.api.bus.controller;
+package com.cta4j.api.bus.route.controller;
 
-import com.cta4j.api.bus.response.RouteDirectionsResponse;
-import com.cta4j.api.bus.dto.RouteDto;
-import com.cta4j.api.bus.dto.RouteStopDto;
-import com.cta4j.api.bus.response.RouteStopsResponse;
-import com.cta4j.api.bus.response.RoutesResponse;
-import com.cta4j.api.bus.mapper.RouteMapper;
-import com.cta4j.api.bus.mapper.RouteStopMapper;
-import com.cta4j.api.bus.service.RouteService;
+import com.cta4j.api.bus.route.dto.RouteDirectionsDto;
+import com.cta4j.api.bus.route.dto.RouteStopDto;
+import com.cta4j.api.bus.route.dto.RouteStopsDto;
+import com.cta4j.api.bus.route.mapper.RouteStopMapper;
+import com.cta4j.api.bus.route.dto.RouteDto;
+import com.cta4j.api.bus.route.mapper.RouteMapper;
+import com.cta4j.api.bus.route.service.RouteService;
+import com.cta4j.api.bus.route.dto.RoutesDto;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,24 +29,24 @@ public final class RouteController {
     }
 
     @GetMapping
-    public RoutesResponse getRoutes() {
+    public RoutesDto getRoutes() {
         List<RouteDto> routes = this.routeService.getRoutes()
                                                  .stream()
                                                  .map(RouteMapper.INSTANCE::toDto)
                                                  .toList();
 
-        return new RoutesResponse(routes);
+        return new RoutesDto(routes);
     }
 
     @GetMapping("/{routeId}/directions")
-    public RouteDirectionsResponse getDirections(@PathVariable String routeId) {
+    public RouteDirectionsDto getDirections(@PathVariable String routeId) {
         List<String> directions = this.routeService.getDirections(routeId);
 
-        return new RouteDirectionsResponse(directions);
+        return new RouteDirectionsDto(directions);
     }
 
     @GetMapping("/{routeId}/directions/{direction}/stops")
-    public RouteStopsResponse getStops(
+    public RouteStopsDto getStops(
         @PathVariable String routeId,
         @PathVariable String direction
     ) {
@@ -55,6 +55,6 @@ public final class RouteController {
                                                     .map(RouteStopMapper.INSTANCE::toDto)
                                                     .toList();
 
-        return new RouteStopsResponse(stops);
+        return new RouteStopsDto(stops);
     }
 }

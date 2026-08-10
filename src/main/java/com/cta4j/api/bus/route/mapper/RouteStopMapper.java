@@ -1,7 +1,7 @@
-package com.cta4j.api.bus.mapper;
+package com.cta4j.api.bus.route.mapper;
 
-import com.cta4j.api.bus.dto.RouteStopDto;
-import com.cta4j.api.bus.model.RouteStop;
+import com.cta4j.api.bus.route.dto.RouteStopDto;
+import com.cta4j.api.bus.route.model.RouteStop;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

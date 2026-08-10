@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.exception;
+package com.cta4j.api.bus.route.exception;
 
 public final class RouteNotFoundException extends RuntimeException {
     public RouteNotFoundException(String route) {

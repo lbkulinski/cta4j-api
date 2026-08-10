@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.config;
+package com.cta4j.api.bus.common.config;
 
 import com.cta4j.api.aws.client.SecretsClient;
 import com.cta4j.bus.BusApi;

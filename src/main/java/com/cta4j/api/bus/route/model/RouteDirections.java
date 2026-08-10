@@ -1,4 +1,4 @@
-package com.cta4j.api.bus.model;
+package com.cta4j.api.bus.route.model;
 
 import lombok.Builder;
 import org.jspecify.annotations.NullMarked;
@@ -17,6 +17,7 @@ public record RouteDirections(
 ) {
     public RouteDirections {
         Objects.requireNonNull(routeId);
+        Objects.requireNonNull(directions);
 
         directions = List.copyOf(directions);
     }
