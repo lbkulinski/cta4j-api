@@ -1,6 +1,6 @@
 package com.cta4j.api.bus.repository;
 
-import com.cta4j.api.aws.config.DynamoDbTableProperties;
+import com.cta4j.api.aws.config.DynamoDbProperties;
 import com.cta4j.api.bus.exception.StopNotFoundException;
 import com.cta4j.api.bus.model.Stop;
 import org.jspecify.annotations.NullMarked;
@@ -23,7 +23,7 @@ public class StopRepository {
     @Autowired
     public StopRepository(
         DynamoDbEnhancedClient dynamoDbClient,
-        DynamoDbTableProperties tableProperties
+        DynamoDbProperties tableProperties
     ) {
         TableSchema<Stop> schema = TableSchema.fromImmutableClass(Stop.class);
 

@@ -20,7 +20,7 @@ public class StationService {
 
     @Autowired
     public StationService(Environment env, DynamoDbEnhancedClient dynamoDbClient, StationMapper stationMapper) {
-        String stationsTableName = env.getRequiredProperty("app.aws.dynamodb.tables.stations");
+        String stationsTableName = env.getRequiredProperty("DynamoDbProperties");
 
         var stationsSchema = TableSchema.fromImmutableClass(com.cta4j.api.train.model.Station.class);
 

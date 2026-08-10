@@ -1,6 +1,6 @@
 package com.cta4j.api.bus.repository;
 
-import com.cta4j.api.aws.config.DynamoDbTableProperties;
+import com.cta4j.api.aws.config.DynamoDbProperties;
 import com.cta4j.api.bus.exception.RouteNotFoundException;
 import com.cta4j.api.bus.model.RouteDirections;
 import org.jspecify.annotations.NullMarked;
@@ -24,7 +24,7 @@ public class RouteDirectionsRepository {
     @Autowired
     public RouteDirectionsRepository(
         DynamoDbEnhancedClient dynamoDbClient,
-        DynamoDbTableProperties tableProperties
+        DynamoDbProperties tableProperties
     ) {
         TableSchema<RouteDirections> schema = TableSchema.fromImmutableClass(RouteDirections.class);
 

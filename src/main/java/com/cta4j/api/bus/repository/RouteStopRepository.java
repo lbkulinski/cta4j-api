@@ -1,6 +1,6 @@
 package com.cta4j.api.bus.repository;
 
-import com.cta4j.api.aws.config.DynamoDbTableProperties;
+import com.cta4j.api.aws.config.DynamoDbProperties;
 import com.cta4j.api.bus.exception.RouteNotFoundException;
 import com.cta4j.api.bus.model.RouteStops;
 import com.cta4j.api.bus.model.RouteStop;
@@ -25,7 +25,7 @@ public class RouteStopRepository {
     @Autowired
     public RouteStopRepository(
         DynamoDbEnhancedClient dynamoDbClient,
-        DynamoDbTableProperties tableProperties
+        DynamoDbProperties tableProperties
     ) {
         TableSchema<RouteStops> schema = TableSchema.fromImmutableClass(RouteStops.class);
 

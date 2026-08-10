@@ -1,39 +1,29 @@
 package com.cta4j.api.aws.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @NullMarked
 public record Secret(
     RollbarSecret rollbar,
-    MetroSecret metro,
     CtaSecret cta
 ) {
     public Secret {
-        Objects.requireNonNull(rollbar, "rollbar must not be null");
-        Objects.requireNonNull(metro, "metro must not be null");
-        Objects.requireNonNull(cta, "cta must not be null");
-    }
-
-    @Override
-    public String toString() {
-        return "Secret{rollbar=REDACTED, metro=REDACTED, cta=REDACTED}";
+        Objects.requireNonNull(rollbar);
+        Objects.requireNonNull(cta);
     }
 
     public record RollbarSecret(String accessToken) {
         public RollbarSecret {
-            Objects.requireNonNull(accessToken, "accessToken must not be null");
+            Objects.requireNonNull(accessToken);
         }
-    }
 
-    public record MetroSecret(
-        String apiKey,
-        String secondaryApiKey
-    ) {
-        public MetroSecret {
-            Objects.requireNonNull(apiKey, "apiKey must not be null");
-            Objects.requireNonNull(secondaryApiKey, "secondaryApiKey must not be null");
+        @Override
+        public String toString() {
+            return "RollbarSecret{accessToken=****}";
         }
     }
 
@@ -42,8 +32,13 @@ public record Secret(
         String busApiKey
     ) {
         public CtaSecret {
-            Objects.requireNonNull(trainApiKey, "trainApiKey must not be null");
-            Objects.requireNonNull(busApiKey, "busApiKey must not be null");
+            Objects.requireNonNull(trainApiKey);
+            Objects.requireNonNull(busApiKey);
+        }
+
+        @Override
+        public String toString() {
+            return "CtaSecret{trainApiKey=****, busApiKey=****}";
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.cta4j.api.bus.repository;
 
-import com.cta4j.api.aws.config.DynamoDbTableProperties;
+import com.cta4j.api.aws.config.DynamoDbProperties;
 import com.cta4j.api.bus.model.Route;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class RouteRepository {
     @Autowired
     public RouteRepository(
         DynamoDbEnhancedClient dynamoDbClient,
-        DynamoDbTableProperties tableProperties
+        DynamoDbProperties tableProperties
     ) {
         TableSchema<Route> schema = TableSchema.fromImmutableClass(Route.class);
 

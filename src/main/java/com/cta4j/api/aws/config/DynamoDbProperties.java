@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "app.aws.dynamodb.tables")
 @Validated
 @NullMarked
-public record DynamoDbTableProperties(
+public record DynamoDbProperties(
     @NotEmpty String routes,
     @NotEmpty String routeDirections,
     @NotEmpty String routeStops,
