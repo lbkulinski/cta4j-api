@@ -40,7 +40,7 @@ public final class StopService {
     public List<Arrival> getArrivals(String stopId, @Nullable String routeId) {
         Objects.requireNonNull(stopId);
 
-        this.requireStopExists(stopId);
+        this.getStop(stopId);
 
         List<Prediction> predictions;
 
@@ -55,10 +55,5 @@ public final class StopService {
         return predictions.stream()
                           .map(ArrivalMapper.INSTANCE::toModel)
                           .toList();
-    }
-
-    private void requireStopExists(String stopId) {
-        this.stopRepository.getById(stopId)
-                           .orElseThrow(() -> new StopNotFoundException(stopId));
     }
 }

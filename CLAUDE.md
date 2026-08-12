@@ -47,6 +47,8 @@ public final class MyController { }
 
 - All new classes, records, interfaces, and enums in `src/main` must have `@NullMarked` (from `org.jspecify.annotations`).
 - Test classes do not use `@NullMarked`.
+- `@Configuration` bean-definition classes do not use `@NullMarked` (`@ConfigurationProperties` records still do — see below).
+- Exception classes (`RuntimeException` subclasses) do not use `@NullMarked`.
 - Use `@Nullable` on parameters or return types that can be null.
 
 ## Configuration Properties
@@ -122,6 +124,6 @@ Always validate a stop or station exists in DynamoDB before calling the CTA SDK.
 - No `ResponseEntity` in service methods
 - No comments unless the why is non-obvious
 - Prefer `Objects.requireNonNull` for null guards in public service/repository methods
-- `final` on all classes that are not designed for extension
+- `final` on all classes that are not designed for extension, except classes with `@Cacheable`-annotated methods — Spring's CGLIB proxying requires those to stay non-final
 - Lombok `@Builder` + `@DynamoDbImmutable` for DynamoDB model records
 - Always reference instance fields and methods with `this.`

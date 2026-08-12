@@ -3,6 +3,7 @@ package com.cta4j.api.bus.stop.repository;
 import com.cta4j.api.aws.config.DynamoDbProperties;
 import com.cta4j.api.bus.stop.model.Stop;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ import java.util.Optional;
 @Repository
 @NullMarked
 public class StopRepository {
-    private final DynamoDbTable<Stop> stops;
+    private final DynamoDbTable<@Nullable Stop> stops;
 
     @Autowired
     public StopRepository(

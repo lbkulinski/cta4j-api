@@ -36,7 +36,7 @@ public final class VehicleService {
     public List<Arrival> getArrivals(String vehicleId) {
         Objects.requireNonNull(vehicleId);
 
-        this.requireVehicleExists(vehicleId);
+        this.getVehicle(vehicleId);
 
         List<Prediction> predictions = this.busApi.predictions()
                                                   .findByVehicleId(vehicleId);
@@ -44,11 +44,5 @@ public final class VehicleService {
         return predictions.stream()
                           .map(ArrivalMapper.INSTANCE::toModel)
                           .toList();
-    }
-
-    private void requireVehicleExists(String vehicleId) {
-        this.busApi.vehicles()
-                   .findById(vehicleId)
-                   .orElseThrow(() -> new VehicleNotFoundException(vehicleId));
     }
 }
