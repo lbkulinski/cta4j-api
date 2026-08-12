@@ -128,4 +128,5 @@ Always validate a stop or station exists in DynamoDB before calling the CTA SDK.
 - Lombok `@Builder` + `@DynamoDbImmutable` for DynamoDB model records
 - Always reference instance fields and methods with `this.`
 - Method/constructor parameter lists: keep on one line if ≤100 chars; otherwise wrap with one parameter per line (closing `)` and opening `{` each on their own line)
+- Record component lists: 1 component stays on one line; 2+ components always wrap one per line, regardless of length
 - Assignment statements that exceed 100 chars: break after `=` first, putting the full right-hand side on the next line; only fall back to wrapping the call's argument list one-per-line if the right-hand side still doesn't fit on that line
