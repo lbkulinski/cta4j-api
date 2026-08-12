@@ -22,10 +22,7 @@ public final class StopService {
     private final BusApi busApi;
 
     @Autowired
-    public StopService(
-        StopRepository stopRepository,
-        BusApi busApi
-    ) {
+    public StopService(StopRepository stopRepository, BusApi busApi) {
         this.stopRepository = stopRepository;
         this.busApi = busApi;
     }
@@ -40,6 +37,7 @@ public final class StopService {
     public List<Arrival> getArrivals(String stopId, @Nullable String routeId) {
         Objects.requireNonNull(stopId);
 
+        //throw if stopId does not exist
         this.getStop(stopId);
 
         List<Prediction> predictions;

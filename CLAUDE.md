@@ -127,3 +127,5 @@ Always validate a stop or station exists in DynamoDB before calling the CTA SDK.
 - `final` on all classes that are not designed for extension, except classes with `@Cacheable`-annotated methods — Spring's CGLIB proxying requires those to stay non-final
 - Lombok `@Builder` + `@DynamoDbImmutable` for DynamoDB model records
 - Always reference instance fields and methods with `this.`
+- Method/constructor parameter lists: keep on one line if ≤100 chars; otherwise wrap with one parameter per line (closing `)` and opening `{` each on their own line)
+- Assignment statements that exceed 100 chars: break after `=` first, putting the full right-hand side on the next line; only fall back to wrapping the call's argument list one-per-line if the right-hand side still doesn't fit on that line

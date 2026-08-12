@@ -47,7 +47,11 @@ public final class GlobalExceptionHandler extends ResponseEntityExceptionHandler
         return ResponseEntity.of(problemDetail).build();
     }
 
-    @ExceptionHandler({RouteNotFoundException.class, StopNotFoundException.class, VehicleNotFoundException.class})
+    @ExceptionHandler({
+        RouteNotFoundException.class,
+        StopNotFoundException.class,
+        VehicleNotFoundException.class
+    })
     public ResponseEntity<ProblemDetail> handleNotFoundException(HttpServletRequest request) {
         ProblemDetail problem = buildProblemDetail(HttpStatus.NOT_FOUND, request);
 

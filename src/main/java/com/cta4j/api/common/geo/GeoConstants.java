@@ -16,6 +16,6 @@ public final class GeoConstants {
     public static final BigDecimal MAX_LONGITUDE = BigDecimal.valueOf(180.0);
 
     private GeoConstants() {
-        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+        throw new UnsupportedOperationException("Utility class");
     }
 }

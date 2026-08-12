@@ -51,7 +51,8 @@ public final class RouteService {
         Objects.requireNonNull(routeId);
         Objects.requireNonNull(direction);
 
-        List<RouteStop> stops = this.routeStopRepository.findAllByRouteIdAndDirection(routeId, direction);
+        List<RouteStop> stops =
+            this.routeStopRepository.findAllByRouteIdAndDirection(routeId, direction);
 
         if (stops.isEmpty()) {
             throw new RouteNotFoundException(routeId, direction);

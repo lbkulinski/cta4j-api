@@ -4,7 +4,7 @@ import org.mapstruct.Named;
 
 public final class Qualifiers {
     private Qualifiers() {
-        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+        throw new UnsupportedOperationException("Utility class");
     }
 
     @Named("mapBoolean")

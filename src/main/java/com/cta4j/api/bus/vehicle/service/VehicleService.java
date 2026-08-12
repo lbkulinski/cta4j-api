@@ -36,6 +36,7 @@ public final class VehicleService {
     public List<Arrival> getArrivals(String vehicleId) {
         Objects.requireNonNull(vehicleId);
 
+        //throw if vehicleId does not exist
         this.getVehicle(vehicleId);
 
         List<Prediction> predictions = this.busApi.predictions()
