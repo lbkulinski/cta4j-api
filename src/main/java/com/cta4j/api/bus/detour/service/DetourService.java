@@ -1,5 +1,6 @@
 package com.cta4j.api.bus.detour.service;
 
+import com.cta4j.api.bus.detour.exception.InvalidDetourRequestException;
 import com.cta4j.api.bus.detour.mapper.DetourMapper;
 import com.cta4j.api.bus.detour.model.Detour;
 import com.cta4j.bus.BusApi;
@@ -33,7 +34,7 @@ public final class DetourService {
             detours = this.busApi.detours()
                                  .findByRouteIdAndDirection(routeId, direction);
         } else {
-            throw new IllegalArgumentException("direction cannot be provided without routeId");
+            throw new InvalidDetourRequestException();
         }
 
         return detours.stream()
