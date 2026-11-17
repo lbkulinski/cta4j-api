@@ -1,4 +1,4 @@
-FROM amazoncorretto:25-alpine3.19
+FROM amazoncorretto:25-alpine3.24
 
 WORKDIR /app
 
@@ -8,4 +8,4 @@ COPY ${JAR_FILE} app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-XX:-UseBASE64Intrinsics", "-jar", "app.jar"]
