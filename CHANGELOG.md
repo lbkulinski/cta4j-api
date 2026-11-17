@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.9] - 2026-11-17
+
+### Security
+
+- Mitigate CVE-2026-114938 ("Java4Shell"), a memory-corruption flaw in the HotSpot x86-64 Base64 decoder intrinsic, by starting the JVM with `-XX:-UseBASE64Intrinsics`. Rebuild the image on a patched Corretto 25 release (25.0.5.1.2 or later) and then consider removing the flag.
+
+### Changed
+
+- Update the Docker base image from `amazoncorretto:25-alpine3.19` to `amazoncorretto:25-alpine3.24`, since Alpine 3.19 is no longer supported.
+- Bump `org.springframework.boot:spring-boot-starter-parent` from `4.0.4` to `4.1.1`.
+- Bump `org.projectlombok:lombok` from `1.18.44` to `1.18.48`.
+- Bump `com.rollbar:rollbar-java` from `2.1.0` to `2.3.1`.
+- Bump `com.github.ben-manes.caffeine:caffeine` from `3.2.3` to `3.2.4`.
+- Bump `org.springdoc:springdoc-openapi-starter-webmvc-ui` from `3.0.2` to `3.0.3`.
+- Bump `software.amazon.awssdk:bom` from `2.42.18` to `2.54.12`.
+- Bump `org.apache.maven:apache-maven` from `3.9.7` to `3.9.16`.
+
 ## [1.0.8] - 2026-04-06
 
 ### Changed
