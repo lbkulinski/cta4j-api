@@ -1,4 +1,4 @@
-FROM amazoncorretto:25-alpine3.24
+FROM amazoncorretto:26-alpine3.24
 
 WORKDIR /app
 
