@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.10] - 2026-11-17
+
+### Security
+
+- The base image `amazoncorretto:25-alpine3.24` now ships Corretto 25.0.5.1.2, which fixes CVE-2026-114938 ("Java4Shell") and the other CVEs in the [November 2026 OpenJDK advisory](https://openjdk.org/groups/vulnerability/advisories/2026-11-17).
+
+### Changed
+
+- Bump `org.springframework.boot:spring-boot-starter-parent` from `4.1.1` to `4.1.2`.
+- Bump `org.springdoc:springdoc-openapi-starter-webmvc-ui` from `3.0.3` to `3.2.0`.
+- Bump `org.apache.maven:apache-maven` from `3.9.16` to `3.10.0`.
+
+### Removed
+
+- The `-XX:-UseBASE64Intrinsics` JVM flag added in 1.0.9, since the patched JDK makes it unnecessary.
+
 ## [1.0.9] - 2026-11-17
 
 ### Security
@@ -103,7 +119,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release of API.
 
-[Unreleased]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.8...HEAD
+[Unreleased]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.10...HEAD
+[1.0.10]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.9...v1.0.10
+[1.0.9]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/lbkulinski/cta4j-api/compare/v1.0.5...v1.0.6
