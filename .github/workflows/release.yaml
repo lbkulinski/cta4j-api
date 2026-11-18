@@ -22,13 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           fetch-tags: true
 
       - name: Set up JDK
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: corretto
           java-version: '25'
@@ -46,7 +46,7 @@ jobs:
         run: mvn -B -DskipTests=true clean package
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4.3.1
+        uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
           role-to-assume: arn:aws:iam::038462756529:role/cta4j-api-github-actions-role
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
@@ -81,7 +81,7 @@ jobs:
           echo "path=RELEASE_NOTES.md" >> "$GITHUB_OUTPUT"
 
       - name: Create GitHub Release using CHANGELOG section
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.ref_name }}
           name: cta4j-api ${{ github.ref_name }}
